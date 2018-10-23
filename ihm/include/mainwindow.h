@@ -2,35 +2,49 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include <QPushButton>
-#include <QLineEdit>
-#include <QPlainTextEdit>
-#include "client.h"
+#include<QDialog>
+#include<QKeyEvent>
+class QPushButton;
+class QRadioButton;
 
 namespace Ui {
-    class MainWindow;
+class MainWindow;
 }
 
-class MainWindow : public QMainWindow {
+class MainWindow : public QMainWindow
+{
     Q_OBJECT
+
+
     public:
-        explicit MainWindow(QWidget *parent = nullptr);
+        explicit MainWindow(QWidget *parent = 0);
         ~MainWindow();
-        QString get_msg(){return _msg->text();}
-        void write_in_konsole(QString log) {_konsole->appendPlainText(log+"\n");}
+
+    public slots:
+        void on_RadioControle_clicked();
+        void on_BtnConx_clicked();
+        void on_BtnDeconx_clicked();
+        void on_Btn_Exit_clicked();
+
+    public:
+        void getvitesse(float v);
+        void getcap(float c);
+        void getlongitude(float lg);
+        void getlatitude(float la);
+        void getgite(float g);
+        void gettangage(float t);
+        void getbarre(float b);
+        void getvoile(float v);
+
+    private:
+         float vitesse, cap, longitude, latitude, gite,tangage ,barre, voile;
+        // Client client;
+
 
     private:
         Ui::MainWindow *ui;
-        QPlainTextEdit *_konsole;
-        QPushButton *send_button;
-        QLineEdit *_msg;
+        void keyPressEvent(QKeyEvent *event);
 
-        ClientTcp* client;
-
-    private slots:
-        void connexion();
-        void send();
-        void msg_processing(QString msg);
 };
 
 #endif // MAINWINDOW_H

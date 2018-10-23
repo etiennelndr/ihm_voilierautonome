@@ -1,48 +1,69 @@
-#include "./../include/mainwindow.h"
+#include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include <QPushButton>
+#include "mainwindow.h"
+#include<QtCore>
+#include<QtGui>
+#include<QMessageBox>
+#include<QKeyEvent>
+#include<QVBoxLayout>
+#include<QHBoxLayout>
+#include<QRadioButton>
 
-MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWindow){
-    ui->setupUi(this);
-    send_button = new QPushButton(this);
-    send_button->setGeometry(100,200,180,50);
-    send_button->setText("Send message to serveur");
-    _msg = new QLineEdit(this);
-    _msg->setGeometry(140,175,100,20);
-    _konsole = new QPlainTextEdit(this);
-    _konsole->setGeometry(40,325,300,200);
-    _konsole->setReadOnly(true);
-
-    connect(ui->connexion, SIGNAL(clicked()), this, SLOT(connexion()));
-    connect(send_button, SIGNAL(clicked()), this, SLOT(send()));
-
+MainWindow::MainWindow(QWidget *parent) :
+    QMainWindow(parent),
+    ui(new Ui::MainWindow)
+{
+     ui->setupUi(this);
 }
 
-MainWindow::~MainWindow() {
-    delete ui;
-    delete client;
-    delete _konsole;
-    delete _msg;
-    delete send_button;
+MainWindow::~MainWindow()
+{
+     delete ui;
 }
 
-void MainWindow::connexion() {
-    if (ui->connexion->text() == QString("Connexion")) {
-        client = new ClientTcp(QString("127.0.0.1"), 4000, QString("Etienne"));
-        connect(client, SIGNAL(received_data(QString)), this, SLOT(msg_processing(QString)));
-        ui->connexion->setText("Déconnexion");
-    } else if (ui->connexion->text() == QString("Déconnexion")) {
-        ui->connexion->setText("Connexion");
-        delete client;
-        client = nullptr;
+void MainWindow::on_RadioControle_clicked()
+{
+    if(ui->RadioControle->isChecked()){
+    QMessageBox::information(this,"Information autour de bateau","Utiliser les fleches du clavier pour controller le bateau");
+    }else if(ui->RadioControle->isChecked())
+    {}
+}
+void MainWindow::keyPressEvent(QKeyEvent *event)
+{
+    if(ui->RadioControle->isChecked())
+    {
+    if(event->key()==Qt::Key_Up){
+        voile+=0.5;
+        client.set_voile(&voile);
     }
+    else if (event->key()==Qt::Key_Down) {
+        voile-=0.5;
+        client.set_voile(voile);
+    }
+    else if (event->key()==Qt::Key_Right) {
+       barre += 0.5;
+       client.set_barre(barre);
+    }
+    else if (event->key()==Qt::Key_Left) {
+        barre -= 0.5;
+        client.set_barre(barre);
+    }
+    }else
+      QMessageBox::information(this,"Error","Tu ne peut pas controller le bateau");
 }
 
-void MainWindow::send() {
-    if (client)
-        client->send(get_msg());
+void MainWindow::on_BtnConx_clicked()
+{
+    connect signal(client,set_vitesse(float)),this, slot(getvitesse(float v)));
 }
 
+void MainWindow::on_BtnDeconx_clicked()
+{
 
-void MainWindow::msg_processing(QString msg){
-    write_in_konsole(msg);
+}
+
+void MainWindow::on_Btn_Exit_clicked()
+{
+   close();
 }
