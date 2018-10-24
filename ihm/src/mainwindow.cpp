@@ -68,10 +68,16 @@ void MainWindow::on_Btn_Exit_clicked() {
    close();
 }
 
+/**
+ * @brief MainWindow::on_BtnConxDeconx_clicked
+ */
 void MainWindow::on_BtnConxDeconx_clicked() {
     if(ui->BtnConxDeconx->text() ==  "Connexion") {
         ui->BtnConxDeconx->setText(("Deconnexion"));
+        client = new ClientTcp(QString("127.0.0.1"), 4000, QString("Etienne"));
     } else {
         ui->BtnConxDeconx->setText("Connexion");
+        delete client;
+        client = nullptr;
     }
 }
