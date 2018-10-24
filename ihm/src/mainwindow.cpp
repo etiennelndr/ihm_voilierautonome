@@ -60,35 +60,18 @@ void MainWindow::keyPressEvent(QKeyEvent *event) {
       QMessageBox::information(this,"Error","Tu ne peux pas contrôler le bateau");
 }
 
-/**
- * @brief MainWindow::on_BtnConx_clicked
- */
-}
-void MainWindow::keyPressEvent(QKeyEvent *event)
-{
-}
-
-void MainWindow::on_BtnConx_clicked()
-{
-    connect(client,signal(set_vitesse(float)),this, slot(getvitesse(float)));
-void MainWindow::on_BtnConx_clicked() {
-    //connect signal(client,set_vitesse(float)),this, slot(getvitesse(float v)));
-}
-
-/**
- * @brief MainWindow::on_BtnDeconx_clicked
- */
-void MainWindow::on_BtnDeconx_clicked()
-{
-void MainWindow::on_BtnDeconx_clicked() {
-
-}
 
 /**
  * @brief MainWindow::on_Btn_Exit_clicked
  */
-void MainWindow::on_Btn_Exit_clicked()
-{
 void MainWindow::on_Btn_Exit_clicked() {
    close();
+}
+
+void MainWindow::on_BtnConxDeconx_clicked() {
+    if(ui->BtnConxDeconx->text() ==  "Connexion") {
+        ui->BtnConxDeconx->setText(("Deconnexion"));
+    } else {
+        ui->BtnConxDeconx->setText("Connexion");
+    }
 }

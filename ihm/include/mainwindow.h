@@ -10,13 +10,11 @@ class QPushButton;
 class QRadioButton;
 
 namespace Ui {
-class MainWindow;
+    class MainWindow;
 }
 
-class MainWindow : public QMainWindow
-{
+class MainWindow : public QMainWindow {
     Q_OBJECT
-
 
     public:
         explicit MainWindow(QWidget *parent = 0);
@@ -24,8 +22,7 @@ class MainWindow : public QMainWindow
 
     public slots:
         void on_RadioControle_clicked();
-        void on_BtnConx_clicked();
-        void on_BtnDeconx_clicked();
+        void on_BtnConxDeconx_clicked();
         void on_Btn_Exit_clicked();
 
     public:
@@ -38,12 +35,9 @@ class MainWindow : public QMainWindow
         void getbarre(float b);
         void getvoile(float v);
 
-    private:
+private:
         float vitesse, cap, longitude, latitude, gite,tangage ,barre, voile;
         ClientTcp* client;
-         float vitesse, cap, longitude, latitude, gite,tangage ,barre, voile;
-         ClientTcp client;
-
 
     private:
         Ui::MainWindow *ui;

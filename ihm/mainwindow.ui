@@ -32,16 +32,9 @@
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="BtnConx">
+      <widget class="QPushButton" name="BtnConxDeconx">
        <property name="text">
         <string>Connexion</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="BtnDeconx">
-       <property name="text">
-        <string>Deconnexion</string>
        </property>
       </widget>
      </item>
