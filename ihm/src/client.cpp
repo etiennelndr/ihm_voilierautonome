@@ -1,20 +1,15 @@
 #include "./../include/client.h"
 
-<<<<<<< HEAD
-ClientTcp::ClientTcp(QString ip, quint16 port, int id_client) {
-=======
+ClientTcp::ClientTcp(QString ip, quint16 port) {
 /**
  * @brief ClientTcp::ClientTcp
  * @param ip
  * @param port
- * @param _pseudo
  */
-ClientTcp::ClientTcp(QString ip, quint16 port, QString _pseudo) {
->>>>>>> ba65e6db0a9e50b98ef63aef838f5878ce7ecf1a
     serverPort = port; // choix arbitraire (>1024)
     serverIp   = ip;
-    msg_id_sender  = new int(id_client);
-    msg_id_concern  = new int(id_client); //Le client n'envoie que des infos relatives à son propre bateau
+    msg_id_sender  = new int(1);
+    msg_id_concern  = new int(1); //Le client n'envoie que des infos relatives à son propre bateau
 
     soc = new QTcpSocket(this);
 
@@ -52,7 +47,9 @@ void ClientTcp::send(QString msg) {
     soc->write(paquet); // On envoie le paquet
 }
 
-// On a reçu un paquet (ou un sous-paquet)
+/**
+ * @brief ClientTcp::donneesRecues : On a reçu un paquet (ou un sous-paquet)
+ */
 void ClientTcp::donneesRecues() {
     /* Même principe que lorsque le serveur reçoit un paquet :
     On essaye de récupérer la taille du message
@@ -84,17 +81,24 @@ void ClientTcp::donneesRecues() {
     tailleMessage = 0;
 }
 
-// Ce slot est appelé lorsque la connexion au serveur a réussi
+/**
+ * @brief ClientTcp::connecte : Ce slot est appelé lorsque la connexion au serveur a réussi
+ */
 void ClientTcp::connecte() {
     cout << "\nConnexion réussie !" << endl;
 }
 
-// Ce slot est appelé lorsqu'on est déconnecté du serveur
+/**
+ * @brief ClientTcp::deconnecte : Ce slot est appelé lorsqu'on est déconnecté du serveur
+ */
 void ClientTcp::deconnecte() {
     cout << "\nDéconnecté du serveur" << endl;
 }
 
-// Ce slot est appelé lorsqu'il y a une erreur
+/**
+ * @brief ClientTcp::erreurSocket : Ce slot est appelé lorsqu'il y a une erreur
+ * @param erreur
+ */
 void ClientTcp::erreurSocket(QAbstractSocket::SocketError erreur) {
     switch(erreur) { // On affiche un message différent selon l'erreur qu'on nous indique
         case QAbstractSocket::HostNotFoundError:
@@ -112,6 +116,10 @@ void ClientTcp::erreurSocket(QAbstractSocket::SocketError erreur) {
 }
 
 void ClientTcp::init_msg(Message* msg){
+    msg->setType(msg_type);
+    msg->setIdSender(msg_id_sender);
+    msg->setIdDest(msg_id_dest);
+    msg->setIdConcern(msg_id_concern);
     return;
 }
 
@@ -119,10 +127,12 @@ void ClientTcp::set_barre(float * b) {
     Message* msg = new Message();
     init_msg(msg);
     msg->setBarre(b);
+    send(msg->encodeData());
 }
 
 void ClientTcp::set_voile(float * v) {
     Message* msg = new Message();
     init_msg(msg);
     msg->setEcoute(v);
+    send(msg->encodeData());
 }

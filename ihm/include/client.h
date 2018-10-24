@@ -15,7 +15,7 @@ using namespace std;
 class ClientTcp : public QObject {
     Q_OBJECT
     public:
-        ClientTcp(QString ip, quint16 port, int id_client);
+        ClientTcp(QString ip, quint16 port);
         ~ClientTcp();
         void set_barre(float * b);
         void set_voile(float * v);
