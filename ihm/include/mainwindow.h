@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include<QDialog>
+#include"client.h"
 #include<QKeyEvent>
 #include "client.h"
 class QPushButton;
@@ -40,6 +41,8 @@ class MainWindow : public QMainWindow
     private:
         float vitesse, cap, longitude, latitude, gite,tangage ,barre, voile;
         ClientTcp* client;
+         float vitesse, cap, longitude, latitude, gite,tangage ,barre, voile;
+         ClientTcp client;
 
 
     private:
