@@ -1,9 +1,10 @@
 #include "./../include/client.h"
 
-ClientTcp::ClientTcp(QString ip, quint16 port, QString _pseudo) {
+ClientTcp::ClientTcp(QString ip, quint16 port, int id_client) {
     serverPort = port; // choix arbitraire (>1024)
     serverIp   = ip;
-    pseudo     = _pseudo;
+    msg_id_sender  = new int(id_client);
+    msg_id_concern  = new int(id_client); //Le client n'envoie que des infos relatives à son propre bateau
 
     soc = new QTcpSocket(this);
 
@@ -91,4 +92,20 @@ void ClientTcp::erreurSocket(QAbstractSocket::SocketError erreur) {
         default:
             cout << "\nERREUR : " << soc->errorString().toStdString() << endl;
     }
+}
+
+void ClientTcp::init_msg(Message* msg){
+    return;
+}
+
+void ClientTcp::set_barre(float * b) {
+    Message* msg = new Message();
+    init_msg(msg);
+    msg->setBarre(b);
+}
+
+void ClientTcp::set_voile(float * v) {
+    Message* msg = new Message();
+    init_msg(msg);
+    msg->setEcoute(v);
 }
