@@ -38,8 +38,8 @@ class MainWindow : public QMainWindow
         void getvoile(float v);
 
     private:
-         float vitesse, cap, longitude, latitude, gite,tangage ,barre, voile;
-        // Client client;
+        float vitesse, cap, longitude, latitude, gite,tangage ,barre, voile;
+        ClientTcp* client;
 
 
     private:

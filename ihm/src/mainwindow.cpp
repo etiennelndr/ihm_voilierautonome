@@ -10,18 +10,25 @@
 #include<QHBoxLayout>
 #include<QRadioButton>
 
-MainWindow::MainWindow(QWidget *parent) :
-    QMainWindow(parent),
-    ui(new Ui::MainWindow)
-{
+/**
+ * @brief MainWindow::MainWindow
+ * @param parent
+ */
+MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWindow) {
      ui->setupUi(this);
 }
 
-MainWindow::~MainWindow()
-{
-     delete ui;
+/**
+ * @brief MainWindow::~MainWindow
+ */
+MainWindow::~MainWindow() {
+    delete ui;
+    delete client;
 }
 
+/**
+ * @brief MainWindow::on_RadioControle_clicked
+ */
 void MainWindow::on_RadioControle_clicked() {
     if(ui->RadioControle->isChecked()) {
         QMessageBox::information(this,"Informations autour du bateau","Utiliser les fleches du clavier pour contrôler le bateau");
@@ -29,8 +36,12 @@ void MainWindow::on_RadioControle_clicked() {
 
     }
 }
-void MainWindow::keyPressEvent(QKeyEvent *event)
-{
+
+/**
+ * @brief MainWindow::keyPressEvent
+ * @param event
+ */
+void MainWindow::keyPressEvent(QKeyEvent *event) {
     if(ui->RadioControle->isChecked()) {
         if(event->key()==Qt::Key_Up) {
             voile+=0.5;
@@ -49,14 +60,23 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
       QMessageBox::information(this,"Error","Tu ne peux pas contrôler le bateau");
 }
 
+/**
+ * @brief MainWindow::on_BtnConx_clicked
+ */
 void MainWindow::on_BtnConx_clicked() {
     //connect signal(client,set_vitesse(float)),this, slot(getvitesse(float v)));
 }
 
+/**
+ * @brief MainWindow::on_BtnDeconx_clicked
+ */
 void MainWindow::on_BtnDeconx_clicked() {
 
 }
 
+/**
+ * @brief MainWindow::on_Btn_Exit_clicked
+ */
 void MainWindow::on_Btn_Exit_clicked() {
    close();
 }
