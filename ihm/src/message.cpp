@@ -103,18 +103,17 @@ QString Message::encodeData() {
 void Message::decodeData(QString msg) {
     // Concert from QString to string
     string data = msg.toStdString();
-
+    cout<<data<<endl;
     // Split the data (for each '&' character we split the data)
     vector<string> splitData = splitMessage(data, (char)(*"&"));
-
-    // If we don't have correct symbols at the beginning and the end
-    // of the data we MUST return an error
+//    // If we don't have correct symbols at the beginning and the end
+//    // of the data we MUST return an error
     if (splitData[0] != "__" || splitData[splitData.size()-1] != "__\r\n") {
         error = true;
         return;
     }
 
-    // Then assign each value to its attribute
+//    // Then assign each value to its attribute
     for (unsigned int i=1; i < splitData.size()-1; i++) {
         assignValueToCorrectAttribute(splitData[i]);
     }

@@ -1,4 +1,5 @@
 #include "./../include/client.h"
+#include <iostream>
 
 ClientTcp::ClientTcp(QString ip, quint16 port) {
 /**
@@ -11,13 +12,12 @@ ClientTcp::ClientTcp(QString ip, quint16 port) {
 
     soc = new QTcpSocket(this);
 
-    msg_id_sender  = new int(1);
-    msg_id_concern  = new int(1); //Le client n'envoie que des infos relatives à son propre bateau
+    msg_my_id  = new int(1);
 
     soc->abort(); // On désactive les connexions précédentes s'il y en a
     soc->connectToHost(serverIp, serverPort); // On se connecte au serveur demandé
 
-    connect(soc, SIGNAL(readyRead()), this, SLOT(donneesRecues()));
+    connect(soc, SIGNAL(readyRead()), this, SLOT(readDataFromTCPIP()));
     connect(soc, SIGNAL(connected()), this, SLOT(connecte()));
     connect(soc, SIGNAL(disconnected()), this, SLOT(deconnecte()));
     connect(soc, SIGNAL(error(QAbstractSocket::SocketError)), this, SLOT(erreurSocket(QAbstractSocket::SocketError)));
@@ -49,13 +49,11 @@ void ClientTcp::send(QString msg) {
 }
 
 /**
- * @brief ClientTcp::donneesRecues : On a reçu un paquet (ou un sous-paquet)
+ * @brief ClientTcp::readDataFromTCPIP : On a reçu un paquet (ou un sous-paquet)
  */
-void ClientTcp::donneesRecues() {
-    /* Même principe que lorsque le serveur reçoit un paquet :
-    On essaye de récupérer la taille du message
-    Une fois qu'on l'a, on attend d'avoir reçu le message entier (en se basant sur la taille annoncée tailleMessage)
-    */
+void ClientTcp::readDataFromTCPIP() {
+    // On reçoit un paquet (ou un sous-paquet) d'un des clients
+    // On détermine quel client envoie le message (recherche du QTcpSocket du client)
     QDataStream in(soc);
 
     if (tailleMessage == 0) { // Si on ne connaît pas encore la taille du message, on essaye de la récupérer
@@ -72,11 +70,12 @@ void ClientTcp::donneesRecues() {
     // Si on arrive jusqu'à cette ligne, on peut récupérer le message entier
     QString messageRecu;
     in >> messageRecu;
-
-    emit received_data(messageRecu);
+    messageRecu += "\r\n"; // To fit to the message trame
+    cout << messageRecu.length() << endl ;
+    cout << messageRecu.toStdString() << endl ;
+    received_data(messageRecu);
 
     // On affiche le message sur la zone de Chat
-    cout << "\nReceived: " << messageRecu.toStdString() << endl;
 
     // On remet la taille du message à 0 pour pouvoir recevoir de futurs messages
     tailleMessage = 0;
@@ -121,9 +120,9 @@ void ClientTcp::erreurSocket(QAbstractSocket::SocketError erreur) {
 
 void ClientTcp::init_msg(Message* msg){
     msg->setType(msg_type);
-    msg->setIdSender(msg_id_sender);
+    msg->setIdSender(msg_my_id);
     msg->setIdDest(msg_id_dest);
-    msg->setIdConcern(msg_id_concern);
+    msg->setIdConcern(msg_my_id);
     return;
 }
 
@@ -139,4 +138,36 @@ void ClientTcp::set_voile(float * v) {
     init_msg(msg);
     msg->setEcoute(v);
     send(msg->encodeData());
+}
+
+void ClientTcp::received_data(QString data){
+    Message* msg = new Message();
+    msg->decodeData(data);
+    //Apres decodage du message : verification de la validite puis emission de signals pour l'IHM
+    if (*msg->getIdSender()==0 && *msg->getIdDest()==*msg_my_id){ //Le message vient du serveur et m'est destine
+        if (msg->getLongitude()){
+            emit send_longitude(*msg->getLongitude(),*msg->getIdConcern());
+        }
+        if (msg->getLatitude()){
+            emit send_latitude(*msg->getLatitude(),*msg->getIdConcern());
+        }
+        if (msg->getCap()){
+            emit send_cap(*msg->getCap(),*msg->getIdConcern());
+        }
+        if (msg->getVitesse()){
+            emit send_vitesse(*msg->getVitesse(),*msg->getIdConcern());
+        }
+        if (msg->getGite()){
+            emit send_gite(*msg->getGite(),*msg->getIdConcern());
+        }
+        if (msg->getTangage()){
+            emit send_tangage(*msg->getTangage(),*msg->getIdConcern());
+        }
+        if (msg->getBarre()){
+            emit send_barre(*msg->getBarre(),*msg->getIdConcern());
+        }
+        if (msg->getEcoute()){
+            emit send_voile(*msg->getEcoute(),*msg->getIdConcern());
+        }
+    }
 }

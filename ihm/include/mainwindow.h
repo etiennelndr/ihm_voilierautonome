@@ -26,6 +26,16 @@ class MainWindow : public QMainWindow {
         void on_Btn_Exit_clicked();
         void set_connexion(bool status);
 
+        //Receive data from client
+        void receive_longitude(float l, int id_concern);
+        void receive_latitude(float l, int id_concern);
+        void receive_cap(float c, int id_concern);
+        void receive_vitesse(float v, int id_concern);
+        void receive_gite(float g, int id_concern);
+        void receive_tangage(float t, int id_concern);
+        void receive_barre(float b, int id_concern);
+        void receive_voile(float v, int id_concern);
+
     public:
         void getvitesse(float v);
         void getcap(float c);
@@ -41,10 +51,11 @@ private:
         float delta_barre, delta_voile;
         bool connected;
         ClientTcp* client;
+        Ui::MainWindow *ui;
 
     private:
-        Ui::MainWindow *ui;
         void keyPressEvent(QKeyEvent *event);
+        void create_connections();
 
 };
 

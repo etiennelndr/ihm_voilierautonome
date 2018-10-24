@@ -59,10 +59,23 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
 void MainWindow::on_BtnConxDeconx_clicked() {
     if(ui->BtnConxDeconx->text() ==  "Connexion") {
         client = new ClientTcp(QString("127.0.0.1"), 4000);
-        connect(client, SIGNAL(connexion_status(bool)), this, SLOT(set_connexion(bool)));
+        create_connections();
     } else {
         ui->BtnConxDeconx->setText("Connexion");
     }
+}
+
+void MainWindow::create_connections(){
+    connect(client, SIGNAL(connexion_status(bool)), this, SLOT(set_connexion(bool)));
+    connect(client, SIGNAL(send_longitude(float, int)), this, SLOT(receive_longitude(float, int)));
+    connect(client, SIGNAL(send_latitude(float, int)), this, SLOT(receive_latitude(float, int)));
+    connect(client, SIGNAL(send_cap(float, int)), this, SLOT(receive_cap(float, int)));
+    connect(client, SIGNAL(send_vitesse(float, int)), this, SLOT(receive_vitesse(float, int)));
+    connect(client, SIGNAL(send_gite(float, int)), this, SLOT(receive_gite(float, int)));
+    connect(client, SIGNAL(send_tangage(float, int)), this, SLOT(receive_tangage(float, int)));
+    connect(client, SIGNAL(send_barre(float, int)), this, SLOT(receive_barre(float, int)));
+    connect(client, SIGNAL(send_voile(float, int)), this, SLOT(receive_voile(float, int)));
+
 }
 
 void MainWindow::set_connexion(bool status){
@@ -75,4 +88,36 @@ void MainWindow::set_connexion(bool status){
 
 void MainWindow::on_Btn_Exit_clicked() {
    close();
+}
+
+void MainWindow::receive_longitude(float l, int id_concern){
+    cout<< "New longitude of " << id_concern << " : " << l <<endl;
+}
+
+void MainWindow::receive_latitude(float l, int id_concern){
+    cout<< "New latitude of " << id_concern << " : " << l <<endl;
+}
+
+void MainWindow::receive_cap(float c, int id_concern){
+    cout<< "New cap of " << id_concern << " : " << c <<endl;
+}
+
+void MainWindow::receive_vitesse(float v, int id_concern){
+    cout<< "New speed of " << id_concern << " : " << v <<endl;
+}
+
+void MainWindow::receive_gite(float g, int id_concern){
+    cout<< "New gite of " << id_concern << " : " << g <<endl;
+}
+
+void MainWindow::receive_tangage(float t, int id_concern){
+    cout<< "New tangage of " << id_concern << " : " << t <<endl;
+}
+
+void MainWindow::receive_barre(float b, int id_concern){
+    cout<< "New barre of " << id_concern << " : " << b <<endl;
+}
+
+void MainWindow::receive_voile(float v, int id_concern){
+    cout<< "New voile of " << id_concern << " : " << v <<endl;
 }

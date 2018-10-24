@@ -21,14 +21,22 @@ class ClientTcp : public QObject {
         void set_voile(float * v);
         void init_msg(Message* msg);
     public slots:
-        void donneesRecues();
+        void readDataFromTCPIP();
         void connecte();
         void deconnecte();
         void erreurSocket(QAbstractSocket::SocketError erreur);
 
     signals:
-        void received_data(QString);
         void connexion_status(bool);
+        //Envoi a l'IHM du contenu des messages
+        void send_longitude(float, int);
+        void send_latitude(float, int);
+        void send_cap(float, int);
+        void send_vitesse(float, int);
+        void send_gite(float, int);
+        void send_tangage(float, int);
+        void send_barre(float, int);
+        void send_voile(float, int);
 
     private:
         // Ip du serveur
@@ -42,12 +50,12 @@ class ClientTcp : public QObject {
 
         //Donnes relatives au client pour creation de messages
         string* msg_type= new string("B");
-        int* msg_id_sender;
+        int* msg_my_id;
         int* msg_id_dest = new int(0);
-        int* msg_id_concern;
-    public:
+    private:
         // Method to send a message to the server
         void send(QString msg);
+        void received_data(QString data);
 };
 
 
