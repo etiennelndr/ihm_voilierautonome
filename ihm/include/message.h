@@ -9,6 +9,9 @@
 
 using namespace std;
 
+/**
+ * @brief The Message class
+ */
 class Message {
     public:
         Message();
@@ -75,7 +78,7 @@ class Message {
         float* ecoute=nullptr ;
 
         // Séparateur entre le nom de la donnée et la valeur de celle-ci
-        char SEPARATOR = (char)*":";
+        char SEPARATOR = char(*":");
 
         // Permet de vérifier si un erreur est apparue lors du décodage d'un message
         bool error;
