@@ -1,6 +1,16 @@
 #include "./../include/client.h"
 
+<<<<<<< HEAD
 ClientTcp::ClientTcp(QString ip, quint16 port, int id_client) {
+=======
+/**
+ * @brief ClientTcp::ClientTcp
+ * @param ip
+ * @param port
+ * @param _pseudo
+ */
+ClientTcp::ClientTcp(QString ip, quint16 port, QString _pseudo) {
+>>>>>>> ba65e6db0a9e50b98ef63aef838f5878ce7ecf1a
     serverPort = port; // choix arbitraire (>1024)
     serverIp   = ip;
     msg_id_sender  = new int(id_client);
@@ -19,10 +29,17 @@ ClientTcp::ClientTcp(QString ip, quint16 port, int id_client) {
     tailleMessage = 0;
 }
 
+/**
+ * @brief ClientTcp::~ClientTcp
+ */
 ClientTcp::~ClientTcp() {
     delete soc;
 }
 
+/**
+ * @brief ClientTcp::send : on envoie un message au serveur
+ * @param msg
+ */
 void ClientTcp::send(QString msg) {
     QByteArray paquet;
     QDataStream out(&paquet, QIODevice::WriteOnly);
