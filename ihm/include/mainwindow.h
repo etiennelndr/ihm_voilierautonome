@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include<QDialog>
 #include<QKeyEvent>
+#include "client.h"
 class QPushButton;
 class QRadioButton;
 
