@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include<QDialog>
+#include"client.h"
 #include<QKeyEvent>
 class QPushButton;
 class QRadioButton;
@@ -38,7 +39,7 @@ class MainWindow : public QMainWindow
 
     private:
          float vitesse, cap, longitude, latitude, gite,tangage ,barre, voile;
-        // Client client;
+         ClientTcp client;
 
 
     private:

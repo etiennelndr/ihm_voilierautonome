@@ -55,7 +55,7 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
 
 void MainWindow::on_BtnConx_clicked()
 {
-    connect signal(client,set_vitesse(float)),this, slot(getvitesse(float v)));
+    connect(client,signal(set_vitesse(float)),this, slot(getvitesse(float)));
 }
 
 void MainWindow::on_BtnDeconx_clicked()
