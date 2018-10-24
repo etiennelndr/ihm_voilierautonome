@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include<QDialog>
+#include"client.h"
 #include<QKeyEvent>
 #include "client.h"
 class QPushButton;
@@ -21,9 +22,9 @@ class MainWindow : public QMainWindow {
 
     public slots:
         void on_RadioControle_clicked();
-        void on_BtnConx_clicked();
-        void on_BtnDeconx_clicked();
+        void on_BtnConxDeconx_clicked();
         void on_Btn_Exit_clicked();
+        void set_connexion(bool status);
 
     public:
         void getvitesse(float v);
@@ -35,10 +36,11 @@ class MainWindow : public QMainWindow {
         void getbarre(float b);
         void getvoile(float v);
 
-    private:
-         float vitesse, cap, longitude, latitude, gite,tangage ,barre, voile;
-        // Client client;
-
+private:
+        float vitesse, cap, longitude, latitude, gite,tangage ,barre, voile;
+        float delta_barre, delta_voile;
+        bool connected;
+        ClientTcp* client;
 
     private:
         Ui::MainWindow *ui;

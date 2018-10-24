@@ -28,6 +28,7 @@ class ClientTcp : public QObject {
 
     signals:
         void received_data(QString);
+        void connexion_status(bool);
 
     private:
         // Ip du serveur

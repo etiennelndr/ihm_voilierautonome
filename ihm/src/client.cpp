@@ -8,10 +8,11 @@ ClientTcp::ClientTcp(QString ip, quint16 port) {
  */
     serverPort = port; // choix arbitraire (>1024)
     serverIp   = ip;
-    msg_id_sender  = new int(1);
-    msg_id_concern  = new int(1); //Le client n'envoie que des infos relatives à son propre bateau
 
     soc = new QTcpSocket(this);
+
+    msg_id_sender  = new int(1);
+    msg_id_concern  = new int(1); //Le client n'envoie que des infos relatives à son propre bateau
 
     soc->abort(); // On désactive les connexions précédentes s'il y en a
     soc->connectToHost(serverIp, serverPort); // On se connecte au serveur demandé
@@ -85,6 +86,7 @@ void ClientTcp::donneesRecues() {
  * @brief ClientTcp::connecte : Ce slot est appelé lorsque la connexion au serveur a réussi
  */
 void ClientTcp::connecte() {
+    emit connexion_status(true);
     cout << "\nConnexion réussie !" << endl;
 }
 
@@ -92,6 +94,7 @@ void ClientTcp::connecte() {
  * @brief ClientTcp::deconnecte : Ce slot est appelé lorsqu'on est déconnecté du serveur
  */
 void ClientTcp::deconnecte() {
+    emit connexion_status(false);
     cout << "\nDéconnecté du serveur" << endl;
 }
 
@@ -100,6 +103,7 @@ void ClientTcp::deconnecte() {
  * @param erreur
  */
 void ClientTcp::erreurSocket(QAbstractSocket::SocketError erreur) {
+    emit connexion_status(false);
     switch(erreur) { // On affiche un message différent selon l'erreur qu'on nous indique
         case QAbstractSocket::HostNotFoundError:
             cout << "\nERREUR : le serveur n'a pas pu être trouvé. Vérifiez l'IP et le port." << endl;
