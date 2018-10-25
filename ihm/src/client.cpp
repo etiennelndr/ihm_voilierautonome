@@ -71,8 +71,6 @@ void ClientTcp::readDataFromTCPIP() {
     QString messageRecu;
     in >> messageRecu;
     messageRecu += "\r\n"; // To fit to the message trame
-    cout << messageRecu.length() << endl ;
-    cout << messageRecu.toStdString() << endl ;
     received_data(messageRecu);
 
     // On affiche le message sur la zone de Chat

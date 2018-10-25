@@ -3,9 +3,12 @@
 
 #include <QMainWindow>
 #include<QDialog>
+#include<QColor>
 #include"client.h"
 #include<QKeyEvent>
 #include "client.h"
+#include "boat.h"
+
 class QPushButton;
 class QRadioButton;
 
@@ -36,22 +39,12 @@ class MainWindow : public QMainWindow {
         void receive_barre(float b, int id_concern);
         void receive_voile(float v, int id_concern);
 
-    public:
-        void getvitesse(float v);
-        void getcap(float c);
-        void getlongitude(float lg);
-        void getlatitude(float la);
-        void getgite(float g);
-        void gettangage(float t);
-        void getbarre(float b);
-        void getvoile(float v);
-
 private:
-        float vitesse, cap, longitude, latitude, gite,tangage ,barre, voile;
         float delta_barre, delta_voile;
         bool connected;
         ClientTcp* client;
         Ui::MainWindow *ui;
+        Boat* boat;
 
     private:
         void keyPressEvent(QKeyEvent *event);

@@ -31,12 +31,14 @@ SOURCES += \
         main\main.cpp \
         src\mainwindow.cpp \
     src\client.cpp \
-    src\message.cpp
+    src\message.cpp \
+    src\boat.cpp
 
 HEADERS += \
         include\mainwindow.h \
     include\client.h \
-    include\message.h
+    include\message.h \
+    include\boat.h
 
 FORMS += \
         mainwindow.ui

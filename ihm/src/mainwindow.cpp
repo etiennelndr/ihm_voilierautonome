@@ -14,8 +14,9 @@ MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
+     boat = new Boat(1,true, 255,0,0);
      ui->setupUi(this);
-     barre=voile=10.0f; //Dansl'attente d'une initialisation par le serveur
+     ui->RadioControle->setCheckable(false);
      delta_barre=delta_voile=0.5f; // a modifier de façon empirique pour rester précis mais efficace dans les commandes du bateau
      connected=false;
 }
@@ -34,25 +35,25 @@ void MainWindow::on_RadioControle_clicked() {
 }
 void MainWindow::keyPressEvent(QKeyEvent *event)
 {
-    if(ui->RadioControle->isChecked()) {
+    if(ui->RadioControle->isChecked() && connected) {
         if(event->key()==Qt::Key_Up) {
             cout << "Key_up" << endl;
-            voile+=delta_voile;
-            client->set_voile(&voile);
+            boat->set_voile(boat->get_voile()+delta_voile);
+            client->set_voile(boat->get_voile_addr());
         } else if (event->key()==Qt::Key_Down) {
             cout << "Key_down" << endl;
-            voile-=delta_voile;
-            client->set_voile(&voile);
+            boat->set_voile(boat->get_voile()-delta_voile);
+            client->set_voile(boat->get_voile_addr());
         } else if (event->key()==Qt::Key_Right) {
             cout << "Key_right" << endl;
-            barre += delta_barre;
-            client->set_barre(&barre);
+            boat->set_barre(boat->get_barre()+delta_barre);
+            client->set_barre(boat->get_barre_addr());
         } else if (event->key()==Qt::Key_Left) {
             cout << "Key_left" << endl;
-            barre -= delta_barre;
-            client->set_barre(&barre);
+            boat->set_barre(boat->get_barre()-delta_barre);
+            client->set_barre(boat->get_barre_addr());
         }
-    } else
+    } else if (event->key()==Qt::Key_Up || event->key()==Qt::Key_Down || event->key()==Qt::Key_Left || event->key()==Qt::Key_Right)
       QMessageBox::information(this,"Error","Tu ne peux pas contrôler le bateau");
 }
 
@@ -80,10 +81,14 @@ void MainWindow::create_connections(){
 
 void MainWindow::set_connexion(bool status){
     connected = status;
-    if(connected)
+    if(connected){
         ui->BtnConxDeconx->setText("Déconnexion");
-    else
+        ui->RadioControle->setCheckable(true);
+    } else {
         ui->BtnConxDeconx->setText("Connexion");
+        ui->RadioControle->setCheckable(false);
+        QMessageBox::information(this,"Error","Vous n'êtes pas/plus connecté au serveur !");
+    }
 }
 
 void MainWindow::on_Btn_Exit_clicked() {
