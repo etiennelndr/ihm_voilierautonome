@@ -16,6 +16,9 @@ namespace Ui {
     class MainWindow;
 }
 
+/**
+ * @brief The MainWindow class
+ */
 class MainWindow : public QMainWindow {
     Q_OBJECT
 
@@ -39,14 +42,13 @@ class MainWindow : public QMainWindow {
         void receive_barre(float b, int id_concern);
         void receive_voile(float v, int id_concern);
 
-private:
+    private:
         float delta_barre, delta_voile;
         bool connected;
         ClientTcp* client;
         Ui::MainWindow *ui;
         Boat* boat;
 
-    private:
         void keyPressEvent(QKeyEvent *event);
         void create_connections();
 

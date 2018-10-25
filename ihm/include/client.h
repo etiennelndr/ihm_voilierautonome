@@ -12,6 +12,9 @@
 
 using namespace std;
 
+/**
+ * @brief The ClientTcp class
+ */
 class ClientTcp : public QObject {
     Q_OBJECT
     public:
@@ -19,7 +22,7 @@ class ClientTcp : public QObject {
         ~ClientTcp();
         void set_barre(float * b);
         void set_voile(float * v);
-        void init_msg(Message* msg);
+        void init_msg(Message& msg);
     public slots:
         void readDataFromTCPIP();
         void connecte();
@@ -49,9 +52,9 @@ class ClientTcp : public QObject {
         quint16 tailleMessage;
 
         //Donnes relatives au client pour creation de messages
-        string* msg_type= new string("B");
-        int* msg_my_id;
-        int* msg_id_dest = new int(0);
+        string msg_type = "P";
+        int my_id;
+        int id_dest = 0;
     private:
         // Method to send a message to the server
         void send(QString msg);

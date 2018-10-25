@@ -1,38 +1,49 @@
 #include "./../include/client.h"
 #include <iostream>
 
-ClientTcp::ClientTcp(QString ip, quint16 port) {
 /**
- * @brief ClientTcp::ClientTcp
+ * CONSTRUCTOR
+ *
+ * @brief ClientTcp::ClientTcp : TODO
  * @param ip
  * @param port
  */
+ClientTcp::ClientTcp(QString ip, quint16 port) {
+    // Set the port and the IP
     serverPort = port; // choix arbitraire (>1024)
     serverIp   = ip;
 
+    // Create a new socket
     soc = new QTcpSocket(this);
 
-    msg_my_id  = new int(1);
+    // Set our id to 1
+    my_id  = 1;
 
     soc->abort(); // On désactive les connexions précédentes s'il y en a
     soc->connectToHost(serverIp, serverPort); // On se connecte au serveur demandé
 
+    // Create connectors
     connect(soc, SIGNAL(readyRead()), this, SLOT(readDataFromTCPIP()));
     connect(soc, SIGNAL(connected()), this, SLOT(connecte()));
     connect(soc, SIGNAL(disconnected()), this, SLOT(deconnecte()));
     connect(soc, SIGNAL(error(QAbstractSocket::SocketError)), this, SLOT(erreurSocket(QAbstractSocket::SocketError)));
 
+    // Set the length of the message to 0
     tailleMessage = 0;
 }
 
 /**
- * @brief ClientTcp::~ClientTcp
+ * DESTRUCTOR
+ *
+ * @brief ClientTcp::~ClientTcp : TODO
  */
 ClientTcp::~ClientTcp() {
     delete soc;
 }
 
 /**
+ * SLOT -> TODO
+ *
  * @brief ClientTcp::send : on envoie un message au serveur
  * @param msg
  */
@@ -40,15 +51,16 @@ void ClientTcp::send(QString msg) {
     QByteArray paquet;
     QDataStream out(&paquet, QIODevice::WriteOnly);
 
-    out << (quint16) 0;
+    out << quint16(0);
     out << msg;
     out.device()->seek(0);
-    out << (quint16) (paquet.size() - (int)sizeof(quint16));
-
+    out << quint16(paquet.size() - int(sizeof(quint16)));
     soc->write(paquet); // On envoie le paquet
 }
 
 /**
+ * SLOT -> TODO
+ *
  * @brief ClientTcp::readDataFromTCPIP : On a reçu un paquet (ou un sous-paquet)
  */
 void ClientTcp::readDataFromTCPIP() {
@@ -57,7 +69,7 @@ void ClientTcp::readDataFromTCPIP() {
     QDataStream in(soc);
 
     if (tailleMessage == 0) { // Si on ne connaît pas encore la taille du message, on essaye de la récupérer
-        if (soc->bytesAvailable() < (int)sizeof(quint16)) // On n'a pas reçu la taille du message en entier
+        if (soc->bytesAvailable() < int(sizeof(quint16))) // On n'a pas reçu la taille du message en entier
             return;
 
         in >> tailleMessage; // Si on a reçu la taille du message en entier, on la récupère
@@ -80,14 +92,30 @@ void ClientTcp::readDataFromTCPIP() {
 }
 
 /**
+ * SLOT -> TODO
+ *
  * @brief ClientTcp::connecte : Ce slot est appelé lorsque la connexion au serveur a réussi
  */
 void ClientTcp::connecte() {
     emit connexion_status(true);
+
+    // Give to the server our id
+    Message msg;
+    // Change the type of the message (PC for Post Connection)
+    msg_type = "PC";
+    // Init the trame
+    init_msg(msg);
+    // Send it to the server
+    send(msg.encodeData());
+    // Reset the type to P
+    msg_type = "P";
+
     cout << "\nConnexion réussie !" << endl;
 }
 
 /**
+ * SLOT -> TODO
+ *
  * @brief ClientTcp::deconnecte : Ce slot est appelé lorsqu'on est déconnecté du serveur
  */
 void ClientTcp::deconnecte() {
@@ -96,6 +124,8 @@ void ClientTcp::deconnecte() {
 }
 
 /**
+ * SLOT -> TODO
+ *
  * @brief ClientTcp::erreurSocket : Ce slot est appelé lorsqu'il y a une erreur
  * @param erreur
  */
@@ -116,33 +146,57 @@ void ClientTcp::erreurSocket(QAbstractSocket::SocketError erreur) {
     }
 }
 
-void ClientTcp::init_msg(Message* msg){
-    msg->setType(msg_type);
-    msg->setIdSender(msg_my_id);
-    msg->setIdDest(msg_id_dest);
-    msg->setIdConcern(msg_my_id);
+/**
+ * SLOT -> TODO
+ *
+ * @brief ClientTcp::init_msg : TODO
+ * @param msg
+ */
+void ClientTcp::init_msg(Message& msg){
+    msg.setType(new string(msg_type));
+    msg.setIdSender(new int(my_id));
+    msg.setIdDest(new int(id_dest));
+    msg.setIdConcern(new int(my_id));
     return;
 }
 
+/**
+ * SLOT -> TODO
+ *
+ * @brief ClientTcp::set_barre : TODO
+ * @param b
+ */
 void ClientTcp::set_barre(float * b) {
-    Message* msg = new Message();
+    Message msg;
     init_msg(msg);
-    msg->setBarre(b);
-    send(msg->encodeData());
+    msg.setBarre(b);
+    send(msg.encodeData());
 }
 
+/**
+ * SLOT -> TODO
+ *
+ * @brief ClientTcp::set_voile : TODO
+ * @param v
+ */
 void ClientTcp::set_voile(float * v) {
-    Message* msg = new Message();
+    Message msg;
     init_msg(msg);
-    msg->setEcoute(v);
-    send(msg->encodeData());
+    msg.setEcoute(v);
+    send(msg.encodeData());
 }
 
+/**
+ * SLOT -> TODO
+ *
+ * @brief ClientTcp::received_data : TODO
+ * @param data
+ */
 void ClientTcp::received_data(QString data){
     Message* msg = new Message();
     msg->decodeData(data);
-    //Apres decodage du message : verification de la validite puis emission de signals pour l'IHM
-    if (*msg->getIdSender()==0 && *msg->getIdDest()==*msg_my_id){ //Le message vient du serveur et m'est destine
+    // Apres decodage du message : verification de la validite puis emission de signals pour l'IHM
+    if (*msg->getIdSender()==0 && *msg->getIdDest()==my_id) { // Le message vient du serveur et m'est destine
         if (msg->getLongitude()) {
             emit send_longitude(*msg->getLongitude(),*msg->getIdConcern());
         }

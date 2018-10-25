@@ -3,9 +3,10 @@
 
 #include <QColor>
 
-
-class Boat
-{
+/**
+ * @brief The Boat class
+ */
+class Boat {
 public:
     Boat(int id, bool is_mine, int r, int g, int b);
 
