@@ -70,7 +70,7 @@ void ClientTcp::readDataFromTCPIP() {
     // Si on arrive jusqu'à cette ligne, on peut récupérer le message entier
     QString messageRecu;
     in >> messageRecu;
-    messageRecu += "\r\n"; // To fit to the message trame
+    //messageRecu += "\r\n"; // To fit to the message trame
     received_data(messageRecu);
 
     // On affiche le message sur la zone de Chat
@@ -143,7 +143,7 @@ void ClientTcp::received_data(QString data){
     msg->decodeData(data);
     //Apres decodage du message : verification de la validite puis emission de signals pour l'IHM
     if (*msg->getIdSender()==0 && *msg->getIdDest()==*msg_my_id){ //Le message vient du serveur et m'est destine
-        if (msg->getLongitude()){
+        if (msg->getLongitude()) {
             emit send_longitude(*msg->getLongitude(),*msg->getIdConcern());
         }
         if (msg->getLatitude()){
