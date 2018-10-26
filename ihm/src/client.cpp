@@ -41,6 +41,11 @@ ClientTcp::~ClientTcp() {
     delete soc;
 }
 
+/*--------------------------*
+ *                          *
+ *          SLOTS           *
+ *                          *
+ *--------------------------*/
 /**
  * SLOT -> TODO
  *
@@ -130,18 +135,20 @@ void ClientTcp::deconnecte() {
  * @param erreur
  */
 void ClientTcp::erreurSocket(QAbstractSocket::SocketError erreur) {
-    emit connexion_status(false);
     switch(erreur) { // On affiche un message différent selon l'erreur qu'on nous indique
         case QAbstractSocket::HostNotFoundError:
+            emit connexion_status(false);
             cout << "\nERREUR : le serveur n'a pas pu être trouvé. Vérifiez l'IP et le port." << endl;
             break;
         case QAbstractSocket::ConnectionRefusedError:
+            emit connexion_status(false);
             cout << "\nERREUR : le serveur a refusé la connexion. Vérifiez si le programme \"serveur\" a bien été lancé. Vérifiez aussi l'IP et le port." << endl;
             break;
         case QAbstractSocket::RemoteHostClosedError:
             cout << "\nERREUR : le serveur a coupé la connexion." << endl;
             break;
         default:
+            emit connexion_status(false);
             cout << "\nERREUR : " << soc->errorString().toStdString() << endl;
     }
 }
@@ -193,33 +200,33 @@ void ClientTcp::set_voile(float * v) {
  * @param data
  */
 void ClientTcp::received_data(QString data){
-    Message* msg = new Message();
-    msg->decodeData(data);
+    Message msg;
+    msg.decodeData(data);
     // Apres decodage du message : verification de la validite puis emission de signals pour l'IHM
-    if (*msg->getIdSender()==0 && *msg->getIdDest()==my_id) { // Le message vient du serveur et m'est destine
-        if (msg->getLongitude()) {
-            emit send_longitude(*msg->getLongitude(),*msg->getIdConcern());
+    if (!msg.getError() && *msg.getIdSender()==0 && *msg.getIdDest()==my_id) { // Le message vient du serveur et m'est destine
+        if (msg.getLongitude()) {
+            emit send_longitude(*msg.getLongitude(),*msg.getIdConcern());
         }
-        if (msg->getLatitude()){
-            emit send_latitude(*msg->getLatitude(),*msg->getIdConcern());
+        if (msg.getLatitude()){
+            emit send_latitude(*msg.getLatitude(),*msg.getIdConcern());
         }
-        if (msg->getCap()){
-            emit send_cap(*msg->getCap(),*msg->getIdConcern());
+        if (msg.getCap()){
+            emit send_cap(*msg.getCap(),*msg.getIdConcern());
         }
-        if (msg->getVitesse()){
-            emit send_vitesse(*msg->getVitesse(),*msg->getIdConcern());
+        if (msg.getVitesse()){
+            emit send_vitesse(*msg.getVitesse(),*msg.getIdConcern());
         }
-        if (msg->getGite()){
-            emit send_gite(*msg->getGite(),*msg->getIdConcern());
+        if (msg.getGite()){
+            emit send_gite(*msg.getGite(),*msg.getIdConcern());
         }
-        if (msg->getTangage()){
-            emit send_tangage(*msg->getTangage(),*msg->getIdConcern());
+        if (msg.getTangage()){
+            emit send_tangage(*msg.getTangage(),*msg.getIdConcern());
         }
-        if (msg->getBarre()){
-            emit send_barre(*msg->getBarre(),*msg->getIdConcern());
+        if (msg.getBarre()){
+            emit send_barre(*msg.getBarre(),*msg.getIdConcern());
         }
-        if (msg->getEcoute()){
-            emit send_voile(*msg->getEcoute(),*msg->getIdConcern());
+        if (msg.getEcoute()){
+            emit send_voile(*msg.getEcoute(),*msg.getIdConcern());
         }
     }
 }

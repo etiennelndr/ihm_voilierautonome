@@ -29,6 +29,11 @@ Message::~Message() {
     delete ecoute;
 }
 
+/*--------------------------*
+ *                          *
+ *         METHODS          *
+ *                          *
+ *--------------------------*/
 /**
  * METHOD
  *
@@ -103,17 +108,23 @@ QString Message::encodeData() {
 void Message::decodeData(QString msg) {
     // Concert from QString to string
     string data = msg.toStdString();
-    cout<<data<<endl;
+    cout << data << endl;
     // Split the data (for each '&' character we split the data)
-    vector<string> splitData = splitMessage(data, (char)(*"&"));
-//    // If we don't have correct symbols at the beginning and the end
-//    // of the data we MUST return an error
-    if (splitData[0] != "__" || splitData[splitData.size()-1] != "__") {
+    vector<string> splitData = splitMessage(data, char((*"&")));
+    // If we don't have correct symbols at the beginning and the end
+    // of the data we MUST return an error
+    // Also the message MUST contain an id_sender, an id_concern, an
+    // id_dest and a type
+    if (splitData[0] != "__" || splitData[splitData.size()-1] != "__"
+            || !id_sender
+            || !id_concern
+            || !id_dest
+            || !type) {
         error = true;
         return;
     }
 
-//    // Then assign each value to its attribute
+    // Then assign each value to its attribute
     for (unsigned int i=1; i < splitData.size()-1; i++) {
         assignValueToCorrectAttribute(splitData[i]);
     }

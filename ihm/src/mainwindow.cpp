@@ -33,6 +33,11 @@ MainWindow::~MainWindow() {
      delete ui;
 }
 
+/*--------------------------*
+ *                          *
+ *         METHODS          *
+ *                          *
+ *--------------------------*/
 /**
  * METHOD
  *
@@ -79,6 +84,11 @@ void MainWindow::keyPressEvent(QKeyEvent *event) {
       QMessageBox::information(this,"Error","Tu ne peux pas contrôler le bateau");
 }
 
+/*--------------------------*
+ *                          *
+ *          SLOTS           *
+ *                          *
+ *--------------------------*/
 /**
  * SLOT -> TODO
  *
@@ -141,7 +151,7 @@ void MainWindow::on_Btn_Exit_clicked() {
  * @param id_concern
  */
 void MainWindow::receive_longitude(float l, int id_concern){
-    cout<< "New longitude of " << id_concern << " : " << l <<endl;
+    cout << "New longitude of " << id_concern << " : " << l <<endl;
 }
 
 /**
@@ -152,7 +162,7 @@ void MainWindow::receive_longitude(float l, int id_concern){
  * @param id_concern
  */
 void MainWindow::receive_latitude(float l, int id_concern){
-    cout<< "New latitude of " << id_concern << " : " << l <<endl;
+    cout << "New latitude of " << id_concern << " : " << l <<endl;
 }
 
 /**
@@ -163,7 +173,7 @@ void MainWindow::receive_latitude(float l, int id_concern){
  * @param id_concern
  */
 void MainWindow::receive_cap(float c, int id_concern){
-    cout<< "New cap of " << id_concern << " : " << c <<endl;
+    cout << "New cap of " << id_concern << " : " << c <<endl;
 }
 
 /**
@@ -174,7 +184,7 @@ void MainWindow::receive_cap(float c, int id_concern){
  * @param id_concern
  */
 void MainWindow::receive_vitesse(float v, int id_concern){
-    cout<< "New speed of " << id_concern << " : " << v <<endl;
+    cout << "New speed of " << id_concern << " : " << v <<endl;
 }
 
 /**
@@ -185,7 +195,7 @@ void MainWindow::receive_vitesse(float v, int id_concern){
  * @param id_concern
  */
 void MainWindow::receive_gite(float g, int id_concern){
-    cout<< "New gite of " << id_concern << " : " << g <<endl;
+    cout << "New gite of " << id_concern << " : " << g <<endl;
 }
 
 /**
@@ -196,7 +206,7 @@ void MainWindow::receive_gite(float g, int id_concern){
  * @param id_concern
  */
 void MainWindow::receive_tangage(float t, int id_concern){
-    cout<< "New tangage of " << id_concern << " : " << t <<endl;
+    cout << "New tangage of " << id_concern << " : " << t <<endl;
 }
 
 /**
@@ -207,7 +217,7 @@ void MainWindow::receive_tangage(float t, int id_concern){
  * @param id_concern
  */
 void MainWindow::receive_barre(float b, int id_concern){
-    cout<< "New barre of " << id_concern << " : " << b <<endl;
+    cout << "New barre of " << id_concern << " : " << b <<endl;
 }
 
 /**
@@ -218,5 +228,5 @@ void MainWindow::receive_barre(float b, int id_concern){
  * @param id_concern
  */
 void MainWindow::receive_voile(float v, int id_concern){
-    cout<< "New voile of " << id_concern << " : " << v <<endl;
+    cout << "New voile of " << id_concern << " : " << v <<endl;
 }
