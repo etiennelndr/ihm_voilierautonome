@@ -2,15 +2,17 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include<QDialog>
-#include<QColor>
-#include"client.h"
-#include<QKeyEvent>
+#include <QDialog>
+#include <QColor>
+#include <vector>
+#include <QKeyEvent>
 #include "client.h"
 #include "boat.h"
 
 class QPushButton;
 class QRadioButton;
+
+using namespace std;
 
 namespace Ui {
     class MainWindow;
@@ -47,7 +49,7 @@ class MainWindow : public QMainWindow {
         bool connected;
         ClientTcp* client;
         Ui::MainWindow *ui;
-        Boat* boat;
+        vector<Boat*> boats;
 
         void keyPressEvent(QKeyEvent *event);
         void create_connections();

@@ -8,7 +8,7 @@
  * @param ip
  * @param port
  */
-ClientTcp::ClientTcp(QString ip, quint16 port) {
+ClientTcp::ClientTcp(QString ip, quint16 port, int id) {
     // Set the port and the IP
     serverPort = port; // choix arbitraire (>1024)
     serverIp   = ip;
@@ -17,7 +17,7 @@ ClientTcp::ClientTcp(QString ip, quint16 port) {
     soc = new QTcpSocket(this);
 
     // Set our id to 1
-    my_id  = 1;
+    my_id  = id;
 
     soc->abort(); // On désactive les connexions précédentes s'il y en a
     soc->connectToHost(serverIp, serverPort); // On se connecte au serveur demandé
@@ -202,6 +202,7 @@ void ClientTcp::set_voile(float * v) {
 void ClientTcp::received_data(QString data){
     Message msg;
     msg.decodeData(data);
+    cout << data.toStdString() <<endl;
     // Apres decodage du message : verification de la validite puis emission de signals pour l'IHM
     if (!msg.getError() && *msg.getIdSender()==0 && *msg.getIdDest()==my_id) { // Le message vient du serveur et m'est destine
         if (msg.getLongitude()) {

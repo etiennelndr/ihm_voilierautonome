@@ -17,7 +17,7 @@
  * @param parent
  */
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWindow) {
-     boat = new Boat(1,true, 255,0,0);
+     boats.push_back(new Boat(1,true, 255,0,0));
      ui->setupUi(this);
      ui->RadioControle->setCheckable(false);
      delta_barre=delta_voile=0.5f; // a modifier de façon empirique pour rester précis mais efficace dans les commandes du bateau
@@ -65,20 +65,20 @@ void MainWindow::keyPressEvent(QKeyEvent *event) {
     if(ui->RadioControle->isChecked() && connected) {
         if(event->key() == Qt::Key_Up) {
             cout << "Key_up" << endl;
-            boat->set_voile(boat->get_voile()+delta_voile);
-            client->set_voile(boat->get_voile_addr());
+            boats.at(0)->set_voile(boats.at(0)->get_voile()+delta_voile);
+            client->set_voile(boats.at(0)->get_voile_addr());
         } else if (event->key() == Qt::Key_Down) {
             cout << "Key_down" << endl;
-            boat->set_voile(boat->get_voile()-delta_voile);
-            client->set_voile(boat->get_voile_addr());
+            boats.at(0)->set_voile(boats.at(0)->get_voile()-delta_voile);
+            client->set_voile(boats.at(0)->get_voile_addr());
         } else if (event->key() == Qt::Key_Right) {
             cout << "Key_right" << endl;
-            boat->set_barre(boat->get_barre()+delta_barre);
-            client->set_barre(boat->get_barre_addr());
+            boats.at(0)->set_barre(boats.at(0)->get_barre()+delta_barre);
+            client->set_barre(boats.at(0)->get_barre_addr());
         } else if (event->key() == Qt::Key_Left) {
             cout << "Key_left" << endl;
-            boat->set_barre(boat->get_barre()-delta_barre);
-            client->set_barre(boat->get_barre_addr());
+            boats.at(0)->set_barre(boats.at(0)->get_barre()-delta_barre);
+            client->set_barre(boats.at(0)->get_barre_addr());
         }
     } else if (event->key()==Qt::Key_Up || event->key()==Qt::Key_Down || event->key()==Qt::Key_Left || event->key()==Qt::Key_Right)
       QMessageBox::information(this,"Error","Tu ne peux pas contrôler le bateau");
@@ -108,8 +108,10 @@ void MainWindow::on_RadioControle_clicked() {
  * @brief MainWindow::on_BtnConxDeconx_clicked : TODO
  */
 void MainWindow::on_BtnConxDeconx_clicked() {
-    if(ui->BtnConxDeconx->text() ==  "Connexion") {
-        client = new ClientTcp(QString("127.0.0.1"), 4000);
+    if(ui->BtnConxDeconx->text() ==  "Connexion" && ui->spinBox->value()>0) {
+        client = new ClientTcp(QString("127.0.0.1"), 4000, ui->spinBox->value());
+        ui->spinBox->close();
+        ui->label->close();
         create_connections();
     } else {
         ui->BtnConxDeconx->setText("Connexion");
