@@ -112,7 +112,7 @@ void MainWindow::on_BtnConxDeconx_clicked() {
     if(ui->BtnConxDeconx->text() ==  "Connexion" && ui->spinBox->value()>0) {
         client = new ClientTcp(QString("127.0.0.1"), 4000, ui->spinBox->value());
         ui->label_2->show();
-        ui->label_2->setText(ui->label_2->text()+" "+QString::number(ui->spinBox->value()));
+        ui->label_2->setText("Votre id: " + QString::number(ui->spinBox->value()));
         ui->spinBox->close();
         ui->label->close();
         create_connections();
