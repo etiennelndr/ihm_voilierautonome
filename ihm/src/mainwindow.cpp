@@ -35,37 +35,11 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
 MainWindow::~MainWindow() {
      delete ui;
 }
-void MainWindow::paintEvent(QPaintEvent *event) {
-    QPainter ellipsePainter(this);
-
-    QPen pen1(Qt::black);
-    QPen pen2(Qt::red);
-
-    pen1.setWidth(8);
-    ellipsePainter.setPen(pen1);
-
-    ellipsePainter.fillRect(114,292,20,75,Qt::green);
-    ellipsePainter.drawEllipse(QRect(100,280,50,100));
-
-    ellipsePainter.fillRect(300,450,20,75,Qt::blue);
-    ellipsePainter.drawEllipse(QRect(286,436,50,100));
-    pen2.setWidth(8);
-
-    ellipsePainter.setPen(pen2);
-    ellipsePainter.drawEllipse(QRect(90,230,30,30));
-    ellipsePainter.drawEllipse(QRect(350,230,30,30));
-    ellipsePainter.drawEllipse(QRect(350,650,30,30));
-    ellipsePainter.drawEllipse(QRect(90,650,30,30));
-
-    QRectF rectangle(60, 210, 350, 500);
-
-    QPainter painter(this);
-    painter.drawRect(rectangle);
-}
 
 void MainWindow::paintEvent(QPaintEvent *event){
     virtual_map->display_boats(boats, this);
 }
+
 /*--------------------------*
  *                          *
  *         METHODS          *
