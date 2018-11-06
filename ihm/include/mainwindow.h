@@ -27,6 +27,7 @@ class MainWindow : public QMainWindow {
     public:
         explicit MainWindow(QWidget *parent = 0);
         ~MainWindow();
+    virtual void paintEvent(QPaintEvent *event);
 
     public slots:
         void on_RadioControle_clicked();
