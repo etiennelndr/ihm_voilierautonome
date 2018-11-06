@@ -29,7 +29,7 @@ public:
     float* get_voile_addr()     {return &voile;}
     bool   get_is_mine()        {return is_mine;}
     int    get_id()             {return id;}
-    QColor* get_color()         {return color;}
+    QColor get_color()         {return *color;}
 
     //setters
     void set_vitesse(float _vitesse)    {vitesse=_vitesse;}

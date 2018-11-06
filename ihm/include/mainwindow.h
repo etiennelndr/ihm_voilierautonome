@@ -8,6 +8,7 @@
 #include <QKeyEvent>
 #include "client.h"
 #include "boat.h"
+#include "virtualmap.h"
 
 class QPushButton;
 class QRadioButton;
@@ -51,6 +52,7 @@ class MainWindow : public QMainWindow {
         ClientTcp* client;
         Ui::MainWindow *ui;
         vector<Boat*> boats;
+        VirtualMap* virtual_map;
 
         void keyPressEvent(QKeyEvent *event);
         void create_connections();
