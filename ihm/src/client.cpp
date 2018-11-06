@@ -38,6 +38,7 @@ ClientTcp::ClientTcp(QString ip, quint16 port, int id) {
  * @brief ClientTcp::~ClientTcp : TODO
  */
 ClientTcp::~ClientTcp() {
+    soc->close();
     delete soc;
 }
 

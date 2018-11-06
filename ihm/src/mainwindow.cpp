@@ -34,7 +34,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
 MainWindow::~MainWindow() {
      delete ui;
 }
-void MainWindow::paintEvent(QPaintEvent *event){
+void MainWindow::paintEvent(QPaintEvent *event) {
     QPainter ellipsePainter(this);
 
     QPen pen1(Qt::black);
@@ -42,7 +42,6 @@ void MainWindow::paintEvent(QPaintEvent *event){
 
     pen1.setWidth(8);
     ellipsePainter.setPen(pen1);
-
 
     ellipsePainter.fillRect(114,292,20,75,Qt::green);
     ellipsePainter.drawEllipse(QRect(100,280,50,100));
@@ -57,15 +56,12 @@ void MainWindow::paintEvent(QPaintEvent *event){
     ellipsePainter.drawEllipse(QRect(350,650,30,30));
     ellipsePainter.drawEllipse(QRect(90,650,30,30));
 
-
-
-
-
-
     QRectF rectangle(60, 210, 350, 500);
 
     QPainter painter(this);
     painter.drawRect(rectangle);
+}
+
 /*--------------------------*
  *                          *
  *         METHODS          *
@@ -76,16 +72,16 @@ void MainWindow::paintEvent(QPaintEvent *event){
  *
  * @brief MainWindow::create_connections : TODO
  */
-void MainWindow::create_connections(){
-    connect(client, SIGNAL(connexion_status(bool)), this, SLOT(set_connexion(bool)));
+void MainWindow::create_connections() {
+    connect(client, SIGNAL(connexion_status(bool)),     this, SLOT(set_connexion(bool)));
     connect(client, SIGNAL(send_longitude(float, int)), this, SLOT(receive_longitude(float, int)));
-    connect(client, SIGNAL(send_latitude(float, int)), this, SLOT(receive_latitude(float, int)));
-    connect(client, SIGNAL(send_cap(float, int)), this, SLOT(receive_cap(float, int)));
-    connect(client, SIGNAL(send_vitesse(float, int)), this, SLOT(receive_vitesse(float, int)));
-    connect(client, SIGNAL(send_gite(float, int)), this, SLOT(receive_gite(float, int)));
-    connect(client, SIGNAL(send_tangage(float, int)), this, SLOT(receive_tangage(float, int)));
-    connect(client, SIGNAL(send_barre(float, int)), this, SLOT(receive_barre(float, int)));
-    connect(client, SIGNAL(send_voile(float, int)), this, SLOT(receive_voile(float, int)));
+    connect(client, SIGNAL(send_latitude(float, int)),  this, SLOT(receive_latitude(float, int)));
+    connect(client, SIGNAL(send_cap(float, int)),       this, SLOT(receive_cap(float, int)));
+    connect(client, SIGNAL(send_vitesse(float, int)),   this, SLOT(receive_vitesse(float, int)));
+    connect(client, SIGNAL(send_gite(float, int)),      this, SLOT(receive_gite(float, int)));
+    connect(client, SIGNAL(send_tangage(float, int)),   this, SLOT(receive_tangage(float, int)));
+    connect(client, SIGNAL(send_barre(float, int)),     this, SLOT(receive_barre(float, int)));
+    connect(client, SIGNAL(send_voile(float, int)),     this, SLOT(receive_voile(float, int)));
 }
 
 /**
@@ -142,6 +138,7 @@ void MainWindow::on_RadioControle_clicked() {
  */
 void MainWindow::on_BtnConxDeconx_clicked() {
     if(ui->BtnConxDeconx->text() ==  "Connexion" && ui->spinBox->value()>0) {
+        // Create a new client
         client = new ClientTcp(QString("127.0.0.1"), 4000, ui->spinBox->value());
         ui->label_2->show();
         ui->label_2->setText("Votre id: " + QString::number(ui->spinBox->value()));
@@ -149,7 +146,10 @@ void MainWindow::on_BtnConxDeconx_clicked() {
         ui->label->close();
         create_connections();
     } else {
-        ui->BtnConxDeconx->setText("Connexion");
+        // Delete the client
+        delete client;
+        // Set it to nullptr
+        client = nullptr;
     }
 }
 
