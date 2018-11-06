@@ -18,12 +18,13 @@
  * @param parent
  */
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWindow) {
-     boats.push_back(new Boat(1,true, 255,0,0));
+     boats.push_back(new Boat(1,true, 0,255,0));
      ui->setupUi(this);
      ui->RadioControle->setCheckable(false);
      delta_barre=delta_voile=0.5f; // a modifier de façon empirique pour rester précis mais efficace dans les commandes du bateau
      connected=false;
      ui->label_2->hide();
+     virtual_map = new VirtualMap();
 }
 
 /**
@@ -62,6 +63,9 @@ void MainWindow::paintEvent(QPaintEvent *event) {
     painter.drawRect(rectangle);
 }
 
+void MainWindow::paintEvent(QPaintEvent *event){
+    virtual_map->display_boats(boats, this);
+}
 /*--------------------------*
  *                          *
  *         METHODS          *
