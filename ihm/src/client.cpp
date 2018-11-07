@@ -16,7 +16,6 @@ ClientTcp::ClientTcp(QString ip, quint16 port, int id) {
     // Create a new socket
     soc = new QTcpSocket(this);
 
-    // Set our id to 1
     my_id  = id;
     known_ids.push_back(id);
 
