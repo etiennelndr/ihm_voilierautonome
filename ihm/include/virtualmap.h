@@ -36,7 +36,9 @@ private :
     float end_latitude;
     float end_longitude;
     float zoom;
-    int scale(float l);
+    int scale_lat(float l);
+    int scale_lon(float l);
+    float angle(float l);
     QGraphicsScene* scene;
     QRectF* zone;
     QGraphicsView* view;

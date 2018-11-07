@@ -50,12 +50,15 @@ class MainWindow : public QMainWindow {
         float delta_barre, delta_voile;
         bool connected;
         ClientTcp* client=nullptr;
+        int my_id;
+        ClientTcp* client;
         Ui::MainWindow *ui;
         vector<Boat*> boats;
         VirtualMap* virtual_map;
 
         void keyPressEvent(QKeyEvent *event);
         void create_connections();
+        Boat* get_boat(int id);
 
 };
 
