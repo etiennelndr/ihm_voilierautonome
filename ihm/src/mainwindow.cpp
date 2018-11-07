@@ -70,6 +70,15 @@ Boat* MainWindow::get_boat(int id){
     return boat;
 }
 
+Meteo* MainWindow::get_meteo(int id){
+    Meteo* meteo = nullptr;
+    for (unsigned int i=0;i<meteos.size();i++) {
+        if(boats.at(i)->get_id()==id)
+            meteo = meteos.at(i);
+    }
+    return meteo;
+}
+
 /**
  * METHOD
  *
