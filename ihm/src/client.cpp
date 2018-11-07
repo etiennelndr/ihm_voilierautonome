@@ -23,9 +23,9 @@ ClientTcp::ClientTcp(QString ip, quint16 port, int id) {
     soc->connectToHost(serverIp, serverPort); // On se connecte au serveur demandé
 
     // Create connectors
-    connect(soc, SIGNAL(readyRead()), this, SLOT(readDataFromTCPIP()));
-    connect(soc, SIGNAL(connected()), this, SLOT(connecte()));
-    connect(soc, SIGNAL(disconnected()), this, SLOT(deconnecte()));
+    connect(soc, SIGNAL(readyRead()),                         this, SLOT(readDataFromTCPIP()));
+    connect(soc, SIGNAL(connected()),                         this, SLOT(connecte()));
+    connect(soc, SIGNAL(disconnected()),                      this, SLOT(deconnecte()));
     connect(soc, SIGNAL(error(QAbstractSocket::SocketError)), this, SLOT(erreurSocket(QAbstractSocket::SocketError)));
 
     // Set the length of the message to 0
@@ -43,12 +43,14 @@ ClientTcp::~ClientTcp() {
 }
 
 
+<<<<<<< HEAD
 bool ClientTcp::is_known(int _id){
     for (unsigned int i=0; i<known_ids.size(); i++){
         if(known_ids.at(i)==_id)
             return true;
     }
     return false;
+=======
 /**
  * METHOD
  *
@@ -87,6 +89,7 @@ void ClientTcp::set_voile(float * v) {
     init_msg(msg);
     msg.setEcoute(v);
     send(msg.encodeData());
+>>>>>>> 25fb4e0acc38e51afc3d6b595f6200cd996dda78
 }
 
 /*--------------------------*
@@ -185,7 +188,7 @@ void ClientTcp::deconnecte() {
 void ClientTcp::erreurSocket(QAbstractSocket::SocketError erreur) {
     switch(erreur) { // On affiche un message différent selon l'erreur qu'on nous indique
         case QAbstractSocket::HostNotFoundError:
-            emit connexion_status(false);
+            //emit connexion_status(false);
             cout << "\nERREUR : le serveur n'a pas pu être trouvé. Vérifiez l'IP et le port." << endl;
             break;
         case QAbstractSocket::ConnectionRefusedError:
@@ -196,7 +199,7 @@ void ClientTcp::erreurSocket(QAbstractSocket::SocketError erreur) {
             cout << "\nERREUR : le serveur a coupé la connexion." << endl;
             break;
         default:
-            emit connexion_status(false);
+            //emit connexion_status(false);
             cout << "\nERREUR : " << soc->errorString().toStdString() << endl;
     }
 }
