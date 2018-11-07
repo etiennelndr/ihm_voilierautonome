@@ -190,9 +190,11 @@ void MainWindow::on_Btn_Exit_clicked() {
  * @param id_concern
  */
 void MainWindow::receive_longitude(float l, int id_concern){
-    MainWindow::get_boat(id_concern)->set_longitude(l);
-    MainWindow::update();
-    cout << "New longitude of " << id_concern << " : " << l <<endl;
+    if(id_concern>0){
+        MainWindow::get_boat(id_concern)->set_longitude(l);
+        MainWindow::update();
+        cout << "New longitude of " << id_concern << " : " << l <<endl;
+    }
 }
 
 /**
@@ -203,9 +205,11 @@ void MainWindow::receive_longitude(float l, int id_concern){
  * @param id_concern
  */
 void MainWindow::receive_latitude(float l, int id_concern){
-    MainWindow::get_boat(id_concern)->set_latitude(l);
-    MainWindow::update();
-    cout << "New latitude of " << id_concern << " : " << l <<endl;
+    if(id_concern>0){
+        MainWindow::get_boat(id_concern)->set_latitude(l);
+        MainWindow::update();
+        cout << "New latitude of " << id_concern << " : " << l <<endl;
+    }
 }
 
 /**
@@ -216,8 +220,13 @@ void MainWindow::receive_latitude(float l, int id_concern){
  * @param id_concern
  */
 void MainWindow::receive_cap(float c, int id_concern){
-    MainWindow::get_boat(id_concern)->set_cap(c);
-    MainWindow::update();
+    if(id_concern>0){
+        MainWindow::get_boat(id_concern)->set_cap(c);
+        MainWindow::update();
+    } else if (id_concern<0) {
+        MainWindow::get_meteo(id_concern)->set_cap(c);
+        MainWindow::update();
+    }
     cout << "New cap of " << id_concern << " : " << c <<endl;
 }
 
@@ -229,8 +238,14 @@ void MainWindow::receive_cap(float c, int id_concern){
  * @param id_concern
  */
 void MainWindow::receive_vitesse(float v, int id_concern){
-    MainWindow::get_boat(id_concern)->set_vitesse(v);
-    MainWindow::update();
+    if(id_concern>0){
+        MainWindow::get_boat(id_concern)->set_vitesse(v);
+        MainWindow::update();
+    } else if (id_concern<0) {
+        MainWindow::get_meteo(id_concern)->set_vitesse(v);
+        MainWindow::update();
+    }
+
     cout << "New speed of " << id_concern << " : " << v <<endl;
 }
 
@@ -242,9 +257,11 @@ void MainWindow::receive_vitesse(float v, int id_concern){
  * @param id_concern
  */
 void MainWindow::receive_gite(float g, int id_concern){
-    MainWindow::get_boat(id_concern)->set_gite(g);
-    MainWindow::update();
-    cout << "New gite of " << id_concern << " : " << g <<endl;
+    if(id_concern>0){
+        MainWindow::get_boat(id_concern)->set_gite(g);
+        MainWindow::update();
+        cout << "New gite of " << id_concern << " : " << g <<endl;
+    }
 }
 
 /**
@@ -255,9 +272,11 @@ void MainWindow::receive_gite(float g, int id_concern){
  * @param id_concern
  */
 void MainWindow::receive_tangage(float t, int id_concern){
-    MainWindow::get_boat(id_concern)->set_tangage(t);
-    MainWindow::update();
-    cout << "New tangage of " << id_concern << " : " << t <<endl;
+    if(id_concern>0){
+        MainWindow::get_boat(id_concern)->set_tangage(t);
+        MainWindow::update();
+        cout << "New tangage of " << id_concern << " : " << t <<endl;
+    }
 }
 
 /**
@@ -268,9 +287,11 @@ void MainWindow::receive_tangage(float t, int id_concern){
  * @param id_concern
  */
 void MainWindow::receive_barre(float b, int id_concern){
-    MainWindow::get_boat(id_concern)->set_barre(b);
-    MainWindow::update();
-    cout << "New barre of " << id_concern << " : " << b <<endl;
+    if(id_concern>0){
+        MainWindow::get_boat(id_concern)->set_barre(b);
+        MainWindow::update();
+        cout << "New barre of " << id_concern << " : " << b <<endl;
+    }
 }
 
 /**
@@ -281,9 +302,11 @@ void MainWindow::receive_barre(float b, int id_concern){
  * @param id_concern
  */
 void MainWindow::receive_voile(float v, int id_concern){
-    MainWindow::get_boat(id_concern)->set_voile(v);
-    MainWindow::update();
-    cout << "New voile of " << id_concern << " : " << v <<endl;
+    if(id_concern>0){
+        MainWindow::get_boat(id_concern)->set_voile(v);
+        MainWindow::update();
+        cout << "New voile of " << id_concern << " : " << v <<endl;
+    }
 }
 
 
@@ -298,6 +321,7 @@ void MainWindow::add_new_boat(int id_concern){
     if(id_concern>0){
         boats.push_back(new Boat(id_concern,false, qrand()%255,qrand()%255,qrand()%255));
         MainWindow::update();
+        cout << "New boat with id " << id_concern <<endl;
     }
 
 }
