@@ -49,7 +49,7 @@ class MainWindow : public QMainWindow {
     private:
         float delta_barre, delta_voile;
         bool connected;
-        ClientTcp* client;
+        ClientTcp* client=nullptr;
         Ui::MainWindow *ui;
         vector<Boat*> boats;
         VirtualMap* virtual_map;

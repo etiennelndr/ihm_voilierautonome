@@ -124,8 +124,11 @@ void MainWindow::on_BtnConxDeconx_clicked() {
         ui->label->close();
         create_connections();
     } else {
+        cout << "on_BtnConxDeconx_clicked" << endl;
         // Delete the client
-        delete client;
+        if (client != nullptr) {
+            delete client;
+        }
         // Set it to nullptr
         client = nullptr;
     }
