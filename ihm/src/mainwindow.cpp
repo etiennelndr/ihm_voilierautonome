@@ -18,9 +18,6 @@
  * @param parent
  */
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWindow) {
-    boats.push_back(new Boat(999,false, 0,0,255));
-    boats.push_back(new Boat(998,true, 0,255,0));
-    boats.push_back(new Boat(997,false, 0,255,255));
      ui->setupUi(this);
      ui->RadioControle->setCheckable(false);
      delta_barre=delta_voile=0.5f; // a modifier de façon empirique pour rester précis mais efficace dans les commandes du bateau

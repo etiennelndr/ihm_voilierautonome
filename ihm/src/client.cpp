@@ -42,15 +42,13 @@ ClientTcp::~ClientTcp() {
     delete soc;
 }
 
-
-<<<<<<< HEAD
 bool ClientTcp::is_known(int _id){
     for (unsigned int i=0; i<known_ids.size(); i++){
         if(known_ids.at(i)==_id)
             return true;
     }
     return false;
-=======
+}
 /**
  * METHOD
  *
@@ -89,7 +87,6 @@ void ClientTcp::set_voile(float * v) {
     init_msg(msg);
     msg.setEcoute(v);
     send(msg.encodeData());
->>>>>>> 25fb4e0acc38e51afc3d6b595f6200cd996dda78
 }
 
 /*--------------------------*
