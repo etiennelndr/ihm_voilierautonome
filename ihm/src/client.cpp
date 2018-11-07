@@ -49,6 +49,44 @@ bool ClientTcp::is_known(int _id){
             return true;
     }
     return false;
+/**
+ * METHOD
+ *
+ * @brief ClientTcp::init_msg : TODO
+ * @param msg
+ */
+void ClientTcp::init_msg(Message& msg){
+    msg.setType(new string(msg_type));
+    msg.setIdSender(new int(my_id));
+    msg.setIdDest(new int(id_dest));
+    msg.setIdConcern(new int(my_id));
+    return;
+}
+
+/**
+ * METHOD
+ *
+ * @brief ClientTcp::set_barre : TODO
+ * @param b
+ */
+void ClientTcp::set_barre(float * b) {
+    Message msg;
+    init_msg(msg);
+    msg.setBarre(b);
+    send(msg.encodeData());
+}
+
+/**
+ * METHOD
+ *
+ * @brief ClientTcp::set_voile : TODO
+ * @param v
+ */
+void ClientTcp::set_voile(float * v) {
+    Message msg;
+    init_msg(msg);
+    msg.setEcoute(v);
+    send(msg.encodeData());
 }
 
 /*--------------------------*
@@ -161,46 +199,6 @@ void ClientTcp::erreurSocket(QAbstractSocket::SocketError erreur) {
             emit connexion_status(false);
             cout << "\nERREUR : " << soc->errorString().toStdString() << endl;
     }
-}
-
-/**
- * SLOT -> TODO
- *
- * @brief ClientTcp::init_msg : TODO
- * @param msg
- */
-void ClientTcp::init_msg(Message& msg){
-    msg.setType(new string(msg_type));
-    msg.setIdSender(new int(my_id));
-    msg.setIdDest(new int(id_dest));
-    msg.setIdConcern(new int(my_id));
-    return;
-}
-
-/**
- * SLOT -> TODO
- *
- * @brief ClientTcp::set_barre : TODO
- * @param b
- */
-void ClientTcp::set_barre(float * b) {
-    Message msg;
-    init_msg(msg);
-    msg.setBarre(b);
-    send(msg.encodeData());
-}
-
-/**
- * SLOT -> TODO
- *
- * @brief ClientTcp::set_voile : TODO
- * @param v
- */
-void ClientTcp::set_voile(float * v) {
-    Message msg;
-    init_msg(msg);
-    msg.setEcoute(v);
-    send(msg.encodeData());
 }
 
 /**

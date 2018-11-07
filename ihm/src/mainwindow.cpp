@@ -144,6 +144,16 @@ void MainWindow::on_BtnConxDeconx_clicked() {
 //        }
         create_connections();
     } else {
+        cout << "on_BtnConxDeconx_clicked" << endl;
+        //mtx.lock();
+        // Delete the client
+        if (client != nullptr) {
+            delete client;
+        }
+        // Set it to nullptr
+        client = nullptr;
+        cout << "OKKKKKKKKKK" << endl;
+        //mtx.unlock();
         ui->BtnConxDeconx->setText("Connexion");
     }
 }
