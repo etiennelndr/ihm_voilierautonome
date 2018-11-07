@@ -9,6 +9,7 @@
 #include "client.h"
 #include "boat.h"
 #include "virtualmap.h"
+#include "meteo.h"
 
 class QPushButton;
 class QRadioButton;
@@ -45,6 +46,7 @@ class MainWindow : public QMainWindow {
         void receive_tangage(float t, int id_concern);
         void receive_barre(float b, int id_concern);
         void receive_voile(float v, int id_concern);
+        void add_new_boat(int id_concern);
 
     private:
         float delta_barre, delta_voile;
@@ -53,6 +55,7 @@ class MainWindow : public QMainWindow {
         ClientTcp* client;
         Ui::MainWindow *ui;
         vector<Boat*> boats;
+        vector<Meteo*> meteos;
         VirtualMap* virtual_map;
 
         void keyPressEvent(QKeyEvent *event);

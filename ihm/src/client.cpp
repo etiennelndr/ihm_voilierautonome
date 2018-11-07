@@ -18,6 +18,7 @@ ClientTcp::ClientTcp(QString ip, quint16 port, int id) {
 
     // Set our id to 1
     my_id  = id;
+    known_ids.push_back(id);
 
     soc->abort(); // On désactive les connexions précédentes s'il y en a
     soc->connectToHost(serverIp, serverPort); // On se connecte au serveur demandé
@@ -38,7 +39,17 @@ ClientTcp::ClientTcp(QString ip, quint16 port, int id) {
  * @brief ClientTcp::~ClientTcp : TODO
  */
 ClientTcp::~ClientTcp() {
+    soc->close();
     delete soc;
+}
+
+
+bool ClientTcp::is_known(int _id){
+    for (unsigned int i=0; i<known_ids.size(); i++){
+        if(known_ids.at(i)==_id)
+            return true;
+    }
+    return false;
 }
 
 /*--------------------------*
@@ -205,29 +216,35 @@ void ClientTcp::received_data(QString data){
     cout << data.toStdString() <<endl;
     // Apres decodage du message : verification de la validite puis emission de signals pour l'IHM
     if (!msg.getError() && *msg.getIdSender()==0 && *msg.getIdDest()==my_id) { // Le message vient du serveur et m'est destine
-        if (msg.getLongitude()) {
-            emit send_longitude(*msg.getLongitude(),*msg.getIdConcern());
+        if((!is_known(*msg.getIdConcern())) && *msg.getIdConcern()>0){
+            emit add_new_boat(*msg.getIdConcern());
+            known_ids.push_back(*msg.getIdConcern());
         }
-        if (msg.getLatitude()){
-            emit send_latitude(*msg.getLatitude(),*msg.getIdConcern());
-        }
-        if (msg.getCap()){
-            emit send_cap(*msg.getCap(),*msg.getIdConcern());
-        }
-        if (msg.getVitesse()){
-            emit send_vitesse(*msg.getVitesse(),*msg.getIdConcern());
-        }
-        if (msg.getGite()){
-            emit send_gite(*msg.getGite(),*msg.getIdConcern());
-        }
-        if (msg.getTangage()){
-            emit send_tangage(*msg.getTangage(),*msg.getIdConcern());
-        }
-        if (msg.getBarre()){
-            emit send_barre(*msg.getBarre(),*msg.getIdConcern());
-        }
-        if (msg.getEcoute()){
-            emit send_voile(*msg.getEcoute(),*msg.getIdConcern());
+        else{
+            if (msg.getLongitude()) {
+                emit send_longitude(*msg.getLongitude(),*msg.getIdConcern());
+            }
+            if (msg.getLatitude()){
+                emit send_latitude(*msg.getLatitude(),*msg.getIdConcern());
+            }
+            if (msg.getCap()){
+                emit send_cap(*msg.getCap(),*msg.getIdConcern());
+            }
+            if (msg.getVitesse()){
+                emit send_vitesse(*msg.getVitesse(),*msg.getIdConcern());
+            }
+            if (msg.getGite()){
+                emit send_gite(*msg.getGite(),*msg.getIdConcern());
+            }
+            if (msg.getTangage()){
+                emit send_tangage(*msg.getTangage(),*msg.getIdConcern());
+            }
+            if (msg.getBarre()){
+                emit send_barre(*msg.getBarre(),*msg.getIdConcern());
+            }
+            if (msg.getEcoute()){
+                emit send_voile(*msg.getEcoute(),*msg.getIdConcern());
+            }
         }
     }
 }

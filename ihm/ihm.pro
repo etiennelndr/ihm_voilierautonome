@@ -33,14 +33,16 @@ SOURCES += \
     src\client.cpp \
     src\message.cpp \
     src\boat.cpp \
-    src/virtualmap.cpp
+    src/virtualmap.cpp \
+    src/meteo.cpp
 
 HEADERS += \
         include\mainwindow.h \
     include\client.h \
     include\message.h \
     include\boat.h \
-    include/virtualmap.h
+    include/virtualmap.h \
+    include/meteo.h
 
 FORMS += \
         mainwindow.ui
