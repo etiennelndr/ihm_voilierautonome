@@ -49,6 +49,7 @@ class MainWindow : public QMainWindow {
     private:
         float delta_barre, delta_voile;
         bool connected;
+        int my_id;
         ClientTcp* client;
         Ui::MainWindow *ui;
         vector<Boat*> boats;
@@ -56,6 +57,7 @@ class MainWindow : public QMainWindow {
 
         void keyPressEvent(QKeyEvent *event);
         void create_connections();
+        Boat* get_boat(int id);
 
 };
 

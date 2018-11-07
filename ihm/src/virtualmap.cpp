@@ -16,8 +16,14 @@ void VirtualMap::display_boats(vector<Boat*> boats,QMainWindow* mw){
 
     for (unsigned int i = 0; i < boats.size(); i++) {
         Boat* boat = boats.at(i);
-        ellipsePainter.fillRect(scale(boat->get_longitude())+14,scale(boat->get_latitude())+12,20,75,boat->get_color());
-        ellipsePainter.drawEllipse(QRect(scale(boat->get_longitude()),scale(boat->get_latitude()),50,100));
+        if (boat->get_latitude()>0.0f && boat->get_longitude()>0.0f){
+            ellipsePainter.fillRect(scale_lat(boat->get_latitude()),scale_lon(boat->get_longitude()),20,75,boat->get_color());
+        }
+        else {
+             ellipsePainter.fillRect(245-(boats.size()*30/2)+30*i,423,20,75,boat->get_color());
+        }
+        ellipsePainter.fillRect(245-(boats.size()*30/2)+30*i,720,10,10,boat->get_color());
+        ellipsePainter.drawText(245-(boats.size()*30/2)+30*i,745,QString::number(boat->get_id()));
     }
 
 //    ellipsePainter.fillRect(114,292,20,75,Qt::green);
@@ -40,6 +46,16 @@ void VirtualMap::display_boats(vector<Boat*> boats,QMainWindow* mw){
     painter.drawRect(rectangle);
 }
 
-int VirtualMap::scale(float l){
-    return 215;
+int VirtualMap::scale_lat(float l){
+    float pos = l-start_latitude;
+    pos = pos*(end_latitude-start_latitude);
+    return int(pos);
+}
+int VirtualMap::scale_lon(float l){
+    float pos = l-start_longitude;
+    pos = pos*(end_longitude-start_longitude);
+    return int(pos);
+}
+float VirtualMap::angle(float l){
+    return (float)(qrand()%360);
 }
