@@ -230,10 +230,10 @@ void MainWindow::receive_latitude(float l, int id_concern){
  */
 void MainWindow::receive_cap(float c, int id_concern){
     if(id_concern>0){
-        MainWindow::get_boat(id_concern)->set_cap(c);
+        get_boat(id_concern)->set_cap(c);
         update();
     } else if (id_concern<0) {
-        MainWindow::get_meteo(id_concern)->set_cap(c);
+        get_meteo(id_concern)->set_cap(c);
         update();
     }
     cout << "New cap of " << id_concern << " : " << c <<endl;
@@ -248,10 +248,10 @@ void MainWindow::receive_cap(float c, int id_concern){
  */
 void MainWindow::receive_vitesse(float v, int id_concern){
     if(id_concern>0){
-        MainWindow::get_boat(id_concern)->set_vitesse(v);
+        get_boat(id_concern)->set_vitesse(v);
         update();
     } else if (id_concern<0) {
-        MainWindow::get_meteo(id_concern)->set_vitesse(v);
+        get_meteo(id_concern)->set_vitesse(v);
         update();
     }
 
