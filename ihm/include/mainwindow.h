@@ -62,6 +62,7 @@ class MainWindow : public QMainWindow {
         void keyPressEvent(QKeyEvent *event);
         void create_connections();
         Boat* get_boat(int id);
+        Meteo* get_meteo(int id);
 
         QMutex mtx;
 };
