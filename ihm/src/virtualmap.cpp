@@ -56,6 +56,6 @@ int VirtualMap::scale_lon(float l){
     pos = pos*(end_longitude-start_longitude);
     return int(pos);
 }
-float VirtualMap::angle(float l){
-    return (float)(qrand()%360);
+float VirtualMap::angle(float l) {
+    return float((qrand()%360));
 }

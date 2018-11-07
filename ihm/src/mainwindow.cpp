@@ -64,7 +64,7 @@ void MainWindow::create_connections(){
 }
 
 Boat* MainWindow::get_boat(int id){
-    Boat* boat = NULL;
+    Boat* boat = nullptr;
     for (unsigned int i=0;i<boats.size();i++) {
         if(boats.at(i)->get_id()==id)
             boat = boats.at(i);
@@ -143,17 +143,17 @@ void MainWindow::on_BtnConxDeconx_clicked() {
 //        }
         create_connections();
     } else {
-<<<<<<< HEAD
         cout << "on_BtnConxDeconx_clicked" << endl;
+        //mtx.lock();
         // Delete the client
         if (client != nullptr) {
             delete client;
         }
         // Set it to nullptr
         client = nullptr;
-=======
+        cout << "OKKKKKKKKKK" << endl;
+        //mtx.unlock();
         ui->BtnConxDeconx->setText("Connexion");
->>>>>>> 67f2a7918af71df6ab8134f9b6ea6656418e5855
     }
 }
 

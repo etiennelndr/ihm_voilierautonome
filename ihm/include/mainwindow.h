@@ -6,6 +6,7 @@
 #include <QColor>
 #include <vector>
 #include <QKeyEvent>
+#include <QMutex>
 #include "client.h"
 #include "boat.h"
 #include "virtualmap.h"
@@ -51,7 +52,6 @@ class MainWindow : public QMainWindow {
         bool connected;
         ClientTcp* client=nullptr;
         int my_id;
-        ClientTcp* client;
         Ui::MainWindow *ui;
         vector<Boat*> boats;
         VirtualMap* virtual_map;
@@ -60,6 +60,7 @@ class MainWindow : public QMainWindow {
         void create_connections();
         Boat* get_boat(int id);
 
+        QMutex mtx;
 };
 
 #endif // MAINWINDOW_H
