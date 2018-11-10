@@ -3,6 +3,9 @@
 
 #endif // METEO_H
 
+/**
+ * @brief The Meteo class
+ */
 class Meteo {
 public:
     Meteo(int id, float lat, float lon);
