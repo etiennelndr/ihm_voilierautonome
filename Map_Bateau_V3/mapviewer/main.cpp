@@ -55,7 +55,6 @@
 
 static bool parseArgs(QStringList& args, QVariantMap& parameters)
 {
-
     while (!args.isEmpty()) {
 
         QString param = args.takeFirst();
