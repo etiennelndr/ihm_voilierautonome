@@ -65,7 +65,7 @@ ApplicationWindow {
     //defaults
     //! [routecoordinate]
    // property variant fromCoordinate: QtPositioning.coordinate(59.9483, 10.7695) // v orig
-    property variant toCoordinate: QtPositioning.coordinate(59.9645, 10.671)
+    // property variant toCoordinate: QtPositioning.coordinate(59.9645, 10.671)
 
     property variant fromCoordinate: QtPositioning.coordinate(48,3866, -4,5131) // enib/plouzané coordinates
     property variant toCoordinate: QtPositioning.coordinate(59.9645, 10.671)
