@@ -8,7 +8,8 @@ INPUT(
 ./debug\balises.o
 ./debug\sationsmeteo.o
 ./debug\stationsmeteo2.o
-./debug\virtualmap.o
+./debug\meteo.o
+./debug\utils.o
 ./debug\moc_mainwindow.o
 ./debug\moc_client.o
 ./debug\moc_balises.o

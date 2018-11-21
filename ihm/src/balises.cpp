@@ -6,9 +6,14 @@ balises::balises(QWidget *parent) :
     ui(new Ui::balises)
 {
     ui->setupUi(this);
+
+    delete ui;
+
 }
 
-balises::~balises()
+
+
+void balises::on_bouton_valider_clicked()
 {
-    delete ui;
+
 }

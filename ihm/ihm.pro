@@ -38,7 +38,8 @@ SOURCES += \
     src\sationsmeteo.cpp \
     src\stationsmeteo2.cpp \
     src\meteo.cpp \
-    src\utils\utils.cpp
+    src\utils\utils.cpp \
+    src/balise.cpp
 
 HEADERS += \
     include\mainwindow.h \
@@ -50,7 +51,8 @@ HEADERS += \
     include\sationsmeteo.h \
     include\stationsmeteo2.h\
     include\meteo.h \
-    include\utils\utils.h
+    include\utils\utils.h \
+    include/balise.h
 
 FORMS += \
     forms\mainwindow.ui \

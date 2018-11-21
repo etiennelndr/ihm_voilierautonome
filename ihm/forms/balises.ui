@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>442</width>
-    <height>357</height>
+    <width>488</width>
+    <height>410</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -34,6 +34,9 @@
      <width>113</width>
      <height>22</height>
     </rect>
+   </property>
+   <property name="text">
+    <string/>
    </property>
   </widget>
   <widget class="QLabel" name="label_12">
@@ -127,7 +130,7 @@
     <string>Balise 1:</string>
    </property>
   </widget>
-  <widget class="QLineEdit" name="TxtLongitude">
+  <widget class="QLineEdit" name="TxtLongitude_1">
    <property name="geometry">
     <rect>
      <x>100</x>
@@ -203,7 +206,7 @@
     <string>Longitude:</string>
    </property>
   </widget>
-  <widget class="QLineEdit" name="TxtLatitude">
+  <widget class="QLineEdit" name="TxtLatitude_1">
    <property name="geometry">
     <rect>
      <x>300</x>
@@ -247,6 +250,19 @@
      <width>113</width>
      <height>22</height>
     </rect>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="bouton_valider">
+   <property name="geometry">
+    <rect>
+     <x>190</x>
+     <y>350</y>
+     <width>93</width>
+     <height>28</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Valider</string>
    </property>
   </widget>
  </widget>

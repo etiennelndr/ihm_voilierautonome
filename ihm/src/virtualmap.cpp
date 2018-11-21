@@ -1,4 +1,6 @@
 #include "virtualmap.h"
+#include "balises.h"
+#include "ui_balises.h"
 
 VirtualMap::VirtualMap(){
     std::cout<<"Nothing";
