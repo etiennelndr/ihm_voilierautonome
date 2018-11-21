@@ -55,7 +55,7 @@ class MainWindow : public QMainWindow {
 
 private:
         sationsmeteo *staion;
-        balises *balise;
+        Balise_IHM *balise;
         stationMeteo2 *station2;
 
 

@@ -5,21 +5,21 @@
 #include <QLineEdit>
 
 namespace Ui {
-class balises;
+class Balise_IHM;
 }
 
-class balises : public QDialog
+class Balise_IHM : public QDialog
 {
     Q_OBJECT
 
 public:
-    explicit balises(QWidget *parent = nullptr);
+    explicit Balise_IHM(QWidget *parent = nullptr);
 
 private slots:
     void on_bouton_valider_clicked();
 
 private:
-    Ui::balises *ui;
+    Ui::Balise_IHM *ui;
     QLineEdit *TxtLongitude_1;
     QLineEdit *TxtLatitude_1;
     QLineEdit *TxtLongitude_2;

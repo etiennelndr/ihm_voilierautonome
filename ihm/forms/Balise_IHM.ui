@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>balises</class>
- <widget class="QDialog" name="balises">
+ <class>Balise_IHM</class>
+ <widget class="QDialog" name="Balise_IHM">
   <property name="geometry">
    <rect>
     <x>0</x>
