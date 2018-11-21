@@ -62,7 +62,7 @@ ApplicationWindow {
     property variant minimap
     property variant parameters
 
-    //defaults affichage
+    //defaults affichage test
     //! [routecoordinate]
    // property variant fromCoordinate: QtPositioning.coordinate(59.9483, 10.7695) // v orig
     // property variant toCoordinate: QtPositioning.coordinate(59.9645, 10.671)
