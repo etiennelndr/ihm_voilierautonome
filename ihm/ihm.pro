@@ -24,12 +24,12 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 CONFIG += c++11
 
-DEPENDPATH += . include main src
-INCLUDEPATH += . include
+DEPENDPATH += . include main src src/utils
+INCLUDEPATH += . include include/utils
 
 SOURCES += \
-        main\main.cpp \
-        src\mainwindow.cpp \
+    main\main.cpp \
+    src\mainwindow.cpp \
     src\client.cpp \
     src\message.cpp \
     src\boat.cpp \
@@ -38,9 +38,11 @@ SOURCES += \
     sationsmeteo.cpp \
     stationsmeteo2.cpp \
     src/virtualmap.cpp
+    src/meteo.cpp \
+    src/utils/utils.cpp
 
 HEADERS += \
-        include\mainwindow.h \
+    include\mainwindow.h \
     include\client.h \
     include\message.h \
     include\boat.h \
@@ -50,6 +52,8 @@ HEADERS += \
     src/sationsmeteo.h \
     sationsmeteo.h \
     stationsmeteo2.h
+    include/meteo.h \
+    include/utils/utils.h
 
 FORMS += \
         mainwindow.ui \

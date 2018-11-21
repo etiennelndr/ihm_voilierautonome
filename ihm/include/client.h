@@ -23,6 +23,7 @@ class ClientTcp : public QObject {
         void set_barre(float * b);
         void set_voile(float * v);
         void init_msg(Message& msg);
+
     public slots:
         void readDataFromTCPIP();
         void connecte();
@@ -40,6 +41,7 @@ class ClientTcp : public QObject {
         void send_tangage(float, int);
         void send_barre(float, int);
         void send_voile(float, int);
+        void add_new_boat(int);
 
     private:
         // Ip du serveur
@@ -54,11 +56,13 @@ class ClientTcp : public QObject {
         // Donnes relatives au client pour creation de messages
         string msg_type = "P";
         int my_id;
+        vector<int> known_ids;
         int id_dest = 0;
 
         // Method to send a message to the server
         void send(QString msg);
         void received_data(QString data);
+        bool is_known(int _id);
 };
 
 

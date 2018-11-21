@@ -6,12 +6,14 @@
 #include <QColor>
 #include <vector>
 #include <QKeyEvent>
+#include <QMutex>
 #include "client.h"
 #include "boat.h"
 #include "virtualmap.h"
 #include "sationsmeteo.h"
 #include "balises.h"
 #include "stationmeteo2.h"
+#include "meteo.h"
 
 class QPushButton;
 class QRadioButton;
@@ -31,7 +33,7 @@ class MainWindow : public QMainWindow {
     public:
         explicit MainWindow(QWidget *parent = 0);
         ~MainWindow();
-    virtual void paintEvent(QPaintEvent *event);
+        virtual void paintEvent(QPaintEvent *event);
 
     public slots:
         void on_RadioControle_clicked();
@@ -48,6 +50,7 @@ class MainWindow : public QMainWindow {
         void receive_tangage(float t, int id_concern);
         void receive_barre(float b, int id_concern);
         void receive_voile(float v, int id_concern);
+        void add_new_boat(int id_concern);
 
 private:
         sationsmeteo *staion;
@@ -63,16 +66,19 @@ private slots:
 private:
         float delta_barre, delta_voile;
         bool connected;
+        ClientTcp* client=nullptr;
         int my_id;
-        ClientTcp* client;
         Ui::MainWindow *ui;
         vector<Boat*> boats;
+        vector<Meteo*> meteos;
         VirtualMap* virtual_map;
 
         void keyPressEvent(QKeyEvent *event);
         void create_connections();
         Boat* get_boat(int id);
+        Meteo* get_meteo(int id);
 
+        QMutex mtx;
 };
 
 #endif // MAINWINDOW_H

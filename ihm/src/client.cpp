@@ -16,16 +16,16 @@ ClientTcp::ClientTcp(QString ip, quint16 port, int id) {
     // Create a new socket
     soc = new QTcpSocket(this);
 
-    // Set our id to 1
     my_id  = id;
+    known_ids.push_back(id);
 
     soc->abort(); // On désactive les connexions précédentes s'il y en a
     soc->connectToHost(serverIp, serverPort); // On se connecte au serveur demandé
 
     // Create connectors
-    connect(soc, SIGNAL(readyRead()), this, SLOT(readDataFromTCPIP()));
-    connect(soc, SIGNAL(connected()), this, SLOT(connecte()));
-    connect(soc, SIGNAL(disconnected()), this, SLOT(deconnecte()));
+    connect(soc, SIGNAL(readyRead()),                         this, SLOT(readDataFromTCPIP()));
+    connect(soc, SIGNAL(connected()),                         this, SLOT(connecte()));
+    connect(soc, SIGNAL(disconnected()),                      this, SLOT(deconnecte()));
     connect(soc, SIGNAL(error(QAbstractSocket::SocketError)), this, SLOT(erreurSocket(QAbstractSocket::SocketError)));
 
     // Set the length of the message to 0
@@ -38,7 +38,55 @@ ClientTcp::ClientTcp(QString ip, quint16 port, int id) {
  * @brief ClientTcp::~ClientTcp : TODO
  */
 ClientTcp::~ClientTcp() {
+    soc->close();
     delete soc;
+}
+
+bool ClientTcp::is_known(int _id){
+    for (unsigned int i=0; i<known_ids.size(); i++){
+        if(known_ids.at(i)==_id)
+            return true;
+    }
+    return false;
+}
+/**
+ * METHOD
+ *
+ * @brief ClientTcp::init_msg : TODO
+ * @param msg
+ */
+void ClientTcp::init_msg(Message& msg){
+    msg.setType(new string(msg_type));
+    msg.setIdSender(new int(my_id));
+    msg.setIdDest(new int(id_dest));
+    msg.setIdConcern(new int(my_id));
+    return;
+}
+
+/**
+ * METHOD
+ *
+ * @brief ClientTcp::set_barre : TODO
+ * @param b
+ */
+void ClientTcp::set_barre(float * b) {
+    Message msg;
+    init_msg(msg);
+    msg.setBarre(b);
+    send(msg.encodeData());
+}
+
+/**
+ * METHOD
+ *
+ * @brief ClientTcp::set_voile : TODO
+ * @param v
+ */
+void ClientTcp::set_voile(float * v) {
+    Message msg;
+    init_msg(msg);
+    msg.setEcoute(v);
+    send(msg.encodeData());
 }
 
 /*--------------------------*
@@ -137,7 +185,7 @@ void ClientTcp::deconnecte() {
 void ClientTcp::erreurSocket(QAbstractSocket::SocketError erreur) {
     switch(erreur) { // On affiche un message différent selon l'erreur qu'on nous indique
         case QAbstractSocket::HostNotFoundError:
-            emit connexion_status(false);
+            //emit connexion_status(false);
             cout << "\nERREUR : le serveur n'a pas pu être trouvé. Vérifiez l'IP et le port." << endl;
             break;
         case QAbstractSocket::ConnectionRefusedError:
@@ -148,49 +196,9 @@ void ClientTcp::erreurSocket(QAbstractSocket::SocketError erreur) {
             cout << "\nERREUR : le serveur a coupé la connexion." << endl;
             break;
         default:
-            emit connexion_status(false);
+            //emit connexion_status(false);
             cout << "\nERREUR : " << soc->errorString().toStdString() << endl;
     }
-}
-
-/**
- * SLOT -> TODO
- *
- * @brief ClientTcp::init_msg : TODO
- * @param msg
- */
-void ClientTcp::init_msg(Message& msg){
-    msg.setType(new string(msg_type));
-    msg.setIdSender(new int(my_id));
-    msg.setIdDest(new int(id_dest));
-    msg.setIdConcern(new int(my_id));
-    return;
-}
-
-/**
- * SLOT -> TODO
- *
- * @brief ClientTcp::set_barre : TODO
- * @param b
- */
-void ClientTcp::set_barre(float * b) {
-    Message msg;
-    init_msg(msg);
-    msg.setBarre(b);
-    send(msg.encodeData());
-}
-
-/**
- * SLOT -> TODO
- *
- * @brief ClientTcp::set_voile : TODO
- * @param v
- */
-void ClientTcp::set_voile(float * v) {
-    Message msg;
-    init_msg(msg);
-    msg.setEcoute(v);
-    send(msg.encodeData());
 }
 
 /**
@@ -205,29 +213,35 @@ void ClientTcp::received_data(QString data){
     cout << data.toStdString() <<endl;
     // Apres decodage du message : verification de la validite puis emission de signals pour l'IHM
     if (!msg.getError() && *msg.getIdSender()==0 && *msg.getIdDest()==my_id) { // Le message vient du serveur et m'est destine
-        if (msg.getLongitude()) {
-            emit send_longitude(*msg.getLongitude(),*msg.getIdConcern());
+        if((!is_known(*msg.getIdConcern())) && *msg.getIdConcern()>0){
+            emit add_new_boat(*msg.getIdConcern());
+            known_ids.push_back(*msg.getIdConcern());
         }
-        if (msg.getLatitude()){
-            emit send_latitude(*msg.getLatitude(),*msg.getIdConcern());
-        }
-        if (msg.getCap()){
-            emit send_cap(*msg.getCap(),*msg.getIdConcern());
-        }
-        if (msg.getVitesse()){
-            emit send_vitesse(*msg.getVitesse(),*msg.getIdConcern());
-        }
-        if (msg.getGite()){
-            emit send_gite(*msg.getGite(),*msg.getIdConcern());
-        }
-        if (msg.getTangage()){
-            emit send_tangage(*msg.getTangage(),*msg.getIdConcern());
-        }
-        if (msg.getBarre()){
-            emit send_barre(*msg.getBarre(),*msg.getIdConcern());
-        }
-        if (msg.getEcoute()){
-            emit send_voile(*msg.getEcoute(),*msg.getIdConcern());
+        else{
+            if (msg.getLongitude()) {
+                emit send_longitude(*msg.getLongitude(),*msg.getIdConcern());
+            }
+            if (msg.getLatitude()){
+                emit send_latitude(*msg.getLatitude(),*msg.getIdConcern());
+            }
+            if (msg.getCap()){
+                emit send_cap(*msg.getCap(),*msg.getIdConcern());
+            }
+            if (msg.getVitesse()){
+                emit send_vitesse(*msg.getVitesse(),*msg.getIdConcern());
+            }
+            if (msg.getGite()){
+                emit send_gite(*msg.getGite(),*msg.getIdConcern());
+            }
+            if (msg.getTangage()){
+                emit send_tangage(*msg.getTangage(),*msg.getIdConcern());
+            }
+            if (msg.getBarre()){
+                emit send_barre(*msg.getBarre(),*msg.getIdConcern());
+            }
+            if (msg.getEcoute()){
+                emit send_voile(*msg.getEcoute(),*msg.getIdConcern());
+            }
         }
     }
 }
