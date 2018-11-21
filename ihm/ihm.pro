@@ -37,9 +37,8 @@ SOURCES += \
     src\balises.cpp \
     src\sationsmeteo.cpp \
     src\stationsmeteo2.cpp \
-    src\virtualmap.cpp \
     src\meteo.cpp \
-    src\utils/utils.cpp
+    src\utils\utils.cpp
 
 HEADERS += \
     include\mainwindow.h \
@@ -49,11 +48,9 @@ HEADERS += \
     include\virtualmap.h \
     include\balises.h \
     include\sationsmeteo.h \
-    include\sationsmeteo.h \
-    include\sationsmeteo.h \
     include\stationsmeteo2.h\
     include\meteo.h \
-    include\utils/utils.h
+    include\utils\utils.h
 
 FORMS += \
     forms\mainwindow.ui \

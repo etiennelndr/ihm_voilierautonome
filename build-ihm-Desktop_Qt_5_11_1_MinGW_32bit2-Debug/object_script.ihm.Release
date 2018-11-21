@@ -8,7 +8,6 @@ INPUT(
 ./release\balises.o
 ./release\sationsmeteo.o
 ./release\stationsmeteo2.o
-./release\virtualmap.o
 ./release\meteo.o
 ./release\utils.o
 ./release\moc_mainwindow.o
