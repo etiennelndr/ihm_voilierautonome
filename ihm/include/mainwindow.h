@@ -9,6 +9,9 @@
 #include "client.h"
 #include "boat.h"
 #include "virtualmap.h"
+#include "sationsmeteo.h"
+#include "balises.h"
+#include "stationmeteo2.h"
 
 class QPushButton;
 class QRadioButton;
@@ -46,7 +49,18 @@ class MainWindow : public QMainWindow {
         void receive_barre(float b, int id_concern);
         void receive_voile(float v, int id_concern);
 
-    private:
+private:
+        sationsmeteo *staion;
+        balises *balise;
+        stationMeteo2 *station2;
+
+
+
+private slots:
+        void on_actionStations_triggered();
+        void on_actionBalise_triggered();
+
+private:
         float delta_barre, delta_voile;
         bool connected;
         int my_id;

@@ -18,7 +18,7 @@
     <property name="geometry">
      <rect>
       <x>0</x>
-      <y>10</y>
+      <y>0</y>
       <width>471</width>
       <height>161</height>
      </rect>
@@ -94,6 +94,17 @@
      <height>26</height>
     </rect>
    </property>
+   <widget class="QMenu" name="menuInitialisation">
+    <property name="title">
+     <string>Initialisation</string>
+    </property>
+    <addaction name="separator"/>
+    <addaction name="separator"/>
+    <addaction name="actionStations"/>
+    <addaction name="actionBalise"/>
+    <addaction name="separator"/>
+   </widget>
+   <addaction name="menuInitialisation"/>
   </widget>
   <widget class="QToolBar" name="mainToolBar">
    <attribute name="toolBarArea">
@@ -102,8 +113,20 @@
    <attribute name="toolBarBreak">
     <bool>false</bool>
    </attribute>
+   <addaction name="actionStations"/>
+   <addaction name="actionBalise"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
+  <action name="actionStations">
+   <property name="text">
+    <string>Stations</string>
+   </property>
+  </action>
+  <action name="actionBalise">
+   <property name="text">
+    <string>Balise</string>
+   </property>
+  </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources/>

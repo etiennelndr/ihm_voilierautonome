@@ -1,5 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include "balises.h"
+#include "sationsmeteo.h"
 #include <QPushButton>
 #include "mainwindow.h"
 #include<QtCore>
@@ -300,4 +302,20 @@ void MainWindow::receive_voile(float v, int id_concern){
         MainWindow::update();
     }
     cout << "New voile of " << id_concern << " : " << v <<endl;
+}
+
+void MainWindow::on_actionStations_triggered()
+{
+    // SationsMeteo statio;
+    // statio.setModal(true);
+     //statio.exec();
+    staion = new sationsmeteo(this);
+    staion->show();
+}
+
+void MainWindow::on_actionBalise_triggered()
+{
+    balise = new balises(this);
+    balise->show();
+
 }

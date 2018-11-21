@@ -1,7 +1,7 @@
 #include "virtualmap.h"
 
 VirtualMap::VirtualMap(){
-
+    std::cout<<"Nothing";
 }
 
 void VirtualMap::display_boats(vector<Boat*> boats,QMainWindow* mw){
@@ -15,6 +15,7 @@ void VirtualMap::display_boats(vector<Boat*> boats,QMainWindow* mw){
 
 
     for (unsigned int i = 0; i < boats.size(); i++) {
+
         Boat* boat = boats.at(i);
         if (boat->get_latitude()>0.0f && boat->get_longitude()>0.0f){
             ellipsePainter.fillRect(scale_lat(boat->get_latitude()),scale_lon(boat->get_longitude()),20,75,boat->get_color());

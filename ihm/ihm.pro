@@ -33,6 +33,10 @@ SOURCES += \
     src\client.cpp \
     src\message.cpp \
     src\boat.cpp \
+    src/virtualmap.cpp \
+    balises.cpp \
+    sationsmeteo.cpp \
+    stationsmeteo2.cpp \
     src/virtualmap.cpp
 
 HEADERS += \
@@ -40,10 +44,18 @@ HEADERS += \
     include\client.h \
     include\message.h \
     include\boat.h \
-    include/virtualmap.h
+    include/virtualmap.h \
+    balises.h \
+    sationsmeteo.h \
+    src/sationsmeteo.h \
+    sationsmeteo.h \
+    stationsmeteo2.h
 
 FORMS += \
-        mainwindow.ui
+        mainwindow.ui \
+    balises.ui \
+    sationsmeteo.ui \
+    stationsmeteo2.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
