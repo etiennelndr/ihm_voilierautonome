@@ -7,7 +7,7 @@
 #include <QGridLayout>
 #include <QDebug>
 #include <QtWidgets>
-#include <balises.h>
+#include <balise_IHM.h>
 
 \
 stationsmeteo2::stationsmeteo2(QWidget *parent, int nb) :

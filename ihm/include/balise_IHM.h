@@ -15,14 +15,8 @@ class balises : public QDialog
 public:
     explicit balises(QWidget *parent = nullptr);
 
-    QLineEdit *getTxtLongitude_1() const;
-    QLineEdit *getTxtLatitude_1() const;
-    QLineEdit *getTxtLongitude_2() const;
-    QLineEdit *getTxtLatitude_2() const;
-    QLineEdit *getTxtLongitude_3() const;
-    QLineEdit *getTxtLatitude_3() const;
-    QLineEdit *getTxtLongitude_4() const;
-    QLineEdit *getTxtLatitude_4() const;
+private slots:
+    void on_bouton_valider_clicked();
 
 private:
     Ui::balises *ui;
@@ -36,21 +30,6 @@ private:
     QLineEdit *TxtLatitude_4;
 };
 
-class Balise{
-public:
-    Balise();
-    //get
-    float get_latitude() const        {return latitude;}
-    float get_longitude() const       {return longitude;}
-    //set
-    float set_latitude() const          {return latitude;}
-    float set_langitude() const         {return longitude;}
 
-
-private:
-    float latitude;
-    float longitude;
-    balises choice;
-};
 
 #endif // BALISES_H

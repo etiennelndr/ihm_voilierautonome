@@ -10,9 +10,10 @@ INPUT(
 ./debug\stationsmeteo2.o
 ./debug\meteo.o
 ./debug\utils.o
+./debug\balise.o
 ./debug\moc_mainwindow.o
 ./debug\moc_client.o
-./debug\moc_balises.o
 ./debug\moc_sationsmeteo.o
 ./debug\moc_stationsmeteo2.o
+./debug\moc_balise_IHM.o
 );

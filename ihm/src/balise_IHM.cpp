@@ -1,4 +1,4 @@
-#include "balises.h"
+#include "balise_IHM.h"
 #include "ui_balises.h"
 
 balises::balises(QWidget *parent) :

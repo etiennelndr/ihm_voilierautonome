@@ -11,7 +11,7 @@
 #include "boat.h"
 #include "virtualmap.h"
 #include "sationsmeteo.h"
-#include "balises.h"
+#include "balise_IHM.h"
 #include "stationmeteo2.h"
 #include "meteo.h"
 #include "balise.h"

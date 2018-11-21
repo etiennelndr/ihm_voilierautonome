@@ -3,7 +3,7 @@
 
 class Balise{
 public:
-    Balise();
+    Balise(float _latitude, float _longitude);
     //get
     float get_latitude() const        {return latitude;}
     float get_longitude() const       {return longitude;}

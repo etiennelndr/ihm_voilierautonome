@@ -10,9 +10,10 @@ INPUT(
 ./release\stationsmeteo2.o
 ./release\meteo.o
 ./release\utils.o
+./release\balise.o
 ./release\moc_mainwindow.o
 ./release\moc_client.o
-./release\moc_balises.o
 ./release\moc_sationsmeteo.o
 ./release\moc_stationsmeteo2.o
+./release\moc_balise_IHM.o
 );

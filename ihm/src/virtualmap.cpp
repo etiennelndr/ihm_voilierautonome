@@ -1,5 +1,5 @@
 #include "virtualmap.h"
-#include "balises.h"
+#include "balise_IHM.h"
 #include "ui_balises.h"
 
 VirtualMap::VirtualMap(){
