@@ -1,4 +1,6 @@
 #include "virtualmap.h"
+#include "balise_IHM.h"
+#include "ui_Balise_IHM.h"
 
 VirtualMap::VirtualMap(){
     std::cout<<"Nothing";

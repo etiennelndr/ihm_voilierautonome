@@ -11,9 +11,10 @@
 #include "boat.h"
 #include "virtualmap.h"
 #include "sationsmeteo.h"
-#include "balises.h"
+#include "balise_IHM.h"
 #include "stationmeteo2.h"
 #include "meteo.h"
+#include "balise.h"
 
 class QPushButton;
 class QRadioButton;
@@ -54,7 +55,7 @@ class MainWindow : public QMainWindow {
 
 private:
         sationsmeteo *staion;
-        balises *balise;
+        Balise_IHM *balise;
         stationMeteo2 *station2;
 
 
@@ -71,6 +72,7 @@ private:
         Ui::MainWindow *ui;
         vector<Boat*> boats;
         vector<Meteo*> meteos;
+        vector<Balise*> balises;
         VirtualMap* virtual_map;
 
         void keyPressEvent(QKeyEvent *event);

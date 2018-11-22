@@ -34,11 +34,12 @@ SOURCES += \
     src\message.cpp \
     src\boat.cpp \
     src\virtualmap.cpp \
-    src\balises.cpp \
     src\sationsmeteo.cpp \
     src\stationsmeteo2.cpp \
     src\meteo.cpp \
-    src\utils\utils.cpp
+    src\utils\utils.cpp \
+    src/balise.cpp \
+    src/balise_IHM.cpp
 
 HEADERS += \
     include\mainwindow.h \
@@ -46,15 +47,16 @@ HEADERS += \
     include\message.h \
     include\boat.h \
     include\virtualmap.h \
-    include\balises.h \
     include\sationsmeteo.h \
     include\stationsmeteo2.h\
     include\meteo.h \
-    include\utils\utils.h
+    include\utils\utils.h \
+    include/balise.h \
+    include/balise_IHM.h
 
 FORMS += \
     forms\mainwindow.ui \
-    forms\balises.ui \
+    forms\Balise_IHM.ui \
     forms\sationsmeteo.ui \
     forms\stationsmeteo2.ui
 

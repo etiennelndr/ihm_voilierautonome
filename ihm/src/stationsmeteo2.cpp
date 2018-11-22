@@ -7,6 +7,7 @@
 #include <QGridLayout>
 #include <QDebug>
 #include <QtWidgets>
+#include <balise_IHM.h>
 
 \
 stationsmeteo2::stationsmeteo2(QWidget *parent, int nb) :
@@ -18,7 +19,7 @@ stationsmeteo2::stationsmeteo2(QWidget *parent, int nb) :
     void addWidget(QWidget * widget, int stretch = 2, Qt::Alignment alignment = 0);
     QVBoxLayout *grid = new QVBoxLayout;
     for (int i = 0; i <nb; ++i) {
-           labelsBalise[i] = new QLabel(tr("----------------------------------- Balise%1 ---------------------------------------").arg(i+1));
+           labelsBalise[i] = new QLabel(tr("----------------------------------- Station météo%1 ---------------------------------------").arg(i+1));
            labels[i] = new QLabel(tr("Longitude"));
            lineEdits[i] = new QLineEdit;
            grid->addWidget(labelsBalise[i]);
@@ -31,6 +32,7 @@ stationsmeteo2::stationsmeteo2(QWidget *parent, int nb) :
            this->setLayout(grid);
 
        }
+
 
 
 

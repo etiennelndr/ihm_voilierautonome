@@ -1,6 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include "balises.h"
+#include "balise_IHM.h"
 #include "sationsmeteo.h"
 #include <QPushButton>
 #include "mainwindow.h"
@@ -12,6 +12,8 @@
 #include<QHBoxLayout>
 #include<QRadioButton>
 #include<QTextBrowser>
+#include<balise.h>
+#include<balise_IHM.h>
 
 /**
  * CONSTRUCTOR
@@ -354,7 +356,8 @@ void MainWindow::on_actionStations_triggered()
  */
 void MainWindow::on_actionBalise_triggered()
 {
-    balise = new balises(this);
+    balise = new Balise_IHM(this);
     balise->show();
 
+   // connect (balise->bouton_valider, SIGNAL (on_clicked()), this, init_balises())
 }
