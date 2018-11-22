@@ -331,9 +331,13 @@ void MainWindow::add_new_boat(int id_concern){
         MainWindow::update();
         cout << "New boat with id " << id_concern <<endl;
     }
-
 }
 
+/**
+ * SLOT -> TODO
+ *
+ * @brief MainWindow::on_actionStations_triggered : TODO
+ */
 void MainWindow::on_actionStations_triggered()
 {
     // SationsMeteo statio;
@@ -343,6 +347,11 @@ void MainWindow::on_actionStations_triggered()
     staion->show();
 }
 
+/**
+ * SLOT -> TODO
+ *
+ * @brief MainWindow::on_actionBalise_triggered : TODO
+ */
 void MainWindow::on_actionBalise_triggered()
 {
     balise = new balises(this);
