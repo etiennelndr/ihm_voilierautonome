@@ -26,6 +26,8 @@ private:
     Ui::stationsmeteo2 *ui;
     QLabel *labels[NumGridRows];
     QLabel *labelsBalise[NumGridRows];
+    QLabel *labelsID[NumGridRows];
+    QLineEdit *lineEditsID[NumGridRows];
     QLineEdit *lineEdits[NumGridRows];
     QGroupBox *gridGroupBox;
     QWidget      w;

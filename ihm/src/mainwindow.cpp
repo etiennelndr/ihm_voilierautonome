@@ -349,6 +349,5 @@ void MainWindow::on_actionBalise_triggered()
 {
     balise = new Balise_IHM(this);
     balise->show();
-
-   // connect (balise->bouton_valider, SIGNAL (on_clicked()), this, init_balises())
+    //connect(balise->BtnValider, SIGNAL(on_clicked()), this, SLOT(balise->AffichageBateaux()));
 }

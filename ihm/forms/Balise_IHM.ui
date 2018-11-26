@@ -252,7 +252,7 @@
     </rect>
    </property>
   </widget>
-  <widget class="QPushButton" name="bouton_valider">
+  <widget class="QPushButton" name="BtnValider">
    <property name="geometry">
     <rect>
      <x>190</x>

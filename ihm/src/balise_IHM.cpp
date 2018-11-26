@@ -1,5 +1,7 @@
 #include "balise_IHM.h"
 #include "ui_Balise_IHM.h"
+#include <QDebug>
+#include <balise.h>
 
 Balise_IHM::Balise_IHM(QWidget *parent) :
     QDialog(parent),
@@ -12,8 +14,14 @@ Balise_IHM::Balise_IHM(QWidget *parent) :
 }
 
 
-
-void Balise_IHM::on_bouton_valider_clicked()
+/*void Balise_IHM::AffichageBateaux()
 {
+    qDebug() << "hehe";
+}*/
+
+void Balise_IHM::on_BtnValider_clicked()
+{
+  // balisee = new Balise(this);
+
 
 }
