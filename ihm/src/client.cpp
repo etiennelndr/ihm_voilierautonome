@@ -213,11 +213,14 @@ void ClientTcp::received_data(QString data){
     cout << data.toStdString() <<endl;
     // Apres decodage du message : verification de la validite puis emission de signals pour l'IHM
     if (!msg.getError() && *msg.getIdSender()==0 && *msg.getIdDest()==my_id) { // Le message vient du serveur et m'est destine
-        if((!is_known(*msg.getIdConcern())) && *msg.getIdConcern()>0){
-            emit add_new_boat(*msg.getIdConcern());
-            known_ids.push_back(*msg.getIdConcern());
+        if((!is_known(*msg.getIdConcern()))){
+            if (*msg.getIdConcern()>0) {
+                emit add_new_boat(*msg.getIdConcern());
+                known_ids.push_back(*msg.getIdConcern());
+            } else
+                return;
         }
-        else{
+        else {
             if (msg.getLongitude()) {
                 emit send_longitude(*msg.getLongitude(),*msg.getIdConcern());
             }
