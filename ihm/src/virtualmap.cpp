@@ -30,7 +30,11 @@ VirtualMap::VirtualMap(Balise* b1, Balise* b2, Balise* b3, Balise* b4){
     if (start_longitude >  b4->get_longitude()) {start_longitude=b4->get_longitude();}
     if (end_longitude   <  b4->get_longitude()) {end_longitude=b4->get_longitude();}
 
-
+    float offset = max(0.3f*(end_latitude-start_latitude), 0.3f*(end_longitude-start_longitude));
+    start_latitude-=offset;
+    end_latitude+=offset;
+    start_longitude-=offset;
+    end_longitude+=offset;
     qDebug() << start_latitude << " / " << end_latitude << " / " << start_longitude << " / " << end_longitude;
 }
 
@@ -66,11 +70,12 @@ void VirtualMap::display_boats(vector<Boat*> boats,QMainWindow* mw){
 //    ellipsePainter.drawEllipse(QRect(286,436,50,100));
     pen2.setWidth(8);
 
+    //Affichage des balises
     ellipsePainter.setPen(pen2);
-    ellipsePainter.drawEllipse(QRect(90,230,30,30));
-    ellipsePainter.drawEllipse(QRect(350,230,30,30));
-    ellipsePainter.drawEllipse(QRect(350,650,30,30));
-    ellipsePainter.drawEllipse(QRect(90,650,30,30));
+    ellipsePainter.drawEllipse(QRect(scale_lat(balises.at(0)->get_latitude())-5,scale_lon(balises.at(0)->get_longitude())-5,10,10));
+    ellipsePainter.drawEllipse(QRect(scale_lat(balises.at(1)->get_latitude())-5,scale_lon(balises.at(1)->get_longitude())-5,10,10));
+    ellipsePainter.drawEllipse(QRect(scale_lat(balises.at(2)->get_latitude())-5,scale_lon(balises.at(2)->get_longitude())-5,10,10));
+    ellipsePainter.drawEllipse(QRect(scale_lat(balises.at(3)->get_latitude())-5,scale_lon(balises.at(3)->get_longitude())-5,10,10));
 
 
     QRectF rectangle(60, 210, 500, 500);
@@ -103,20 +108,13 @@ void VirtualMap::display_boats(vector<Boat*> boats,QMainWindow* mw){
 //return { x: x*factor+x_adj,y: y*factor+y_adj}
 //}
 
-int VirtualMap::scale_lat(float l){
-    start_latitude = 300;
-    end_latitude = 500;
-    float pos = l-start_latitude;
-    pos = pos*(end_latitude-start_latitude);
-    qDebug() << pos;
-    return int(pos);
+int VirtualMap::scale_lat(float real_lat){
+    float scaled_lat = (real_lat-start_latitude)*(500/(max(end_latitude-start_latitude,end_longitude-start_longitude)));
+    return int(scaled_lat)+60; // offset de l'affichage du carre
 }
-int VirtualMap::scale_lon(float l){
-    start_longitude = 300;
-    end_longitude = 500;
-    float pos = l-start_longitude;
-    pos = pos*(end_longitude-start_longitude);
-    return int(pos);
+int VirtualMap::scale_lon(float real_long){
+    float scaled_long = (real_long-start_longitude)*(500/(max(end_latitude-start_latitude,end_longitude-start_longitude)));
+    return int(scaled_long)+210;  // offset de l'affichage du carre
 }
 float VirtualMap::angle(float l) {
     return float((qrand()%360));
