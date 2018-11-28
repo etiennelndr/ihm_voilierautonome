@@ -9,8 +9,8 @@
 #include <QtWidgets>
 #include <balise_IHM.h>
 
-\
-stationsmeteo2::stationsmeteo2(QWidget *parent, int nb) :
+
+Stationsmeteo2::Stationsmeteo2(QWidget *parent, int nb) :
     QDialog(parent),
     ui(new Ui::stationsmeteo2)
 {
@@ -52,7 +52,7 @@ stationsmeteo2::stationsmeteo2(QWidget *parent, int nb) :
 
 
 
-stationsmeteo2::~stationsmeteo2()
+Stationsmeteo2::~Stationsmeteo2()
 {
     delete ui;
 }

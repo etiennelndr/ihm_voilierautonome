@@ -14,13 +14,13 @@ namespace Ui {
 class stationsmeteo2;
 }
 
-class stationsmeteo2 : public QDialog
+class Stationsmeteo2 : public QDialog
 {
     Q_OBJECT
 
 public:
-    explicit stationsmeteo2(QWidget *parent = nullptr, int nb=0);
-    ~stationsmeteo2();
+    explicit Stationsmeteo2(QWidget *parent = nullptr, int nb=0);
+    ~Stationsmeteo2();
     enum {NumGridRows = 15};
 private:
     Ui::stationsmeteo2 *ui;

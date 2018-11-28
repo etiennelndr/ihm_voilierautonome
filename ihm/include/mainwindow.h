@@ -12,7 +12,7 @@
 #include "virtualmap.h"
 #include "sationsmeteo.h"
 #include "balise_IHM.h"
-#include "stationmeteo2.h"
+#include "stationsmeteo2.h"
 #include "meteo.h"
 #include "balise.h"
 
@@ -56,7 +56,7 @@ class MainWindow : public QMainWindow {
 private:
         sationsmeteo *staion;
         Balise_IHM *balise;
-        stationMeteo2 *station2;
+        Stationsmeteo2 *station2;
 
 
 

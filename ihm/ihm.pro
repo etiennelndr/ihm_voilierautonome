@@ -24,8 +24,8 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 CONFIG += c++11
 
-DEPENDPATH += . include main src src/utils
-INCLUDEPATH += . include include/utils
+DEPENDPATH += . include main src src/utils src/elements
+INCLUDEPATH += . include include/utils include/elements
 
 SOURCES += \
     main\main.cpp \
