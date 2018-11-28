@@ -25,10 +25,14 @@ class Balise_IHM : public QDialog
 
 public:
     explicit Balise_IHM(QWidget *parent = nullptr);
+    ~Balise_IHM();
 
 
 private slots:
     void on_BtnValider_clicked();
+
+    signals:
+        void new_balise(Balise);
 
 private:
     Ui::Balise_IHM *ui;

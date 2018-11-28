@@ -54,8 +54,8 @@ class MainWindow : public QMainWindow {
         void add_new_boat(int id_concern);
 
 private:
-        sationsmeteo *staion;
-        Balise_IHM *balise;
+        sationsmeteo *station;
+        Balise_IHM *balise_IHM;
         Stationsmeteo2 *station2;
 
 
@@ -63,6 +63,7 @@ private:
 private slots:
         void on_actionStations_triggered();
         void on_actionBalise_triggered();
+        void add_balise(Balise);
 
 private:
         float delta_barre, delta_voile;

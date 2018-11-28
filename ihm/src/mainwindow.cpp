@@ -345,8 +345,8 @@ void MainWindow::on_actionStations_triggered()
     // SationsMeteo statio;
     // statio.setModal(true);
      //statio.exec();
-    staion = new sationsmeteo(this);
-    staion->show();
+    station = new sationsmeteo(this);
+    station->show();
 }
 
 /**
@@ -356,6 +356,12 @@ void MainWindow::on_actionStations_triggered()
  */
 void MainWindow::on_actionBalise_triggered()
 {
-    balise = new Balise_IHM(this);
-    balise->show();
+    balise_IHM = new Balise_IHM(this);
+    connect(balise_IHM, SIGNAL(new_balise(Balise)), this, SLOT(add_balise(Balise)));
+    balise_IHM->show();
+}
+
+void MainWindow::add_balise(Balise b){
+    balises.push_back(&b);
+    qDebug() << "new Balise added";
 }
