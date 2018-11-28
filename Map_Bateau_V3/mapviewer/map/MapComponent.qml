@@ -272,9 +272,8 @@ Map {
 //! [coord]
     zoomLevel: (maximumZoomLevel - minimumZoomLevel)/2
     center {
-        // The Qt Company in Oslo
-        latitude: 59.9485
-        longitude: 10.7686
+        latitude: 48.360669        // ENIB coordonées
+        longitude: -4.566708
     }
 //! [coord]
 
@@ -354,10 +353,10 @@ Map {
 
     MapQuickItem {
         id: poiTheQtComapny
-        sourceItem: Rectangle { width: 14; height: 14; color: "#e41e25"; border.width: 2; border.color: "white"; smooth: true; radius: 7 }
+        sourceItem: Rectangle { width: 40; height: 40; color: "#14aaff"; border.width: 2; border.color: "white"; smooth: true; radius: 1 }
         coordinate {
-            latitude: 59.9485
-            longitude: 10.7686
+            latitude: 48.349906 // Coordonées mer proche
+            longitude: -6.133777
         }
         opacity: 1.0
         anchorPoint: Qt.point(sourceItem.width/2, sourceItem.height/2)
@@ -365,14 +364,14 @@ Map {
 
     MapQuickItem {
         sourceItem: Text{
-            text: "The Qt Company"
+            text: "BATEAU LOCALISATION"
             color:"#242424"
             font.bold: true
             styleColor: "#ECECEC"
             style: Text.Outline
         }
         coordinate: poiTheQtComapny.coordinate
-        anchorPoint: Qt.point(-poiTheQtComapny.sourceItem.width * 0.5,poiTheQtComapny.sourceItem.height * 1.5)
+        anchorPoint: Qt.point(-poiTheQtComapny.sourceItem.width * -1.6,poiTheQtComapny.sourceItem.height * 1.2)
     }
 
     MapSliders {
@@ -558,7 +557,7 @@ Map {
                 }
             }
     //! [pointdel1]
-        }
+        }//
     }
     //! [pointdel1]
 

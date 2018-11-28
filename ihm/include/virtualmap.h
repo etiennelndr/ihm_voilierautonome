@@ -24,13 +24,11 @@ public:
     float get_start_longitude() const       {return start_longitude;}
     float get_end_latitude() const          {return end_latitude;}
     float get_end_langitude() const         {return end_longitude;}
-    float get_zoom() const                  {return zoom;}
     //setters
     void  set_start_latitude(float lat)     {start_latitude = lat;}
     void  set_start_longitude(float lon)    {start_longitude = lon;}
     void  set_end_latitude(float lat)       {end_latitude = lat;}
     void  set_end_longitude(float lon)      {end_longitude = lon;}
-    void set_zoom(float z)                  {zoom = z;}
 
     void display_boats(vector<Boat*> boats, QMainWindow* mw);
 
@@ -41,7 +39,6 @@ private :
     float start_longitude;
     float end_latitude;
     float end_longitude;
-    float zoom;
     vector <Balise*> balises;
     QGraphicsScene* scene;
     QRectF* zone;
