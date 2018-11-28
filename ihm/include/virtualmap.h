@@ -7,8 +7,7 @@
 #include <QGraphicsView>
 #include <iostream>
 #include "boat.h"
-#include "balise_IHM.h"
-#include "ui_Balise_IHM.h"
+#include "balise.h"
 
 
 using namespace std;
@@ -16,14 +15,13 @@ using namespace std;
 class VirtualMap
 {
 public:
-    VirtualMap();
+    VirtualMap(Balise* b1, Balise* b2, Balise* b3, Balise* b4);
     //getters
     float get_start_latitude() const        {return start_latitude;}
     float get_start_longitude() const       {return start_longitude;}
     float get_end_latitude() const          {return end_latitude;}
     float get_end_langitude() const         {return end_longitude;}
     float get_zoom() const                  {return zoom;}
-    //float get_xy(float lat,float lng)       {return lat,lng;}
     //setters
     void  set_start_latitude(float lat)     {start_latitude = lat;}
     void  set_start_longitude(float lon)    {start_longitude = lon;}
@@ -39,14 +37,14 @@ private :
     float end_latitude;
     float end_longitude;
     float zoom;
+    vector <Balise*> balises;
+    QGraphicsScene* scene;
+    QRectF* zone;
+    QGraphicsView* vie;
     int scale_lat(float l);
     int scale_lon(float l);
     float angle(float l);
-    QGraphicsScene* scene;
-    QRectF* zone;
-    QGraphicsView* view;
-    //float lat;
-    //float lng;
+
 };
 
 
