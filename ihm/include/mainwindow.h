@@ -74,7 +74,7 @@ private:
         vector<Boat*> boats;
         vector<Meteo*> meteos;
         vector<Balise*> balises;
-        VirtualMap* virtual_map;
+        VirtualMap* virtual_map= nullptr;
 
         void keyPressEvent(QKeyEvent *event);
         void create_connections();

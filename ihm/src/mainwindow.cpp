@@ -27,7 +27,6 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
      delta_barre=delta_voile=0.5f; // a modifier de façon empirique pour rester précis mais efficace dans les commandes du bateau
      connected=false;
      ui->label_2->hide();
-     virtual_map = new VirtualMap();
 }
 
 /**
@@ -40,7 +39,9 @@ MainWindow::~MainWindow() {
 }
 void MainWindow::paintEvent(QPaintEvent *event){
     Q_UNUSED(event);
-    virtual_map->display_boats(boats, this);
+    if (virtual_map){
+        virtual_map->display_boats(boats, this);
+    }
 }
 /*--------------------------*
  *                          *
@@ -362,6 +363,7 @@ void MainWindow::on_actionBalise_triggered()
 void MainWindow::add_balise(Balise b){
     if(b.get_latitude()<0.0f){ //Transfer of data is finished
         ui->actionBalise->setDisabled(true);
+        virtual_map = new VirtualMap(balises.at(0), balises.at(1), balises.at(2), balises.at(3));
     }
     else {
         balises.push_back(new Balise(b.get_latitude(), b.get_longitude()));

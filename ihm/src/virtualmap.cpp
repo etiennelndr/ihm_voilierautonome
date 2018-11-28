@@ -2,8 +2,37 @@
 #include "balise_IHM.h"
 #include "ui_Balise_IHM.h"
 
-VirtualMap::VirtualMap(){
-    std::cout<<"Nothing";
+VirtualMap::VirtualMap(Balise* b1, Balise* b2, Balise* b3, Balise* b4){
+    balises.push_back(b1);
+    balises.push_back(b2);
+    balises.push_back(b3);
+    balises.push_back(b4);
+
+
+    //Define the start and end of longitude and latitude of the displayed window
+    //Initialisation with b1
+    start_latitude=b1->get_latitude();
+    end_latitude=b1->get_latitude();
+    start_longitude=b1->get_longitude();
+    end_longitude=b1->get_longitude();
+    //Checking b2
+    if (start_latitude  >  b2->get_latitude())  {start_latitude=b2->get_latitude();}
+    if (end_latitude    <  b2->get_latitude())  {end_latitude=b2->get_latitude();}
+    if (start_longitude >  b2->get_longitude()) {start_longitude=b2->get_longitude();}
+    if (end_longitude   <  b2->get_longitude()) {end_longitude=b2->get_longitude();}
+    //Checking b3
+    if (start_latitude  >  b3->get_latitude())  {start_latitude=b3->get_latitude();}
+    if (end_latitude    <  b3->get_latitude())  {end_latitude=b3->get_latitude();}
+    if (start_longitude >  b3->get_longitude()) {start_longitude=b3->get_longitude();}
+    if (end_longitude   <  b3->get_longitude()) {end_longitude=b3->get_longitude();}
+    //Checking b4
+    if (start_latitude  >  b4->get_latitude())  {start_latitude=b4->get_latitude();}
+    if (end_latitude    <  b4->get_latitude())  {end_latitude=b4->get_latitude();}
+    if (start_longitude >  b4->get_longitude()) {start_longitude=b4->get_longitude();}
+    if (end_longitude   <  b4->get_longitude()) {end_longitude=b4->get_longitude();}
+
+
+    qDebug() << start_latitude << " / " << end_latitude << " / " << start_longitude << " / " << end_longitude;
 }
 
 void VirtualMap::display_boats(vector<Boat*> boats,QMainWindow* mw){
@@ -43,7 +72,7 @@ void VirtualMap::display_boats(vector<Boat*> boats,QMainWindow* mw){
     ellipsePainter.drawEllipse(QRect(90,650,30,30));
 
 
-    QRectF rectangle(60, 210, 350, 500);
+    QRectF rectangle(60, 210, 500, 500);
 
     QPainter painter(mw);
     painter.drawRect(rectangle);
