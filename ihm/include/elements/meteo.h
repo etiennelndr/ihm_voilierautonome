@@ -1,7 +1,6 @@
 #ifndef METEO_H
 #define METEO_H
 
-#endif // METEO_H
 
 /**
  * @brief The Meteo class
@@ -19,6 +18,7 @@ public:
     float* get_cap_addr()       {return &cap;}
     float* get_longitude_addr() {return &longitude;}
     float* get_latitude_addr()  {return &latitude;}
+    int    get_id()             {return id;}
 
     //setters
     void set_vitesse(float _vitesse)    {vitesse=_vitesse;}
@@ -33,3 +33,6 @@ private:
     float latitude;
     int id; //Identifiant de la station meteo pour la communication des datas
 };
+
+
+#endif // METEO_H

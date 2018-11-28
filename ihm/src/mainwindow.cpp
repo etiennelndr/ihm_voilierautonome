@@ -342,11 +342,9 @@ void MainWindow::add_new_boat(int id_concern){
  */
 void MainWindow::on_actionStations_triggered()
 {
-    // SationsMeteo statio;
-    // statio.setModal(true);
-     //statio.exec();
-    staion = new sationsmeteo(this);
-    staion->show();
+    station_IHM = new sationsmeteo(this);
+    connect(station_IHM, SIGNAL(new_meteo(Meteo)), this, SLOT(add_meteo(Meteo)));
+    station_IHM->show();
 }
 
 /**
@@ -356,8 +354,29 @@ void MainWindow::on_actionStations_triggered()
  */
 void MainWindow::on_actionBalise_triggered()
 {
-    balise = new Balise_IHM(this);
-    balise->show();
+    balise_IHM = new Balise_IHM(this);
+    connect(balise_IHM, SIGNAL(new_balise(Balise)), this, SLOT(add_balise(Balise)));
+    balise_IHM->show();
+}
+
+void MainWindow::add_balise(Balise b){
+    if(b.get_latitude()<0.0f){ //Transfer of data is finished
+        ui->actionBalise->setDisabled(true);
+    }
+    else {
+        balises.push_back(new Balise(b.get_latitude(), b.get_longitude()));
+        qDebug() << "new Balise added";
+    }
+}
+
+void MainWindow::add_meteo(Meteo m){
+    if(m.get_latitude()<0.0f){ //Transfer of data is finished
+        ui->actionStations->setDisabled(true);
+    }
+    else{
+        meteos.push_back(new Meteo(m.get_id(),m.get_latitude(), m.get_latitude()));
+        qDebug() << "new Meteo added with id : " << m.get_id();
+    }
 }
 
 

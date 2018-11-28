@@ -2,6 +2,9 @@
 #define SATIONSMETEO_H
 
 #include <QDialog>
+#include "meteo.h"
+#include "stationsmeteo2.h"
+#include <QDebug>
 
 namespace Ui {
 class sationsmeteo;
@@ -17,6 +20,10 @@ public:
 
 private slots:
     void on_pushButton_clicked();
+    void transfer_new_meteo(Meteo);
+
+    signals:
+    void new_meteo(Meteo);
 
 private:
     Ui::sationsmeteo *ui;

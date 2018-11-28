@@ -264,6 +264,9 @@
    <property name="text">
     <string>Valider</string>
    </property>
+   <property name="checkable">
+    <bool>false</bool>
+   </property>
   </widget>
  </widget>
  <resources/>

@@ -19,7 +19,7 @@
   <property name="windowTitle">
    <string>Dialog</string>
   </property>
-  <widget class="QPushButton" name="validation">
+  <widget class="QPushButton" name="BtnValider">
    <property name="geometry">
     <rect>
      <x>160</x>
