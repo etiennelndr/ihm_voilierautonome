@@ -380,3 +380,5 @@ void MainWindow::add_meteo(Meteo m){
         qDebug() << "new Meteo added with id : " << m.get_id();
     }
 }
+
+

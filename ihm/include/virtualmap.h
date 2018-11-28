@@ -5,8 +5,10 @@
 #include <vector>
 #include <QGraphicsScene>
 #include <QGraphicsView>
-#include "boat.h"
 #include <iostream>
+#include "boat.h"
+#include "balise_IHM.h"
+#include "ui_Balise_IHM.h"
 
 
 using namespace std;
@@ -21,6 +23,7 @@ public:
     float get_end_latitude() const          {return end_latitude;}
     float get_end_langitude() const         {return end_longitude;}
     float get_zoom() const                  {return zoom;}
+    //float get_xy(float lat,float lng)       {return lat,lng;}
     //setters
     void  set_start_latitude(float lat)     {start_latitude = lat;}
     void  set_start_longitude(float lon)    {start_longitude = lon;}
@@ -42,7 +45,8 @@ private :
     QGraphicsScene* scene;
     QRectF* zone;
     QGraphicsView* view;
-
+    //float lat;
+    //float lng;
 };
 
 
