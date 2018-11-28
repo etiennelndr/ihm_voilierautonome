@@ -15,7 +15,7 @@
 #include "stationsmeteo2.h"
 #include "meteo.h"
 #include "balise.h"
-
+#include <QGraphicsView>
 class QPushButton;
 class QRadioButton;
 

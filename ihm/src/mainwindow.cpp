@@ -359,3 +359,5 @@ void MainWindow::on_actionBalise_triggered()
     balise = new Balise_IHM(this);
     balise->show();
 }
+
+
