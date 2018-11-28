@@ -8,6 +8,9 @@
 #include <iostream>
 #include "boat.h"
 #include "balise.h"
+#include <QtGui>
+#include <QtCore>
+#include <QPainter>
 
 
 using namespace std;
@@ -30,6 +33,8 @@ public:
     void set_zoom(float z)                  {zoom = z;}
 
     void display_boats(vector<Boat*> boats, QMainWindow* mw);
+
+
 
 private :
     float start_latitude;
