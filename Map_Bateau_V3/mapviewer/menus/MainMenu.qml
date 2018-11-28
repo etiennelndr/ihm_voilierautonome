@@ -66,7 +66,7 @@ MenuBar {
 
     Menu {
         id: providerMenu
-        title: qsTr("Provider")
+        title: qsTr("Serveurs")
 
         function createMenu(plugins)
         {
@@ -86,7 +86,7 @@ MenuBar {
 
     Menu {
         id: mapTypeMenu
-        title: qsTr("MapType")
+        title: qsTr("Affichage")
 
         function createMenu(map)
         {
@@ -110,7 +110,7 @@ MenuBar {
         id: toolsMenu
         property bool isFollowMe: false;
         property bool isMiniMap: false;
-        title: qsTr("Tools")
+        title: qsTr("Options")
 
         function createMenu(map)
         {
@@ -134,7 +134,7 @@ MenuBar {
             item.text = Qt.binding(function() { return isFollowMe ? qsTr("Stop following") : qsTr("Follow me")})
             item.triggered.connect(function() {toggleMapState("FollowMe")})
 
-            addItem(qsTr("Language")).triggered.connect(function(){selectTool("Language")})
+            addItem(qsTr("Langue")).triggered.connect(function(){selectTool("Language")})
             addItem(qsTr("Prefetch Map Data")).triggered.connect(function(){selectTool("Prefetch")})
             addItem(qsTr("Clear Map Data")).triggered.connect(function(){selectTool("Clear")})
         }
