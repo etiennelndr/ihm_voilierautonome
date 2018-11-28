@@ -31,6 +31,9 @@ void Balise_IHM::on_BtnValider_clicked()
         emit new_balise(*balise);
         balise = new Balise(float(stof(ui->TxtLatitude_4->text().toStdString())), float(stof( ui->TxtLongitude_4->text().toStdString())));
         emit new_balise(*balise);
+        balise = new Balise(-1.0f,-1.0f);
+        emit new_balise(*balise);
+        this->close();
     }
     else{
         qDebug() << "Coucou";
