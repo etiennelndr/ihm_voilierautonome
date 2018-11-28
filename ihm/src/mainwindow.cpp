@@ -39,7 +39,7 @@ MainWindow::~MainWindow() {
 }
 void MainWindow::paintEvent(QPaintEvent *event){
     Q_UNUSED(event);
-    if (virtual_map){
+    if (virtual_map != nullptr){
         virtual_map->display_boats(boats, this);
     }
 }
@@ -78,7 +78,7 @@ Boat* MainWindow::get_boat(int id){
 Meteo* MainWindow::get_meteo(int id){
     Meteo* meteo = nullptr;
     for (unsigned int i=0;i<meteos.size();i++) {
-        if(boats.at(i)->get_id()==id)
+        if(meteos.at(i)->get_id()==id)
             meteo = meteos.at(i);
     }
     return meteo;
@@ -202,8 +202,8 @@ void MainWindow::on_Btn_Exit_clicked() {
  */
 void MainWindow::receive_longitude(float l, int id_concern){
     if(id_concern>0){
-        MainWindow::get_boat(id_concern)->set_longitude(l);
-        MainWindow::update();
+        get_boat(id_concern)->set_longitude(l);
+        update();
         cout << "New longitude of " << id_concern << " : " << l <<endl;
     }
 }
