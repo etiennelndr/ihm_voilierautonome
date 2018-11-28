@@ -42,6 +42,48 @@ void MainWindow::paintEvent(QPaintEvent *event){
     if (virtual_map != nullptr){
         virtual_map->display_boats(boats, this);
     }
+    display_Boussle(this);
+}
+
+void MainWindow::display_Boussle(QMainWindow* mw){
+    QPainter ellipsePainter(mw);
+
+    QPen pen1(Qt::red);
+    QPen pen2(Qt::black);
+
+    QPen pointpen(Qt::red);
+    pointpen.setWidth(10);
+
+    QPen lignepen(Qt::black);
+    pointpen.setWidth(4);
+
+    pen1.setWidth(5);
+    ellipsePainter.setPen(pen1);
+    ellipsePainter.drawEllipse(QRect(830,90,75,75));
+
+    ellipsePainter.setPen(pen2);
+    ellipsePainter.drawText(863,80,"N");
+    ellipsePainter.drawText(863,188,"S");
+    ellipsePainter.drawText(914,135,"W");
+    ellipsePainter.drawText(810,135,"E");
+
+    QPoint p1;
+    p1.setX(850);
+    p1.setY(150);
+
+    QPoint p2;
+    p2.setX(880);
+    p2.setY(105);
+
+    ellipsePainter.setPen(lignepen);
+    ellipsePainter.drawLine(p1,p2);
+    ellipsePainter.setPen(pointpen);
+    //ellipsePainter.drawPoint(p1);
+    ellipsePainter.drawPoint(p2);
+
+
+
+
 }
 /*--------------------------*
  *                          *

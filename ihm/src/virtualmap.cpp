@@ -43,7 +43,6 @@ void VirtualMap::display_boats(vector<Boat*> boats,QMainWindow* mw){
 
     QPen pen1(Qt::black);
     QPen pen2(Qt::red);
-    QPen pen3(Qt::red);
 
     pen1.setWidth(8);
     ellipsePainter.setPen(pen1);
@@ -68,9 +67,8 @@ void VirtualMap::display_boats(vector<Boat*> boats,QMainWindow* mw){
 
 //    ellipsePainter.fillRect(300,450,20,75,Qt::blue);
 //    ellipsePainter.drawEllipse(QRect(286,436,50,100));
-    pen2.setWidth(8);
-
     //Affichage des balises
+
     ellipsePainter.setPen(pen2);
     ellipsePainter.drawEllipse(QRect(scale_lat(balises.at(0)->get_latitude())-5,scale_lon(balises.at(0)->get_longitude())-5,10,10));
     ellipsePainter.drawEllipse(QRect(scale_lat(balises.at(1)->get_latitude())-5,scale_lon(balises.at(1)->get_longitude())-5,10,10));
@@ -82,17 +80,6 @@ void VirtualMap::display_boats(vector<Boat*> boats,QMainWindow* mw){
 
     QPainter painter(mw);
     painter.drawRect(rectangle);
-
-    //Vitesse de vente Vent
-    ellipsePainter.setPen(pen3);
-    pen3.setWidth(16);
-    ellipsePainter.drawEllipse(QRect(670,90,75,75));
-    ellipsePainter.drawText(700,80,"N");
-    ellipsePainter.drawText(700,190,"S");
-    ellipsePainter.drawText(650,135,"W");
-    ellipsePainter.drawText(755,135,"E");
-
-
 }
 //int VirtualMap::get_xy(float lat,float lng)
 //{

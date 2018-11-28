@@ -8,6 +8,9 @@
 #include <iostream>
 #include "boat.h"
 #include "balise.h"
+#include <QtGui>
+#include <QtCore>
+#include <QPainter>
 
 
 using namespace std;
@@ -28,6 +31,8 @@ public:
     void  set_end_longitude(float lon)      {end_longitude = lon;}
 
     void display_boats(vector<Boat*> boats, QMainWindow* mw);
+
+
 
 private :
     float start_latitude;

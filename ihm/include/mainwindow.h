@@ -52,6 +52,7 @@ class MainWindow : public QMainWindow {
         void receive_barre(float b, int id_concern);
         void receive_voile(float v, int id_concern);
         void add_new_boat(int id_concern);
+        void display_Boussle(QMainWindow* mw);
 
 private:
         sationsmeteo *station_IHM;
