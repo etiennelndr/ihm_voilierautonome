@@ -18,6 +18,8 @@ stationsmeteo2::stationsmeteo2(QWidget *parent, int nb) :
     ui->setupUi(this);
     void addWidget(QWidget * widget, int stretch = 2, Qt::Alignment alignment = 0);
     QVBoxLayout *grid = new QVBoxLayout;
+    grid->addWidget(new QLabel("                                                                                                                "));
+    grid->addWidget(ui->validation);
     for (int i = 0; i <nb; ++i) {
            labelsBalise[i] = new QLabel(tr("----------------------------------- Station météo%1 ---------------------------------------").arg(i+1));
            // Longitude
@@ -37,9 +39,10 @@ stationsmeteo2::stationsmeteo2(QWidget *parent, int nb) :
            grid->addWidget(labelsID[i]);
 
            grid->addWidget(lineEditsID[i]);
-           this->setLayout(grid);
 
        }
+
+    this->setLayout(grid);
 
 
 

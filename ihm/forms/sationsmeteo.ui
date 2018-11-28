@@ -7,11 +7,11 @@
     <x>0</x>
     <y>0</y>
     <width>400</width>
-    <height>300</height>
+    <height>297</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Dialog</string>
+   <string>WeatherStations configuration</string>
   </property>
   <widget class="QPushButton" name="pushButton">
    <property name="geometry">
@@ -23,20 +23,20 @@
     </rect>
    </property>
    <property name="text">
-    <string>Passer vers les stations meteo</string>
+    <string>Passer vers les stations météo</string>
    </property>
   </widget>
   <widget class="QLabel" name="label">
    <property name="geometry">
     <rect>
-     <x>110</x>
+     <x>90</x>
      <y>60</y>
-     <width>121</width>
+     <width>141</width>
      <height>41</height>
     </rect>
    </property>
    <property name="text">
-    <string>Nombre de Stations meteo</string>
+    <string>Nombre de Stations météo</string>
    </property>
   </widget>
   <widget class="QSpinBox" name="SpinMeteo">

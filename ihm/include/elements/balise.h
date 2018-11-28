@@ -1,6 +1,7 @@
 #ifndef BALISE_H
 #define BALISE_H
 
+
 class Balise{
 public:
     Balise(float _latitude, float _longitude);

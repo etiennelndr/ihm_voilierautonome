@@ -29,30 +29,30 @@ INCLUDEPATH += . include include/utils
 
 SOURCES += \
     main\main.cpp \
-    src\mainwindow.cpp \
     src\client.cpp \
     src\message.cpp \
-    src\boat.cpp \
     src\virtualmap.cpp \
+    src\mainwindow.cpp \
+    src\balise_IHM.cpp \
     src\sationsmeteo.cpp \
     src\stationsmeteo2.cpp \
-    src\meteo.cpp \
+    src\elements\balise.cpp \
+    src\elements\boat.cpp \
+    src\elements\meteo.cpp \
     src\utils\utils.cpp \
-    src/balise.cpp \
-    src/balise_IHM.cpp
 
 HEADERS += \
-    include\mainwindow.h \
     include\client.h \
     include\message.h \
-    include\boat.h \
     include\virtualmap.h \
+    include\mainwindow.h \
+    include\balise_IHM.h \
     include\sationsmeteo.h \
     include\stationsmeteo2.h\
-    include\meteo.h \
+    include\elements\balise.h \
+    include\elements\boat.h \
+    include\elements\meteo.h \
     include\utils\utils.h \
-    include/balise.h \
-    include/balise_IHM.h
 
 FORMS += \
     forms\mainwindow.ui \

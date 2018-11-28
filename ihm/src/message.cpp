@@ -1,7 +1,5 @@
 #include "message.h"
 
-#include "utils.h"
-
 using std::to_string;
 using std::istringstream;
 
