@@ -276,10 +276,16 @@
    <property name="text">
     <string>Stations</string>
    </property>
+   <property name="shortcut">
+    <string>Alt+S</string>
+   </property>
   </action>
   <action name="actionBalise">
    <property name="text">
     <string>Balise</string>
+   </property>
+   <property name="shortcut">
+    <string>Alt+B</string>
    </property>
   </action>
  </widget>

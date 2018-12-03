@@ -403,7 +403,7 @@ void MainWindow::on_actionBalise_triggered()
 }
 
 void MainWindow::add_balise(Balise b){
-    if(b.get_latitude()<0.0f){ //Transfer of data is finished
+    if(b.get_end_of_transfer()){ //Transfer of data is finished
         ui->actionBalise->setDisabled(true);
         virtual_map = new VirtualMap(balises.at(0), balises.at(1), balises.at(2), balises.at(3));
     }

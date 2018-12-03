@@ -6,6 +6,7 @@
 #include <QGraphicsScene>
 #include <QGraphicsView>
 #include <iostream>
+#include <cmath>
 #include "boat.h"
 #include "balise.h"
 #include <QtGui>
@@ -46,6 +47,7 @@ private :
     int scale_lat(float l);
     int scale_lon(float l);
     float angle(float l);
+    void set_start_and_end_lat_and_long();
 
 };
 
