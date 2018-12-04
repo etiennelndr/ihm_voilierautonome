@@ -16,6 +16,9 @@
 #include "meteo.h"
 #include "balise.h"
 #include <QGraphicsView>
+#include <QComboBox>
+
+
 class QPushButton;
 class QRadioButton;
 
@@ -32,7 +35,7 @@ class MainWindow : public QMainWindow {
     Q_OBJECT
 
     public:
-        explicit MainWindow(QWidget *parent = 0);
+        explicit MainWindow(QWidget *parent = 0,int nb=0);
         ~MainWindow();
         virtual void paintEvent(QPaintEvent *event);
 
@@ -53,6 +56,9 @@ class MainWindow : public QMainWindow {
         void receive_voile(float v, int id_concern);
         void add_new_boat(int id_concern);
         void display_Boussle(QMainWindow* mw);
+        void display_Gite_Tangage(QMainWindow* mw);
+
+
 
 private:
         sationsmeteo *station_IHM;
@@ -65,6 +71,8 @@ private slots:
         void on_actionBalise_triggered();
         void add_balise(Balise);
         void add_meteo(Meteo);
+
+        void on_combo_activated(const QString &arg1);
 
 private:
         float delta_barre, delta_voile;
@@ -83,6 +91,7 @@ private:
         Meteo* get_meteo(int id);
 
         QMutex mtx;
+        QComboBox *combobox12;
 };
 
 #endif // MAINWINDOW_H
