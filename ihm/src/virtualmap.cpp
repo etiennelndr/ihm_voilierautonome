@@ -83,7 +83,7 @@ void VirtualMap::display_boats(vector<Boat*> boats,QMainWindow* mw){
 
         qDebug() << "id : "<< boat->get_id() << " / longitude : " << boat->get_longitude() << " / latitude :" << boat->get_latitude();
         if (start_latitude<boat->get_latitude() && boat->get_latitude()<end_latitude && start_longitude<boat->get_longitude() && boat->get_longitude()<end_longitude){
-            ellipsePainter.fillRect(scale_lat(boat->get_latitude()),scale_lon(boat->get_longitude()),10,30,boat->get_color());
+            ellipsePainter.fillRect(scale_lon(boat->get_longitude())-5,scale_lat(boat->get_latitude())-15,10,30,boat->get_color());
             qDebug() <<boat->get_latitude();
         }
         else {
@@ -97,10 +97,10 @@ void VirtualMap::display_boats(vector<Boat*> boats,QMainWindow* mw){
 
     //Affichage des balises
     ellipsePainter.setPen(pen2);
-    ellipsePainter.drawEllipse(QRect(scale_lat(balises.at(0)->get_latitude())-10,scale_lon(balises.at(0)->get_longitude())-10,20,20));
-    ellipsePainter.drawEllipse(QRect(scale_lat(balises.at(1)->get_latitude())-10,scale_lon(balises.at(1)->get_longitude())-10,20,20));
-    ellipsePainter.drawEllipse(QRect(scale_lat(balises.at(2)->get_latitude())-10,scale_lon(balises.at(2)->get_longitude())-10,20,20));
-    ellipsePainter.drawEllipse(QRect(scale_lat(balises.at(3)->get_latitude())-10,scale_lon(balises.at(3)->get_longitude())-10,20,20));
+    ellipsePainter.drawEllipse(QRect(scale_lon(balises.at(0)->get_longitude())-10,scale_lat(balises.at(0)->get_latitude())-10,20,20));
+    ellipsePainter.drawEllipse(QRect(scale_lon(balises.at(1)->get_longitude())-10,scale_lat(balises.at(1)->get_latitude())-10,20,20));
+    ellipsePainter.drawEllipse(QRect(scale_lon(balises.at(2)->get_longitude())-10,scale_lat(balises.at(2)->get_latitude())-10,20,20));
+    ellipsePainter.drawEllipse(QRect(scale_lon(balises.at(3)->get_longitude())-10,scale_lat(balises.at(3)->get_latitude())-10,20,20));
 
 
     QRectF rectangle(60, 210, 500, 500);
@@ -111,12 +111,12 @@ void VirtualMap::display_boats(vector<Boat*> boats,QMainWindow* mw){
 int VirtualMap::scale_lat(float real_lat){
     float scaled_lat = (real_lat-start_latitude)*(500/(max(fabs(end_latitude-start_latitude),fabs(end_longitude-start_longitude))));
 //    float scaled_lat = 10000*(real_lat-start_latitude)*(500/(10000*max(fabs(end_latitude-start_latitude),fabs(end_longitude-start_longitude))));
-    return int(scaled_lat)+60; // offset de l'affichage du carre
+    return int(scaled_lat)+210; // offset de l'affichage du carre
 }
 int VirtualMap::scale_lon(float real_long){
     float scaled_long = (real_long-start_longitude)*(500/(max(fabs(end_latitude-start_latitude),fabs(end_longitude-start_longitude))));
 //    float scaled_long = 10000*(real_long-start_longitude)*(500/10000*(max(fabs(end_latitude-start_latitude),fabs(end_longitude-start_longitude))));
-    return int(scaled_long)+210;  // offset de l'affichage du carre
+    return int(scaled_long)+60;  // offset de l'affichage du carre
 }
 float VirtualMap::angle(float l) {
     return float((qrand()%360));
