@@ -15,6 +15,9 @@
 #include<balise.h>
 #include<balise_IHM.h>
 #include <QDebug>
+#include <QGraphicsProxyWidget>
+#include <QGraphicsView>
+#include <QGraphicsScene>
 
 /**
  * CONSTRUCTOR
@@ -29,13 +32,15 @@ MainWindow::MainWindow(QWidget *parent,int nb) : QMainWindow(parent), ui(new Ui:
      connected=false;
      ui->label_2->hide();
 
-     //ComboBox
-     qDebug()<<nb;
-     for(int i=1;i<5;i++)
-     {
-        ui->combobox12->addItem(QString::number(i));
-     }
 
+
+     //QLabel *label_13 = new QLabel();
+
+     /*QGraphicsScene *scene = new QGraphicsScene(this);
+     QGraphicsProxyWidget *w = scene->addWidget(ui->label_13);
+     w->setPos(50, 50);
+     w->setRotation(45);
+     ui->graphicsView->setScene(scene);*/
 }
 
 
@@ -72,13 +77,20 @@ void MainWindow::display_Boussle(QMainWindow* mw){
 
     pen1.setWidth(5);
     ellipsePainter.setPen(pen1);
-    ellipsePainter.drawEllipse(QRect(830,98,75,75));
+    ellipsePainter.drawEllipse(QRect(830,94,75,75));
 
     ellipsePainter.setPen(pen2);
     ellipsePainter.drawText(863,87,"N");
     ellipsePainter.drawText(863,192,"S");
     ellipsePainter.drawText(914,139,"W");
     ellipsePainter.drawText(810,139,"E");
+    //------ Rotate fleche
+
+    /*QPixmap pixmap(*ui->fleche->pixmap());
+    QMatrix rm;
+    rm.rotate(0);
+    pixmap = pixmap.transformed(rm);
+    ui->fleche->setPixmap(pixmap);*/
 
     /*QPoint p1;
     p1.setX(850);
@@ -93,6 +105,27 @@ void MainWindow::display_Boussle(QMainWindow* mw){
     ellipsePainter.setPen(pointpen);
     ellipsePainter.drawPoint(p2);
     ellipsePainter.rotate(30);*/
+
+    /*QGraphicsScene *scene = new QGraphicsScene(this);
+
+    ui->graphicsView->setScene(scene);
+
+    QBrush greenBrush(Qt::white);
+    QBrush blueBrush(Qt::blue);
+    QPen outlinePen(Qt::black);
+    outlinePen.setWidth(2);
+
+
+    // addEllipse(x,y,w,h,pen,brush)
+
+    QGraphicsEllipseItem *ellipse;
+    ellipse = scene->addEllipse(75, 75, 90, 85, outlinePen, greenBrush);
+    QPushButton *lbl = new QPushButton();
+    QGraphicsProxyWidget *w = scene->addWidget(lbl);
+            w->setRotation(45);
+            ui->graphicsView->setScene(scene);*/
+
+
 }
 
 
@@ -483,7 +516,13 @@ void MainWindow::add_meteo(Meteo m){
     }
     else{
         meteos.push_back(new Meteo(m.get_id(),m.get_latitude(), m.get_latitude()));
+        ui->combobox12->addItem(QString::number(m.get_id()));
         qDebug() << "new Meteo added with id : " << m.get_id();
+        QPixmap pixmap(*ui->fleche->pixmap());
+        QMatrix rm;
+        rm.rotate( m.get_id());
+        pixmap = pixmap.transformed(rm);
+        ui->fleche->setPixmap(pixmap);
     }
 }
 

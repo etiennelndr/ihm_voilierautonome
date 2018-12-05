@@ -8,6 +8,8 @@
 #include <QDebug>
 #include <QtWidgets>
 #include <balise_IHM.h>
+#include "stationsmeteo2.h"
+#include "mainwindow.h"
 
 
 Stationsmeteo2::Stationsmeteo2(QWidget *parent, int nb) :
@@ -78,6 +80,8 @@ void Stationsmeteo2::on_BtnValider_clicked() {
     for (unsigned int i=0; i<lineEditsID.size();i++){
         if(lineEditsID.at(i)->text().isEmpty())
             empty_id = true;
+
+        MainWindow* mainWindow = new MainWindow(this,lineEditsID.at(i)->text().toInt());
     }
     if(!(empty_longitude ||
          empty_latitude  ||
@@ -94,6 +98,7 @@ void Stationsmeteo2::on_BtnValider_clicked() {
     else{
         qDebug() << "Coucou";
     }
+
 
 
 }
