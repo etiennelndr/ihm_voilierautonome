@@ -122,7 +122,7 @@
    <widget class="QLineEdit" name="lineEdit_2">
     <property name="geometry">
      <rect>
-      <x>750</x>
+      <x>650</x>
       <y>340</y>
       <width>131</width>
       <height>22</height>
@@ -132,7 +132,7 @@
    <widget class="QLabel" name="label_5">
     <property name="geometry">
      <rect>
-      <x>890</x>
+      <x>790</x>
       <y>340</y>
       <width>41</width>
       <height>16</height>
@@ -400,6 +400,22 @@
      <string>Tangage</string>
     </property>
    </widget>
+   <widget class="QLabel" name="label_13">
+    <property name="geometry">
+     <rect>
+      <x>840</x>
+      <y>100</y>
+      <width>55</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="pixmap">
+     <pixmap resource="../images.qrc">:/img/580b57fcd9996e24bc43c446.png</pixmap>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
@@ -434,6 +450,8 @@
   </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
- <resources/>
+ <resources>
+  <include location="../images.qrc"/>
+ </resources>
  <connections/>
 </ui>

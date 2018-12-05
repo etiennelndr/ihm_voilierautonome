@@ -17,6 +17,7 @@
 #include "balise.h"
 #include <QGraphicsView>
 #include <QComboBox>
+#include <QLine>
 
 
 class QPushButton;
@@ -92,6 +93,7 @@ private:
 
         QMutex mtx;
         QComboBox *combobox12;
+        QLine* line_5;
 };
 
 #endif // MAINWINDOW_H

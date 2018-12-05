@@ -35,6 +35,7 @@ MainWindow::MainWindow(QWidget *parent,int nb) : QMainWindow(parent), ui(new Ui:
      {
         ui->combobox12->addItem(QString::number(i));
      }
+
 }
 
 
@@ -79,7 +80,7 @@ void MainWindow::display_Boussle(QMainWindow* mw){
     ellipsePainter.drawText(914,139,"W");
     ellipsePainter.drawText(810,139,"E");
 
-    QPoint p1;
+    /*QPoint p1;
     p1.setX(850);
     p1.setY(150);
 
@@ -91,7 +92,9 @@ void MainWindow::display_Boussle(QMainWindow* mw){
     ellipsePainter.drawLine(p1,p2);
     ellipsePainter.setPen(pointpen);
     ellipsePainter.drawPoint(p2);
+    ellipsePainter.rotate(30);*/
 }
+
 
 void MainWindow::display_Gite_Tangage(QMainWindow* mw){
     QPainter ellipsePainter(mw);
