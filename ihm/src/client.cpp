@@ -208,6 +208,7 @@ void ClientTcp::erreurSocket(QAbstractSocket::SocketError erreur) {
  * @param data
  */
 void ClientTcp::received_data(QString data){
+    qDebug() << data;
     Message msg;
     msg.decodeData(data);
     cout << data.toStdString() <<endl;
