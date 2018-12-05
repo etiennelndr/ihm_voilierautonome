@@ -39,7 +39,7 @@ SOURCES += \
     src\elements\balise.cpp \
     src\elements\boat.cpp \
     src\elements\meteo.cpp \
-    src\utils\utils.cpp \
+    src\utils\utils.cpp
 
 HEADERS += \
     include\client.h \
@@ -64,3 +64,6 @@ FORMS += \
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+RESOURCES += \
+    images.qrc

@@ -5,7 +5,6 @@
 #include "meteo.h"
 #include "stationsmeteo2.h"
 #include <QDebug>
-
 namespace Ui {
 class sationsmeteo;
 }
