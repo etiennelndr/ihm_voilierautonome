@@ -1,5 +1,5 @@
 #ifndef VIRTUALMAP_H
-#define VIRTUALMAP_H
+#define VIRTUALMAP_H 1
 
 #include <QMainWindow>
 #include <vector>
@@ -42,9 +42,9 @@ private :
     float end_latitude;
     float end_longitude;
     vector <Balise*> balises;
-    QGraphicsScene* scene;
-    QRectF* zone;
-    QGraphicsView* vie;
+    QGraphicsScene* scene = nullptr;
+    QRectF* zone = nullptr;
+    QGraphicsView* vie = nullptr;
     int scale_lat(float l);
     int scale_lon(float l);
     float angle(float l);

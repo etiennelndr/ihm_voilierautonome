@@ -517,7 +517,7 @@ void MainWindow::add_new_boat(int id_concern){
  */
 void MainWindow::on_actionStations_triggered()
 {
-    station_IHM = new sationsmeteo(this);
+    station_IHM = new StationsMeteo(this);
     connect(station_IHM, SIGNAL(new_meteo(Meteo)), this, SLOT(add_meteo(Meteo)));
     station_IHM->show();
 }

@@ -1,5 +1,5 @@
 #ifndef STATIONSMETEO2_H
-#define STATIONSMETEO2_H
+#define STATIONSMETEO2_H 1
 
 #include <QDialog>
 #include <QPushButton>
@@ -16,7 +16,7 @@
 using namespace std;
 
 namespace Ui {
-class stationsmeteo2;
+class StationsMeteo2;
 }
 
 class Stationsmeteo2 : public QDialog
@@ -32,7 +32,7 @@ class Stationsmeteo2 : public QDialog
         void new_meteo(Meteo);
 
     private:
-        Ui::stationsmeteo2 *ui;
+        Ui::StationsMeteo2 *ui = nullptr;
     //    QLabel *labels[NumGridRows];
     //    QLabel *labelsBalise[NumGridRows];
     //    QLabel *labelsID[NumGridRows];
@@ -46,9 +46,9 @@ class Stationsmeteo2 : public QDialog
         vector<QLineEdit*> lineEditsLongitude;
         vector<QLineEdit*> lineEditsLatitude;
 
-        QGroupBox *gridGroupBox;
+        QGroupBox *gridGroupBox = nullptr;
         QWidget      w;
-        QGridLayout* gl     = new QGridLayout(&w);
+        //QGridLayout* gl     = new QGridLayout(&w);
 
     private slots :
         void on_BtnValider_clicked();

@@ -1,5 +1,5 @@
 #ifndef MAINWINDOW_H
-#define MAINWINDOW_H
+#define MAINWINDOW_H 1
 
 #include <QMainWindow>
 #include <QDialog>
@@ -62,8 +62,8 @@ class MainWindow : public QMainWindow {
         void display_Gite_Tangage();
 
 private:
-        sationsmeteo *station_IHM;
-        Balise_IHM *balise_IHM;
+        StationsMeteo *station_IHM = nullptr;
+        Balise_IHM *balise_IHM    = nullptr;
 
 private slots:
         void on_actionStations_triggered();
@@ -76,9 +76,9 @@ private slots:
 private:
         float delta_barre, delta_voile;
         bool connected;
-        ClientTcp* client=nullptr;
+        ClientTcp* client = nullptr;
         int my_id;
-        Ui::MainWindow *ui;
+        Ui::MainWindow *ui = nullptr;
         vector<Boat*> boats;
         vector<Meteo*> meteos;
         vector<Balise*> balises;
@@ -90,8 +90,8 @@ private:
         Meteo* get_meteo(int id);
 
         QMutex mtx;
-        QComboBox *combobox12;
-        QLine* line_5;
+        QComboBox *combobox12 = nullptr;
+        QLine* line_5 = nullptr;
 };
 
 #endif // MAINWINDOW_H

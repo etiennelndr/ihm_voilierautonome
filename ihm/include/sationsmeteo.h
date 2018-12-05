@@ -1,21 +1,21 @@
 #ifndef SATIONSMETEO_H
-#define SATIONSMETEO_H
+#define SATIONSMETEO_H 1
 
 #include <QDialog>
 #include "meteo.h"
 #include "stationsmeteo2.h"
 #include <QDebug>
 namespace Ui {
-class sationsmeteo;
+class StationsMeteo;
 }
 
-class sationsmeteo : public QDialog
+class StationsMeteo : public QDialog
 {
     Q_OBJECT
 
 public:
-    explicit sationsmeteo(QWidget *parent = nullptr);
-    ~sationsmeteo();
+    explicit StationsMeteo(QWidget *parent = nullptr);
+    ~StationsMeteo();
 
 private slots:
     void on_pushButton_clicked();
@@ -25,7 +25,7 @@ private slots:
     void new_meteo(Meteo);
 
 private:
-    Ui::sationsmeteo *ui;
+    Ui::StationsMeteo *ui = nullptr;
 };
 
 #endif // SATIONSMETEO_H

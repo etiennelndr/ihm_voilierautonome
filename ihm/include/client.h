@@ -49,7 +49,7 @@ class ClientTcp : public QObject {
         // Port utilisé par le serveur
         quint16 serverPort;
         // Socket
-        QTcpSocket* soc;
+        QTcpSocket* soc = nullptr;
         // Taille du message
         quint16 tailleMessage;
 

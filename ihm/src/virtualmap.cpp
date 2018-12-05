@@ -16,7 +16,6 @@ VirtualMap::VirtualMap(Balise* b1, Balise* b2, Balise* b3, Balise* b4){
     balises.push_back(b3);
     balises.push_back(b4);
 
-
     //Define the start and end of longitude and latitude of the displayed window
     set_start_and_end_lat_and_long();
 

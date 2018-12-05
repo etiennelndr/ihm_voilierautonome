@@ -1,5 +1,5 @@
 #ifndef BALISES_H
-#define BALISES_H
+#define BALISES_H 1
 
 #include <QDialog>
 #include <QLineEdit>
@@ -37,14 +37,14 @@ private slots:
 private:
     Ui::Balise_IHM *ui;
 
-    QLineEdit *TxtLongitude_1;
-    QLineEdit *TxtLatitude_1;
-    QLineEdit *TxtLongitude_2;
-    QLineEdit *TxtLatitude_2;
-    QLineEdit *TxtLongitude_3;
-    QLineEdit *TxtLatitude_3;
-    QLineEdit *TxtLongitude_4;
-    QLineEdit *TxtLatitude_4;
+    QLineEdit *TxtLongitude_1 = nullptr;
+    QLineEdit *TxtLatitude_1  = nullptr;
+    QLineEdit *TxtLongitude_2 = nullptr;
+    QLineEdit *TxtLatitude_2  = nullptr;
+    QLineEdit *TxtLongitude_3 = nullptr;
+    QLineEdit *TxtLatitude_3  = nullptr;
+    QLineEdit *TxtLongitude_4 = nullptr;
+    QLineEdit *TxtLatitude_4  = nullptr;
 };
 
 
