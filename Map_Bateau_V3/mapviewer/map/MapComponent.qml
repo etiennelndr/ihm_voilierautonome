@@ -50,6 +50,8 @@
 
 // PROJET VOILIER AUTONOME - [PRI] - AFFICHAGE DE LA CARTE
 
+/// teste sobre o role : aq
+
 import QtQuick 2.5
 import QtQuick.Controls 1.4
 import QtLocation 5.9
