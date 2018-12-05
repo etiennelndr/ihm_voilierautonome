@@ -47,6 +47,11 @@
 ** $QT_END_LICENSE$
 **
 ****************************************************************************/
+
+// PROJET VOILIER AUTONOME - [PRI] - AFFICHAGE DE LA CARTE
+
+/// teste sobre o role : aq
+
 import QtQuick 2.5
 import QtQuick.Controls 1.4
 import QtLocation 5.9
@@ -353,9 +358,9 @@ Map {
 
     MapQuickItem {
         id: poiTheQtComapny
-        sourceItem: Rectangle { width: 40; height: 40; color: "#14aaff"; border.width: 2; border.color: "white"; smooth: true; radius: 1 }
+        sourceItem: Rectangle { width: 20; height: 20; color: "#14aaff"; border.width: 2; border.color: "white"; smooth: true; radius: 1 }
         coordinate {
-            latitude: 48.349906 // Coordonées mer proche
+            latitude: 48.349906 // Coordonées initiales du bateau (fixe)-
             longitude: -6.133777
         }
         opacity: 1.0

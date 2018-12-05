@@ -14,6 +14,7 @@
 #include<QTextBrowser>
 #include<balise.h>
 #include<balise_IHM.h>
+#include <QDebug>
 
 /**
  * CONSTRUCTOR
@@ -21,13 +22,22 @@
  * @brief MainWindow::MainWindow : TODO
  * @param parent
  */
-MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWindow) {
+MainWindow::MainWindow(QWidget *parent,int nb) : QMainWindow(parent), ui(new Ui::MainWindow) {
      ui->setupUi(this);
      ui->RadioControle->setCheckable(false);
      delta_barre=delta_voile=0.5f; // a modifier de façon empirique pour rester précis mais efficace dans les commandes du bateau
      connected=false;
      ui->label_2->hide();
+
+     //ComboBox
+     qDebug()<<nb;
+     for(int i=1;i<5;i++)
+     {
+        ui->combobox12->addItem(QString::number(i));
+     }
+
 }
+
 
 /**
  * DESTRUCTOR
@@ -43,6 +53,9 @@ void MainWindow::paintEvent(QPaintEvent *event){
         virtual_map->display_boats(boats, this);
     }
     display_Boussle(this);
+    display_Gite_Tangage(this);
+
+
 }
 
 void MainWindow::display_Boussle(QMainWindow* mw){
@@ -50,8 +63,8 @@ void MainWindow::display_Boussle(QMainWindow* mw){
 
     QPen pen1(Qt::red);
     QPen pen2(Qt::black);
-
     QPen pointpen(Qt::red);
+
     pointpen.setWidth(10);
 
     QPen lignepen(Qt::black);
@@ -59,31 +72,82 @@ void MainWindow::display_Boussle(QMainWindow* mw){
 
     pen1.setWidth(5);
     ellipsePainter.setPen(pen1);
-    ellipsePainter.drawEllipse(QRect(830,90,75,75));
+    ellipsePainter.drawEllipse(QRect(830,98,75,75));
 
     ellipsePainter.setPen(pen2);
-    ellipsePainter.drawText(863,80,"N");
-    ellipsePainter.drawText(863,188,"S");
-    ellipsePainter.drawText(914,135,"W");
-    ellipsePainter.drawText(810,135,"E");
+    ellipsePainter.drawText(863,87,"N");
+    ellipsePainter.drawText(863,192,"S");
+    ellipsePainter.drawText(914,139,"W");
+    ellipsePainter.drawText(810,139,"E");
 
-    QPoint p1;
+    /*QPoint p1;
     p1.setX(850);
     p1.setY(150);
 
     QPoint p2;
     p2.setX(880);
-    p2.setY(105);
+    p2.setY(112);
 
     ellipsePainter.setPen(lignepen);
     ellipsePainter.drawLine(p1,p2);
     ellipsePainter.setPen(pointpen);
-    //ellipsePainter.drawPoint(p1);
     ellipsePainter.drawPoint(p2);
+    ellipsePainter.rotate(30);*/
+}
+
+
+void MainWindow::display_Gite_Tangage(QMainWindow* mw){
+    QPainter ellipsePainter(mw);
+
+    QPen pen1(Qt::red);
+    QPen pen2(Qt::black);
+    QPen pointpen(Qt::red);
+
+    pointpen.setWidth(10);
+
+    QPen lignepen(Qt::blue);
+    pen1.setWidth(5);
+
+    pen2.setWidth(5);
+    ellipsePainter.setPen(pen2);
+
+    //------------------------------------Gite
+    ellipsePainter.drawEllipse(QRect(720,530,75,75));
+
+    QPoint p1;
+    p1.setX(722);
+    p1.setY(565);
+
+    QPoint p2;
+    p2.setX(792);
+    p2.setY(565);
+
+    pointpen.setWidth(5);
+    ellipsePainter.setPen(lignepen);
+    ellipsePainter.drawLine(p1,p2);
+
+    pointpen.setWidth(5);
+    ellipsePainter.setPen(pointpen);
 
 
 
+    //------------------------------------Tangage
+    pen2.setWidth(5);
+    ellipsePainter.setPen(pen2);
+    ellipsePainter.drawEllipse(QRect(925,530,75,75));
+    QPoint p3;
+    p3.setX(926);
+    p3.setY(565);
 
+    QPoint p4;
+    p4.setX(997);
+    p4.setY(565);
+
+    ellipsePainter.setPen(lignepen);
+    ellipsePainter.drawLine(p3,p4);
+
+    pointpen.setWidth(5);
+    ellipsePainter.setPen(pointpen);
 }
 /*--------------------------*
  *                          *
@@ -424,3 +488,8 @@ void MainWindow::add_meteo(Meteo m){
 }
 
 
+
+void MainWindow::on_combo_activated(const QString &arg1)
+{
+
+}

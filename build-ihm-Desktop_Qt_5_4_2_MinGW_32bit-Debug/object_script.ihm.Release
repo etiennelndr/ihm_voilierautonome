@@ -11,6 +11,7 @@ INPUT(
 ./release\boat.o
 ./release\meteo.o
 ./release\utils.o
+./release\qrc_images.o
 ./release\moc_client.o
 ./release\moc_mainwindow.o
 ./release\moc_balise_IHM.o
