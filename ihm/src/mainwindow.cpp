@@ -25,7 +25,7 @@
  * @brief MainWindow::MainWindow : TODO
  * @param parent
  */
-MainWindow::MainWindow(QWidget *parent,int nb) : QMainWindow(parent), ui(new Ui::MainWindow) {
+MainWindow::MainWindow(QWidget *parent, int nb) : QMainWindow(parent), ui(new Ui::MainWindow) {
      ui->setupUi(this);
      ui->RadioControle->setCheckable(false);
      delta_barre=delta_voile=0.5f; // a modifier de façon empirique pour rester précis mais efficace dans les commandes du bateau
@@ -50,21 +50,44 @@ MainWindow::MainWindow(QWidget *parent,int nb) : QMainWindow(parent), ui(new Ui:
  * @brief MainWindow::~MainWindow : TODO
  */
 MainWindow::~MainWindow() {
-     delete ui;
+    qDeleteAll(boats);
+    qDeleteAll(meteos);
+    qDeleteAll(balises);
+    delete virtual_map;
+    delete station_IHM;
+    delete balise_IHM;
+    delete combobox12;
+    delete line_5;
+    delete ui;
 }
+
+/*--------------------------*
+ *                          *
+ *         METHODS          *
+ *                          *
+ *--------------------------*/
+/**
+ * METHOD
+ *
+ * @brief MainWindow::paintEvent : TODO
+ * @param event
+ */
 void MainWindow::paintEvent(QPaintEvent *event){
     Q_UNUSED(event);
     if (virtual_map != nullptr){
         virtual_map->display_boats(boats, this);
     }
-    display_Boussle(this);
-    display_Gite_Tangage(this);
-
-
+    display_Boussole();
+    display_Gite_Tangage();
 }
 
-void MainWindow::display_Boussle(QMainWindow* mw){
-    QPainter ellipsePainter(mw);
+/**
+ * METHOD
+ *
+ * @brief MainWindow::display_Boussole
+ */
+void MainWindow::display_Boussole(){
+    QPainter ellipsePainter(this);
 
     QPen pen1(Qt::red);
     QPen pen2(Qt::black);
@@ -128,9 +151,13 @@ void MainWindow::display_Boussle(QMainWindow* mw){
 
 }
 
-
-void MainWindow::display_Gite_Tangage(QMainWindow* mw){
-    QPainter ellipsePainter(mw);
+/**
+ * METHOD
+ *
+ * @brief MainWindow::display_Gite_Tangage : TODO
+ */
+void MainWindow::display_Gite_Tangage(){
+    QPainter ellipsePainter(this);
 
     QPen pen1(Qt::red);
     QPen pen2(Qt::black);
@@ -162,8 +189,6 @@ void MainWindow::display_Gite_Tangage(QMainWindow* mw){
     pointpen.setWidth(5);
     ellipsePainter.setPen(pointpen);
 
-
-
     //------------------------------------Tangage
     pen2.setWidth(5);
     ellipsePainter.setPen(pen2);
@@ -182,11 +207,7 @@ void MainWindow::display_Gite_Tangage(QMainWindow* mw){
     pointpen.setWidth(5);
     ellipsePainter.setPen(pointpen);
 }
-/*--------------------------*
- *                          *
- *         METHODS          *
- *                          *
- *--------------------------*/
+
 /**
  * METHOD
  *
@@ -205,6 +226,13 @@ void MainWindow::create_connections(){
     connect(client, SIGNAL(add_new_boat(int)), this, SLOT(add_new_boat(int)));
 }
 
+/**
+ * METHOD
+ *
+ * @brief MainWindow::get_boat : return a bot thanks to an id
+ * @param id
+ * @return
+ */
 Boat* MainWindow::get_boat(int id){
     Boat* boat = nullptr;
     for (unsigned int i=0;i<boats.size();i++) {
@@ -214,6 +242,13 @@ Boat* MainWindow::get_boat(int id){
     return boat;
 }
 
+/**
+ * METHOD
+ *
+ * @brief MainWindow::get_meteo : return a weather station thanks to an id
+ * @param id
+ * @return
+ */
 Meteo* MainWindow::get_meteo(int id){
     Meteo* meteo = nullptr;
     for (unsigned int i=0;i<meteos.size();i++) {
@@ -499,6 +534,12 @@ void MainWindow::on_actionBalise_triggered()
     balise_IHM->show();
 }
 
+/**
+ * SLOT -> TODO
+ *
+ * @brief MainWindow::add_balise : add a new tag
+ * @param b
+ */
 void MainWindow::add_balise(Balise b){
     if(b.get_end_of_transfer()){ //Transfer of data is finished
         ui->actionBalise->setDisabled(true);
@@ -510,6 +551,12 @@ void MainWindow::add_balise(Balise b){
     }
 }
 
+/**
+ * SLOT -> TODO
+ *
+ * @brief MainWindow::add_meteo : add a new weather station
+ * @param m
+ */
 void MainWindow::add_meteo(Meteo m){
     if(m.get_latitude()<0.0f){ //Transfer of data is finished
         ui->actionStations->setDisabled(true);
@@ -527,7 +574,12 @@ void MainWindow::add_meteo(Meteo m){
 }
 
 
-
+/**
+ * SLOT -> TODO
+ *
+ * @brief MainWindow::on_combo_activated : TODO
+ * @param arg1
+ */
 void MainWindow::on_combo_activated(const QString &arg1)
 {
 

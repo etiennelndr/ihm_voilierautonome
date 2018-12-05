@@ -1,6 +1,15 @@
 #include "virtualmap.h"
 #include <QDebug>
 
+/**
+ * CONSTRUCTOR
+ *
+ * @brief VirtualMap::VirtualMap : TODO
+ * @param b1
+ * @param b2
+ * @param b3
+ * @param b4
+ */
 VirtualMap::VirtualMap(Balise* b1, Balise* b2, Balise* b3, Balise* b4){
     balises.push_back(b1);
     balises.push_back(b2);
@@ -11,6 +20,17 @@ VirtualMap::VirtualMap(Balise* b1, Balise* b2, Balise* b3, Balise* b4){
     //Define the start and end of longitude and latitude of the displayed window
     set_start_and_end_lat_and_long();
 
+}
+
+/**
+ * DESTRUCTOR
+ * @brief VirtualMap::~VirtualMap : TODO
+ */
+VirtualMap::~VirtualMap() {
+    qDeleteAll(balises);
+    delete scene;
+    delete zone;
+    delete vie;
 }
 
 void VirtualMap::set_start_and_end_lat_and_long(){

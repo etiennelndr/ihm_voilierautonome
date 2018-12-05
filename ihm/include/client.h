@@ -53,7 +53,7 @@ class ClientTcp : public QObject {
         // Taille du message
         quint16 tailleMessage;
 
-        // Donnes relatives au client pour creation de messages
+        // Donnes relatives au client pour la creation de messages
         string msg_type = "P";
         int my_id;
         vector<int> known_ids;

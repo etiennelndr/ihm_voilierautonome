@@ -20,6 +20,7 @@ class VirtualMap
 {
 public:
     VirtualMap(Balise* b1, Balise* b2, Balise* b3, Balise* b4);
+    ~VirtualMap();
     //getters
     float get_start_latitude() const        {return start_latitude;}
     float get_start_longitude() const       {return start_longitude;}
