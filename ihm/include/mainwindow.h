@@ -68,11 +68,13 @@ private:
 
 
 private slots:
+        // pour afficher le fenetre des stations meteos
         void on_actionStations_triggered();
+        // pour afficher le fenetre des balises
         void on_actionBalise_triggered();
         void add_balise(Balise);
         void add_meteo(Meteo);
-
+        void Rotate_gite_tangage(Boat);
         void on_combo_activated(const QString &arg1);
 
 private:
@@ -92,6 +94,7 @@ private:
         Meteo* get_meteo(int id);
 
         QMutex mtx;
+        // ID du Station Meteo
         QComboBox *combobox12;
         QLine* line_5;
 };

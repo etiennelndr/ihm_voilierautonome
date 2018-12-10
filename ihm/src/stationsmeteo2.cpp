@@ -17,42 +17,25 @@ Stationsmeteo2::Stationsmeteo2(QWidget *parent, int nb) :
     ui(new Ui::stationsmeteo2)
 {
     ui->setupUi(this);
-    void addWidget(QWidget * widget, int stretch = 2, Qt::Alignment alignment = 0);
     QVBoxLayout *grid = new QVBoxLayout;
     grid->addWidget(ui->BtnValider);
     for (unsigned int i = 0; i < nb; ++i) {
-//           labelsBalise[i] = new QLabel(tr("----------------------------------- Station météo%1 ---------------------------------------").arg(i+1));
-//           // Longitude
-//           labels[i] = new QLabel(tr("Longitude"));
-//           lineEdits[i] = new QLineEdit;
-//           grid->addWidget(labelsBalise[i]);
-//           grid->addWidget(labels[i]);
-//           grid->addWidget(lineEdits[i]);
-//           //Latitude
-//           labels[i+1] = new QLabel(tr("Latitude"));
-//           lineEdits[i+1] = new QLineEdit;
-//           grid->addWidget(labels[i+1]);
-//           grid->addWidget(lineEdits[i+1]);
-//           //ID
-//           labelsID[i] = new QLabel(tr("ID"));
-//           lineEditsID[i] = new QLineEdit;
-//           grid->addWidget(labelsID[i]);
-
-//           grid->addWidget(lineEditsID[i]);
-
            labelsBalise.push_back(new QLabel(tr("----------------------------------- Station météo%1 ---------------------------------------").arg(i+1)));
-           // Longitude
+
+           // ------ Longitude
            labelsLongitude.push_back(new QLabel(tr("Longitude")));
            lineEditsLongitude.push_back(new QLineEdit);
            grid->addWidget(labelsBalise.at(i));
            grid->addWidget(labelsLongitude.at(i));
            grid->addWidget(lineEditsLongitude.at(i));
-           //Latitude
+
+           //------- Latitude
            labelsLatitude.push_back(new QLabel(tr("Latitude")));
            lineEditsLatitude.push_back(new QLineEdit);
            grid->addWidget(labelsLatitude.at(i));
            grid->addWidget(lineEditsLatitude.at(i));
-           //ID
+
+           //------- ID
            labelsID.push_back(new QLabel(tr("ID")));
            lineEditsID.push_back(new QLineEdit);
            grid->addWidget(labelsID.at(i));

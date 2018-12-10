@@ -219,6 +219,7 @@ void MainWindow::keyPressEvent(QKeyEvent *event) {
             get_boat(my_id)->set_voile(get_boat(my_id)->get_voile()+delta_voile);
             client->set_voile(get_boat(my_id)->get_voile_addr());
             //GET VOILE GET BVARRE
+            //get vitesse 
             ui->TensionVoile->setValue(50);
         } else if (event->key() == Qt::Key_Down) {
             cout << "Key_down" << endl;

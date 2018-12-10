@@ -40,24 +40,6 @@ void VirtualMap::set_start_and_end_lat_and_long(){
     if (start_longitude >  balises.at(3)->get_longitude()) {start_longitude=balises.at(3)->get_longitude();}
     if (end_longitude   <  balises.at(3)->get_longitude()) {end_longitude=balises.at(3)->get_longitude();}
 
-
-//    start_latitude*=10000;
-//    end_latitude*=10000;
-//    start_longitude*=10000;
-//    end_longitude*=10000;
-//    if(start_latitude<0.0f && end_latitude<0.0f) {
-//        float tmp;
-//        tmp = start_latitude;
-//        start_latitude = end_latitude;
-//        end_latitude = tmp;
-//    }
-//    if(start_longitude<0.0f && end_longitude<0.0f) {
-//        float tmp;
-//        tmp = start_longitude;
-//        start_longitude = end_longitude;
-//        end_longitude = tmp;
-//    }
-//    float offset = max(0.3f*1000*fabs((end_latitude-start_latitude)), 0.3f*1000*fabs((end_longitude-start_longitude)));
     float offset = max(0.3f*fabs((end_latitude-start_latitude)), 0.3f*fabs((end_longitude-start_longitude)));
     start_latitude-=offset;
     end_latitude+=offset;

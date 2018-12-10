@@ -113,7 +113,7 @@
      <string>Vitesse de vent</string>
     </property>
    </widget>
-   <widget class="QLineEdit" name="lineEdit">
+   <widget class="QLineEdit" name="VitesseVent">
     <property name="geometry">
      <rect>
       <x>820</x>
@@ -123,7 +123,7 @@
      </rect>
     </property>
    </widget>
-   <widget class="QLineEdit" name="lineEdit_2">
+   <widget class="QLineEdit" name="VitesseBateau">
     <property name="geometry">
      <rect>
       <x>780</x>
@@ -298,7 +298,7 @@
      <enum>Qt::Horizontal</enum>
     </property>
    </widget>
-   <widget class="QSlider" name="horizontalSlider">
+   <widget class="QSlider" name="TensionBarre">
     <property name="geometry">
      <rect>
       <x>750</x>
@@ -311,7 +311,7 @@
      <enum>Qt::Horizontal</enum>
     </property>
    </widget>
-   <widget class="QSlider" name="horizontalSlider_2">
+   <widget class="QSlider" name="TensionVoile">
     <property name="geometry">
      <rect>
       <x>750</x>
@@ -418,6 +418,38 @@
     </property>
     <property name="pixmap">
      <pixmap resource="../images.qrc">:/img/580b57fcd9996e24bc43c446 (1).png</pixmap>
+    </property>
+   </widget>
+   <widget class="QLabel" name="gite_lbl">
+    <property name="geometry">
+     <rect>
+      <x>730</x>
+      <y>500</y>
+      <width>111</width>
+      <height>81</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="pixmap">
+     <pixmap resource="../images.qrc">:/img/kisspng-line-black-and-white-angle-point-bold-line-cliparts-5a75a3b3ee1be9.4860955115176590599753.png</pixmap>
+    </property>
+   </widget>
+   <widget class="QLabel" name="tangage_lb">
+    <property name="geometry">
+     <rect>
+      <x>940</x>
+      <y>500</y>
+      <width>121</width>
+      <height>81</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="pixmap">
+     <pixmap resource="../images.qrc">:/img/kisspng-line-black-and-white-angle-point-bold-line-cliparts-5a75a3b3ee1be9.4860955115176590599753.png</pixmap>
     </property>
    </widget>
   </widget>

@@ -37,13 +37,24 @@ private slots:
 private:
     Ui::Balise_IHM *ui;
 
+    //Longitude du balise 1
     QLineEdit *TxtLongitude_1;
+    //Latitude du balise 1
     QLineEdit *TxtLatitude_1;
-    QLineEdit *TxtLongitude_2;
+
+    //Longitude du balise 2
+    QLineEdit *TxtLongitude_2;  
+    //Latitude du balise 2
     QLineEdit *TxtLatitude_2;
+
+    //Longitude du balise 3
     QLineEdit *TxtLongitude_3;
+    //Latitude du balise 3
     QLineEdit *TxtLatitude_3;
+
+    //Longitude du balise 4
     QLineEdit *TxtLongitude_4;
+    //Latitude du balise 4
     QLineEdit *TxtLatitude_4;
 };
 
