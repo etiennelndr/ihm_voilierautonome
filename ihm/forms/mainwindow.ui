@@ -10,6 +10,9 @@
     <height>805</height>
    </rect>
   </property>
+  <property name="cursor">
+   <cursorShape>ArrowCursor</cursorShape>
+  </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
@@ -24,7 +27,7 @@
       <x>0</x>
       <y>0</y>
       <width>621</width>
-      <height>161</height>
+      <height>192</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout">
@@ -36,8 +39,51 @@
      </property>
      <item>
       <layout class="QHBoxLayout" name="horizontalLayout_2">
+       <property name="leftMargin">
+        <number>5</number>
+       </property>
        <item>
         <widget class="QRadioButton" name="RadioControle">
+         <property name="enabled">
+          <bool>true</bool>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>0</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>25</width>
+           <height>25</height>
+          </size>
+         </property>
+         <property name="sizeIncrement">
+          <size>
+           <width>0</width>
+           <height>0</height>
+          </size>
+         </property>
+         <property name="baseSize">
+          <size>
+           <width>0</width>
+           <height>0</height>
+          </size>
+         </property>
+         <property name="cursor">
+          <cursorShape>PointingHandCursor</cursorShape>
+         </property>
+         <property name="autoFillBackground">
+          <bool>false</bool>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="label_13">
          <property name="text">
           <string>Prise pour controle le bateau</string>
          </property>
@@ -73,12 +119,19 @@
         </widget>
        </item>
        <item>
-        <widget class="QSpinBox" name="spinBox"/>
+        <widget class="QSpinBox" name="spinBox">
+         <property name="cursor">
+          <cursorShape>PointingHandCursor</cursorShape>
+         </property>
+        </widget>
        </item>
       </layout>
      </item>
      <item>
       <widget class="QPushButton" name="BtnConxDeconx">
+       <property name="cursor">
+        <cursorShape>PointingHandCursor</cursorShape>
+       </property>
        <property name="text">
         <string>Connexion</string>
        </property>
@@ -86,6 +139,9 @@
      </item>
      <item>
       <widget class="QPushButton" name="Btn_Exit">
+       <property name="cursor">
+        <cursorShape>PointingHandCursor</cursorShape>
+       </property>
        <property name="text">
         <string>Exit</string>
        </property>
@@ -110,7 +166,7 @@
      </font>
     </property>
     <property name="text">
-     <string>Vitesse de vent</string>
+     <string>Vitesse du vent</string>
     </property>
    </widget>
    <widget class="QLineEdit" name="VitesseCap">
@@ -122,6 +178,9 @@
       <height>22</height>
      </rect>
     </property>
+    <property name="readOnly">
+     <bool>true</bool>
+    </property>
    </widget>
    <widget class="QLineEdit" name="VitesseBateau">
     <property name="geometry">
@@ -131,6 +190,9 @@
       <width>131</width>
       <height>22</height>
      </rect>
+    </property>
+    <property name="readOnly">
+     <bool>true</bool>
     </property>
    </widget>
    <widget class="QLabel" name="label_5">
@@ -263,13 +325,16 @@
       <height>22</height>
      </rect>
     </property>
+    <property name="cursor">
+     <cursorShape>ArrowCursor</cursorShape>
+    </property>
    </widget>
    <widget class="QLabel" name="label_4">
     <property name="geometry">
      <rect>
-      <x>880</x>
+      <x>840</x>
       <y>0</y>
-      <width>161</width>
+      <width>191</width>
       <height>39</height>
      </rect>
     </property>
@@ -279,7 +344,7 @@
      </font>
     </property>
     <property name="text">
-     <string>Id du station meteo</string>
+     <string>Id de la station meteo</string>
     </property>
     <property name="alignment">
      <set>Qt::AlignCenter</set>
@@ -306,6 +371,9 @@
       <width>160</width>
       <height>22</height>
      </rect>
+    </property>
+    <property name="tracking">
+     <bool>true</bool>
     </property>
     <property name="orientation">
      <enum>Qt::Horizontal</enum>

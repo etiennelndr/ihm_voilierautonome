@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>stationsmeteo2</class>
- <widget class="QDialog" name="stationsmeteo2">
+ <class>StationsMeteo2</class>
+ <widget class="QDialog" name="StationsMeteo2">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -27,6 +27,9 @@
      <width>80</width>
      <height>21</height>
     </rect>
+   </property>
+   <property name="cursor">
+    <cursorShape>PointingHandCursor</cursorShape>
    </property>
    <property name="text">
     <string>Valider</string>

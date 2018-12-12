@@ -2,22 +2,32 @@
 #include "ui_sationsmeteo.h"
 #include "mainwindow.h"
 
-sationsmeteo::sationsmeteo(QWidget *parent) :
-    QDialog(parent),
-    ui(new Ui::sationsmeteo)
-{
+/**
+ * CONSTRUCTOR
+ *
+ * @brief StationsMeteo::StationsMeteo : TODO
+ * @param parent
+ */
+StationsMeteo::StationsMeteo(QWidget *parent) : QDialog(parent), ui(new Ui::StationsMeteo) {
     ui->setupUi(this);
 }
 
-sationsmeteo::~sationsmeteo()
-{
+/**
+ * DESTRUCTOR
+ *
+ * @brief StationsMeteo::~StationsMeteo : TODO
+ */
+StationsMeteo::~StationsMeteo() {
     delete ui;
 }
 
-void sationsmeteo::on_pushButton_clicked()
-{
-    this->close();    
-    //-------  le nombre des stations Meteo
+/**
+ * SLOT -> TODO
+ *
+ * @brief StationsMeteo::on_pushButton_clicked : TODO
+ */
+void StationsMeteo::on_pushButton_clicked() {
+    this->close();
     int spin1 = ui->SpinMeteo->value();
     Stationsmeteo2* stationsmeteo2 = new Stationsmeteo2(this,spin1);
     //------- Afficher une nouvelle page concernant les coordonees de chaque stations (Longitude/Latitude/Id)
@@ -26,8 +36,12 @@ void sationsmeteo::on_pushButton_clicked()
     connect(stationsmeteo2, SIGNAL(new_meteo(Meteo)), this, SLOT(transfer_new_meteo(Meteo)));
 }
 
-void sationsmeteo::transfer_new_meteo(Meteo m){
+/**
+ * SLOT -> TODO
+ *
+ * @brief StationsMeteo::transfer_new_meteo : TODO
+ * @param m
+ */
+void StationsMeteo::transfer_new_meteo(Meteo m){
     emit new_meteo(m);
 }
-
-

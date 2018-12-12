@@ -19,7 +19,7 @@
  * @brief MainWindow::MainWindow : TODO
  * @param parent
  */
-MainWindow::MainWindow(QWidget *parent,int nb) : QMainWindow(parent), ui(new Ui::MainWindow) {
+MainWindow::MainWindow(QWidget *parent, int nb) : QMainWindow(parent), ui(new Ui::MainWindow) {
      ui->setupUi(this);
      ui->RadioControle->setCheckable(false);
      delta_barre=delta_voile=0.5f; // a modifier de façon empirique pour rester précis mais efficace dans les commandes du bateau
@@ -43,22 +43,44 @@ MainWindow::MainWindow(QWidget *parent,int nb) : QMainWindow(parent), ui(new Ui:
  * @brief MainWindow::~MainWindow : TODO
  */
 MainWindow::~MainWindow() {
-     delete ui;
+    qDeleteAll(boats);
+    qDeleteAll(meteos);
+    qDeleteAll(balises);
+    delete virtual_map;
+    delete station_IHM;
+    delete balise_IHM;
+    delete combobox12;
+    delete line_5;
+    delete ui;
 }
+
+/*--------------------------*
+ *                          *
+ *         METHODS          *
+ *                          *
+ *--------------------------*/
+/**
+ * METHOD
+ *
+ * @brief MainWindow::paintEvent : TODO
+ * @param event
+ */
 void MainWindow::paintEvent(QPaintEvent *event){
     Q_UNUSED(event);
     if (virtual_map != nullptr){
         virtual_map->display_boats(boats, this);
     }
-
-    display_Boussle(this);
-    display_Gite_Tangage(this);
+    display_Boussole();
+    display_Gite_Tangage();
 }
 
-void MainWindow::display_Boussle(QMainWindow* mw){
-
-    QPainter ellipsePainter(mw);
-    // -------- affficher la cercle du boussle
+/**
+ * METHOD
+ *
+ * @brief MainWindow::display_Boussole
+ */
+void MainWindow::display_Boussole(){
+    QPainter ellipsePainter(this);
 
     QPen pen1(Qt::red);
     pen1.setWidth(5);
@@ -115,9 +137,13 @@ void MainWindow::Rotate_gite_tangage(Boat b){
     ui->tangage_lb->setPixmap(pixmap2);
 }
 
-void MainWindow::display_Gite_Tangage(QMainWindow* mw){
-    QPainter ellipsePainter(mw);
-    //--------Afficher la cercle du Gite
+/**
+ * METHOD
+ *
+ * @brief MainWindow::display_Gite_Tangage : TODO
+ */
+void MainWindow::display_Gite_Tangage(){
+    QPainter ellipsePainter(this);
 
     QPen pen2(Qt::black);
     pen2.setWidth(5);
@@ -158,11 +184,7 @@ void MainWindow::display_Gite_Tangage(QMainWindow* mw){
     ellipsePainter.drawLine(p3,p4);
 
 }
-/*--------------------------*
- *                          *
- *         METHODS          *
- *                          *
- *--------------------------*/
+
 /**
  * METHOD
  *
@@ -181,6 +203,13 @@ void MainWindow::create_connections(){
     connect(client, SIGNAL(add_new_boat(int)), this, SLOT(add_new_boat(int)));
 }
 
+/**
+ * METHOD
+ *
+ * @brief MainWindow::get_boat : return a bot thanks to an id
+ * @param id
+ * @return
+ */
 Boat* MainWindow::get_boat(int id){
     Boat* boat = nullptr;
     for (unsigned int i=0;i<boats.size();i++) {
@@ -190,6 +219,13 @@ Boat* MainWindow::get_boat(int id){
     return boat;
 }
 
+/**
+ * METHOD
+ *
+ * @brief MainWindow::get_meteo : return a weather station thanks to an id
+ * @param id
+ * @return
+ */
 Meteo* MainWindow::get_meteo(int id){
     Meteo* meteo = nullptr;
     for (unsigned int i=0;i<meteos.size();i++) {
@@ -225,7 +261,7 @@ void MainWindow::keyPressEvent(QKeyEvent *event) {
         } else if (event->key() == Qt::Key_Right) {
             cout << "Key_right" << endl;
             get_boat(my_id)->set_barre(get_boat(my_id)->get_barre()+delta_barre);
-            client->set_barre(get_boat(my_id)->get_barre_addr());        
+            client->set_barre(get_boat(my_id)->get_barre_addr());
             //----------------Tension de la barre
             ui->TensionVoile->setValue(get_boat(my_id)->get_barre());
         } else if (event->key() == Qt::Key_Left) {
@@ -473,7 +509,7 @@ void MainWindow::add_new_boat(int id_concern){
 // Afficher le fenetre des stations meteos
 void MainWindow::on_actionStations_triggered()
 {
-    station_IHM = new sationsmeteo(this);
+    station_IHM = new StationsMeteo(this);
     connect(station_IHM, SIGNAL(new_meteo(Meteo)), this, SLOT(add_meteo(Meteo)));
     station_IHM->show();
 }
@@ -492,6 +528,12 @@ void MainWindow::on_actionBalise_triggered()
     balise_IHM->show();
 }
 
+/**
+ * SLOT -> TODO
+ *
+ * @brief MainWindow::add_balise : add a new tag
+ * @param b
+ */
 void MainWindow::add_balise(Balise b){
     if(b.get_end_of_transfer()){ //Transfer of data is finished
         ui->actionBalise->setDisabled(true);
@@ -503,7 +545,12 @@ void MainWindow::add_balise(Balise b){
     }
 }
 
-
+/**
+ * SLOT -> TODO
+ *
+ * @brief MainWindow::add_meteo : add a new weather station
+ * @param m
+ */
 void MainWindow::add_meteo(Meteo m){
      ui->VitesseCap->setText(QString::number(get_meteo(my_id)->get_vitesse()));
     if(m.get_latitude()<0.0f){ //Transfer of data is finished
@@ -517,7 +564,12 @@ void MainWindow::add_meteo(Meteo m){
 }
 
 
-
+/**
+ * SLOT -> TODO
+ *
+ * @brief MainWindow::on_combo_activated : TODO
+ * @param arg1
+ */
 void MainWindow::on_combo_activated(const QString &arg1)
 {
 

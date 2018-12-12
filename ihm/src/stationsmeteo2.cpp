@@ -12,14 +12,37 @@
 #include "mainwindow.h"
 
 
-Stationsmeteo2::Stationsmeteo2(QWidget *parent, int nb) :
-    QDialog(parent),
-    ui(new Ui::stationsmeteo2)
-{
+/**
+ * CONSTRUCTOR
+ *
+ * @brief Stationsmeteo2::Stationsmeteo2
+ * @param parent
+ * @param nb
+ */
+Stationsmeteo2::Stationsmeteo2(QWidget *parent, int nb) : QDialog(parent), ui(new Ui::StationsMeteo2) {
     ui->setupUi(this);
     QVBoxLayout *grid = new QVBoxLayout;
     grid->addWidget(ui->BtnValider);
-    for (unsigned int i = 0; i < nb; ++i) {
+    for (unsigned int i = 0; int(i) < nb; ++i) {
+//           labelsBalise[i] = new QLabel(tr("----------------------------------- Station météo%1 ---------------------------------------").arg(i+1));
+//           // Longitude
+//           labels[i] = new QLabel(tr("Longitude"));
+//           lineEdits[i] = new QLineEdit;
+//           grid->addWidget(labelsBalise[i]);
+//           grid->addWidget(labels[i]);
+//           grid->addWidget(lineEdits[i]);
+//           //Latitude
+//           labels[i+1] = new QLabel(tr("Latitude"));
+//           lineEdits[i+1] = new QLineEdit;
+//           grid->addWidget(labels[i+1]);
+//           grid->addWidget(lineEdits[i+1]);
+//           //ID
+//           labelsID[i] = new QLabel(tr("ID"));
+//           lineEditsID[i] = new QLineEdit;
+//           grid->addWidget(labelsID[i]);
+
+//           grid->addWidget(lineEditsID[i]);
+
            labelsBalise.push_back(new QLabel(tr("----------------------------------- Station météo%1 ---------------------------------------").arg(i+1)));
 
            // ------ Longitude
@@ -45,9 +68,31 @@ Stationsmeteo2::Stationsmeteo2(QWidget *parent, int nb) :
        }
 
     this->setLayout(grid);
-
 }
 
+/**
+ * DESTRUCTOR
+ *
+ * @brief Stationsmeteo2::~Stationsmeteo2 : TODO
+ */
+Stationsmeteo2::~Stationsmeteo2() {
+    qDeleteAll(labelsLongitude);
+    qDeleteAll(labelsLatitude);
+    qDeleteAll(labelsBalise);
+    qDeleteAll(labelsID);
+    qDeleteAll(lineEditsID);
+    qDeleteAll(lineEditsLongitude);
+    qDeleteAll(lineEditsLatitude);
+    delete gridGroupBox;
+    //delete gl;
+    delete ui;
+}
+
+/**
+ * SLOT -> TODO
+ *
+ * @brief Stationsmeteo2::on_BtnValider_clicked : TODO
+ */
 void Stationsmeteo2::on_BtnValider_clicked() {
     bool empty_longitude=false;
     for (unsigned int i=0; i<lineEditsLongitude.size();i++){
@@ -85,10 +130,3 @@ void Stationsmeteo2::on_BtnValider_clicked() {
 
 
 }
-
-Stationsmeteo2::~Stationsmeteo2()
-{
-    delete ui;
-}
-
-
