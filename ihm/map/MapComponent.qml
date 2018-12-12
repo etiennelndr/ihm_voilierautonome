@@ -50,7 +50,7 @@
 
 // PROJET VOILIER AUTONOME - [PRI] - AFFICHAGE DE LA CARTE
 
-/// TESTS 
+/// teste sobre o role : aq
 
 import QtQuick 2.5
 import QtQuick.Controls 1.4
@@ -277,7 +277,7 @@ Map {
 //! [coord]
     zoomLevel: (maximumZoomLevel - minimumZoomLevel)/2
     center {
-        latitude: 48.360669        // ENIB coordonées pour le zoom
+        latitude: 48.360669        // ENIB coordonées
         longitude: -4.566708
     }
 //! [coord]
@@ -360,7 +360,7 @@ Map {
         id: poiTheQtComapny
         sourceItem: Rectangle { width: 20; height: 20; color: "#14aaff"; border.width: 2; border.color: "white"; smooth: true; radius: 1 }
         coordinate {
-            latitude: 48.349906 // Coordonées initiales du bateau - VALEUR FIXE
+            latitude: 48.349906 // Coordonées initiales du bateau (fixe)-
             longitude: -6.133777
         }
         opacity: 1.0

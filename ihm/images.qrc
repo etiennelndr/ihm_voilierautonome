@@ -1,5 +1,6 @@
 <RCC>
     <qresource prefix="/img">
-        <file>580b57fcd9996e24bc43c446.png</file>
+        <file>flecheBoussle.png</file>
+        <file>LigneGiteTangage.png</file>
     </qresource>
 </RCC>

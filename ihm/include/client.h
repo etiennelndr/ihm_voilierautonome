@@ -18,11 +18,21 @@ using namespace std;
 class ClientTcp : public QObject {
     Q_OBJECT
     public:
+		// Constructor
         ClientTcp(QString ip, quint16 port, int id);
+		// Destructor
         ~ClientTcp();
+
+		// Méthode permettant d'envoyer une nouvelle valeur pour la barre du bateau
+		// qui lui est associé
         void set_barre(float * b);
+		// Méthode permettant d'envoyer une nouvelle valeur pour la voile du bateau
+		// qui lui est associé
         void set_voile(float * v);
+
+		// Initialisation d'un message avant son envoi
         void init_msg(Message& msg);
+        void add_known_id(int id);
 
     public slots:
         void readDataFromTCPIP();
@@ -49,11 +59,11 @@ class ClientTcp : public QObject {
         // Port utilisé par le serveur
         quint16 serverPort;
         // Socket
-        QTcpSocket* soc;
+        QTcpSocket* soc = nullptr;
         // Taille du message
         quint16 tailleMessage;
 
-        // Donnes relatives au client pour creation de messages
+        // Donnes relatives au client pour la creation de messages
         string msg_type = "P";
         int my_id;
         vector<int> known_ids;

@@ -49,10 +49,16 @@ bool ClientTcp::is_known(int _id){
     }
     return false;
 }
+
+void ClientTcp::add_known_id(int id){
+    known_ids.push_back(-id);
+    qDebug()<< "New station : " << -id;
+}
+
 /**
  * METHOD
  *
- * @brief ClientTcp::init_msg : TODO
+ * @brief ClientTcp::init_msg : Initialisation d'un message avant son envoi
  * @param msg
  */
 void ClientTcp::init_msg(Message& msg){
@@ -66,7 +72,8 @@ void ClientTcp::init_msg(Message& msg){
 /**
  * METHOD
  *
- * @brief ClientTcp::set_barre : TODO
+ * @brief ClientTcp::set_barre : Méthode permettant d'envoyer une nouvelle valeur pour la barre du bateau
+ * qui lui est associé
  * @param b
  */
 void ClientTcp::set_barre(float * b) {
@@ -79,7 +86,8 @@ void ClientTcp::set_barre(float * b) {
 /**
  * METHOD
  *
- * @brief ClientTcp::set_voile : TODO
+ * @brief ClientTcp::set_voile : Méthode permettant d'envoyer une nouvelle valeur pour la voile du bateau
+ * qui lui est associé
  * @param v
  */
 void ClientTcp::set_voile(float * v) {
@@ -104,11 +112,18 @@ void ClientTcp::send(QString msg) {
     QByteArray paquet;
     QDataStream out(&paquet, QIODevice::WriteOnly);
 
+	// Il est important d'allouer un espace vide au début du paquet
+	// afin de pouvoir écrire la taille de celui-ci lorsque le message
+	// aura été ajouté au paquet
     out << quint16(0);
+	// Ecriture du message dans le paquet de données
     out << msg;
+	// On pointe à nouveau sur le début du paquet
     out.device()->seek(0);
+	// Insertion de la taille du paquet au début du message
     out << quint16(paquet.size() - int(sizeof(quint16)));
-    soc->write(paquet); // On envoie le paquet
+	// Envoie du paquet
+    soc->write(paquet); 
 }
 
 /**
@@ -121,11 +136,13 @@ void ClientTcp::readDataFromTCPIP() {
     // On détermine quel client envoie le message (recherche du QTcpSocket du client)
     QDataStream in(soc);
 
-    if (tailleMessage == 0) { // Si on ne connaît pas encore la taille du message, on essaye de la récupérer
+	// Si on ne connaît pas encore la taille du message, on essaye de la récupérer
+    if (tailleMessage == 0) {
         if (soc->bytesAvailable() < int(sizeof(quint16))) // On n'a pas reçu la taille du message en entier
             return;
 
-        in >> tailleMessage; // Si on a reçu la taille du message en entier, on la récupère
+		// Si on a reçu la taille du message en entier, on la récupère
+        in >> tailleMessage; 
     }
 
      // Si on connaît la taille du message, on vérifie si on a reçu le message en entier
@@ -135,10 +152,7 @@ void ClientTcp::readDataFromTCPIP() {
     // Si on arrive jusqu'à cette ligne, on peut récupérer le message entier
     QString messageRecu;
     in >> messageRecu;
-    //messageRecu += "\r\n"; // To fit to the message trame
     received_data(messageRecu);
-
-    // On affiche le message sur la zone de Chat
 
     // On remet la taille du message à 0 pour pouvoir recevoir de futurs messages
     tailleMessage = 0;
@@ -154,9 +168,9 @@ void ClientTcp::connecte() {
 
     // Give to the server our id
     Message msg;
-    // Change the type of the message (PC for Post Connection)
+    // Change the type of the message (PC for Poste Connection)
     msg_type = "PC";
-    // Init the trame
+    // Init the frame
     init_msg(msg);
     // Send it to the server
     send(msg.encodeData());
@@ -204,24 +218,31 @@ void ClientTcp::erreurSocket(QAbstractSocket::SocketError erreur) {
 /**
  * SLOT -> TODO
  *
- * @brief ClientTcp::received_data : TODO
+ * @brief ClientTcp::received_data : réception d'un message, traitement de celui-ci et envoi des données 
+ * à la MainWindow
  * @param data
  */
 void ClientTcp::received_data(QString data){
     qDebug() << data;
     Message msg;
+	// Décodage du message
     msg.decodeData(data);
     cout << data.toStdString() <<endl;
-    // Apres decodage du message : verification de la validite puis emission de signals pour l'IHM
-    if (!msg.getError() && *msg.getIdSender()==0 && *msg.getIdDest()==my_id) { // Le message vient du serveur et m'est destine
-        if((!is_known(*msg.getIdConcern()))){
-            if (*msg.getIdConcern()>0) {
+    // Apres decodage du message : verification de la validite puis emission de signaux pour l'IHM
+    if (!msg.getError() && *msg.getIdSender() == 0 && *msg.getIdDest() == my_id) { // Le message vient du serveur et m'est destine
+		// Il nous faut vérifier si l'élément qui a envoyé le emssage est connu dans notre base d'identifiants
+        if((!is_known(*msg.getIdConcern()))) {
+			// Si ce n'est pas le cas on l'ajoute dans notre base d'identifiants et on prévient
+			// la MainWindow qu'un nouvel élément vient de nous envoyer un message
+            if (*msg.getIdConcern() > 0) {
                 emit add_new_boat(*msg.getIdConcern());
                 known_ids.push_back(*msg.getIdConcern());
             } else
                 return;
-        }
-        else {
+        } else {
+			// Pour chaque paramètre contenu dans le message on émet un signal
+			// à la MainWindow afin que celle-ci puisse faire des mises à  jour
+			// de son côté
             if (msg.getLongitude()) {
                 emit send_longitude(*msg.getLongitude(),*msg.getIdConcern());
             }

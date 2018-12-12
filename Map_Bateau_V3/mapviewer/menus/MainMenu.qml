@@ -66,7 +66,7 @@ MenuBar {
 
     Menu {
         id: providerMenu
-        title: qsTr("Serveurs")
+       // title: qsTr("Serveurs")
 
         function createMenu(plugins)
         {
@@ -86,7 +86,7 @@ MenuBar {
 
     Menu {
         id: mapTypeMenu
-        title: qsTr("Affichage")
+        //title: qsTr("Affichage")
 
         function createMenu(map)
         {
@@ -110,7 +110,7 @@ MenuBar {
         id: toolsMenu
         property bool isFollowMe: false;
         property bool isMiniMap: false;
-        title: qsTr("Options")
+       // title: qsTr("Options")
 
         function createMenu(map)
         {

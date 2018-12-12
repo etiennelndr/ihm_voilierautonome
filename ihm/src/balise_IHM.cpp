@@ -28,6 +28,7 @@ Balise_IHM::~Balise_IHM(){
 
 void Balise_IHM::on_BtnValider_clicked()
 {
+    //----- Les coordonees des balises(Longitude/Latitude)
     if(!(ui->TxtLatitude_1->text().isEmpty() || ui->TxtLongitude_1->text().isEmpty() ||
          ui->TxtLatitude_2->text().isEmpty() || ui->TxtLongitude_2->text().isEmpty() ||
          ui->TxtLatitude_3->text().isEmpty() || ui->TxtLongitude_3->text().isEmpty() ||

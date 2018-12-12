@@ -1,5 +1,5 @@
 #ifndef MAINWINDOW_H
-#define MAINWINDOW_H
+#define MAINWINDOW_H 1
 
 #include <QMainWindow>
 #include <QDialog>
@@ -18,6 +18,7 @@
 #include <QGraphicsView>
 #include <QComboBox>
 #include <QLine>
+#include <QVector>
 
 
 class QPushButton;
@@ -46,7 +47,7 @@ class MainWindow : public QMainWindow {
         void on_Btn_Exit_clicked();
         void set_connexion(bool status);
 
-        //Receive data from client
+        // Receive data from client
         void receive_longitude(float l, int id_concern);
         void receive_latitude(float l, int id_concern);
         void receive_cap(float c, int id_concern);
@@ -55,34 +56,35 @@ class MainWindow : public QMainWindow {
         void receive_tangage(float t, int id_concern);
         void receive_barre(float b, int id_concern);
         void receive_voile(float v, int id_concern);
+
         void add_new_boat(int id_concern);
-        void display_Boussle(QMainWindow* mw);
-        void display_Gite_Tangage(QMainWindow* mw);
 
+        void display_Boussole();
+        void display_Gite_Tangage();
 
+	private:
+        StationsMeteo *station_IHM = nullptr;
+        Balise_IHM *balise_IHM     = nullptr;
 
-private:
-        sationsmeteo *station_IHM;
-        Balise_IHM *balise_IHM;
-
-
-
-private slots:
+	private slots:
+        // pour afficher le fenetre des stations meteos
         void on_actionStations_triggered();
+        // pour afficher le fenetre des balises
         void on_actionBalise_triggered();
         void add_balise(Balise);
         void add_meteo(Meteo);
+        void Rotate_gite_tangage();
+        void Rotate_Boussole(Meteo);
 
-        void on_combo_activated(const QString &arg1);
-
-private:
+	private:
         float delta_barre, delta_voile;
         bool connected;
-        ClientTcp* client=nullptr;
-        int my_id;
-        Ui::MainWindow *ui;
+        ClientTcp* client = nullptr;
+        int my_id = 0;
+        Ui::MainWindow *ui = nullptr;
         vector<Boat*> boats;
         vector<Meteo*> meteos;
+        vector<float> memory_angles_for_display;
         vector<Balise*> balises;
         VirtualMap* virtual_map = nullptr;
 
@@ -92,8 +94,9 @@ private:
         Meteo* get_meteo(int id);
 
         QMutex mtx;
-        QComboBox *combobox12;
-        QLine* line_5;
+        QComboBox *combobox12 = nullptr;
+        QLine* line_5 = nullptr;
 };
 
 #endif // MAINWINDOW_H
+

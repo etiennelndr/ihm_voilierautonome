@@ -11,8 +11,6 @@
 #include <QTime>
 #include <QDebug>
 
-#include "utils.h"
-
 using std::string;
 using std::vector;
 
@@ -27,6 +25,8 @@ class Message {
         // Encodeur et décodeur pour l'UART et le TCP/IP
         QString encodeData();
         void decodeData(QString msg);
+
+        Message copy();
 
         // Getters
         string* getType();

@@ -12,6 +12,7 @@ INPUT(
 ./release\meteo.o
 ./release\utils.o
 ./release\qrc_images.o
+./release\qrc_mapviewer.o
 ./release\moc_client.o
 ./release\moc_mainwindow.o
 ./release\moc_balise_IHM.o

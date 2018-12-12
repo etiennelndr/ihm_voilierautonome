@@ -50,7 +50,7 @@
 
 // PROJET VOILIER AUTONOME - [PRI] - AFFICHAGE DE LA CARTE
 
-/// teste sobre o role : aq
+/// TESTS
 
 import QtQuick 2.5
 import QtQuick.Controls 1.4
@@ -277,7 +277,7 @@ Map {
 //! [coord]
     zoomLevel: (maximumZoomLevel - minimumZoomLevel)/2
     center {
-        latitude: 48.360669        // ENIB coordonées
+        latitude: 48.360669        // ENIB coordonées pour le zoom
         longitude: -4.566708
     }
 //! [coord]
@@ -357,27 +357,28 @@ Map {
     }
 
     MapQuickItem {
-        id: poiTheQtComapny
-        sourceItem: Rectangle { width: 20; height: 20; color: "#14aaff"; border.width: 2; border.color: "white"; smooth: true; radius: 1 }
-        coordinate {
-            latitude: 48.349906 // Coordonées initiales du bateau (fixe)-
-            longitude: -6.133777
-        }
-        opacity: 1.0
-        anchorPoint: Qt.point(sourceItem.width/2, sourceItem.height/2)
-    }
+            // id: poiTheQtComapny
+             //sourceItem: Rectangle { width: 12; height: 12; color: "#14aaff"; border.width: 2; border.color: "white"; smooth: true; radius: 1 }
+             coordinate {
+                 latitude: 48.430807 // Coordonées initiales du bateau - LAC TY COLO - ST RENAN
+                 longitude: -4.61363
+             }
+             opacity: 1.0
+             anchorPoint: Qt.point(sourceItem.width/2, sourceItem.height/2)
+         }
 
-    MapQuickItem {
-        sourceItem: Text{
-            text: "BATEAU LOCALISATION"
-            color:"#242424"
-            font.bold: true
-            styleColor: "#ECECEC"
-            style: Text.Outline
-        }
-        coordinate: poiTheQtComapny.coordinate
-        anchorPoint: Qt.point(-poiTheQtComapny.sourceItem.width * -1.6,poiTheQtComapny.sourceItem.height * 1.2)
-    }
+         MapQuickItem {
+             sourceItem: Text{
+                 //text: "BATEAU LOCALISATION"
+                 color:"#242424"
+                 font.bold: true
+                 styleColor: "#ECECEC"
+                 style: Text.Outline
+             }
+             coordinate: poiTheQtComapny.coordinate
+             anchorPoint: Qt.point(-poiTheQtComapny.sourceItem.width * -1.6,poiTheQtComapny.sourceItem.height * 1.2)
+         }
+
 
     MapSliders {
         id: sliders
