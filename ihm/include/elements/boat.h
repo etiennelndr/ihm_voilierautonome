@@ -42,16 +42,16 @@ public:
     void set_voile(float _voile)        {voile=_voile;}
 
 private:
-    float vitesse;
-    float cap;
-    float longitude;
-    float latitude;
-    float gite;
-    float tangage;
-    float barre;
-    float voile;
-    bool  is_mine; //Est-ce que ce bateau est celui que je controle
-    int id; //Identifiant du bateau pour la communication des data
+    float vitesse=0.0f;
+    float cap=0.0f;
+    float longitude=0.0f;
+    float latitude=0.0f;
+    float gite=0.0f;
+    float tangage=0.0f;
+    float barre=0.0f;
+    float voile=0.0f;
+    bool  is_mine=false; //Est-ce que ce bateau est celui que je controle
+    int   id; //Identifiant du bateau pour la communication des data
     QColor* color;
 };
 

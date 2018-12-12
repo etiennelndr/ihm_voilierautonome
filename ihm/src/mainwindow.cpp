@@ -76,7 +76,9 @@ void MainWindow::paintEvent(QPaintEvent *event){
         Rotate_Boussole(*get_meteo(ui->combobox12->currentIndex()));
         ui->VitesseVent->setText(QString::number(get_meteo(ui->combobox12->currentIndex())->get_vitesse()));
     }
-    if(my_id>0){
+    if(get_boat(my_id)!=nullptr){
+        ui->TensionVoile->setValue(int(get_boat(my_id)->get_voile()));
+        ui->TensionBarre->setValue(int(get_boat(my_id)->get_barre()));
         Rotate_gite_tangage();
         ui->VitesseBateau->setText(QString::number(get_boat(my_id)->get_vitesse()));
     }
@@ -262,25 +264,21 @@ void MainWindow::keyPressEvent(QKeyEvent *event) {
             get_boat(my_id)->set_voile(get_boat(my_id)->get_voile()+delta_voile);
             client->set_voile(get_boat(my_id)->get_voile_addr());
             //----------------Tension de voile
-            ui->TensionVoile->setValue(get_boat(my_id)->get_voile());
         } else if (event->key() == Qt::Key_Down) {
             cout << "Key_down" << endl;
             get_boat(my_id)->set_voile(get_boat(my_id)->get_voile()-delta_voile);
             client->set_voile(get_boat(my_id)->get_voile_addr());
             //----------------Tension de voile
-            ui->TensionVoile->setValue(get_boat(my_id)->get_voile());
         } else if (event->key() == Qt::Key_Right) {
             cout << "Key_right" << endl;
             get_boat(my_id)->set_barre(get_boat(my_id)->get_barre()+delta_barre);
             client->set_barre(get_boat(my_id)->get_barre_addr());
             //----------------Tension de la barre
-            ui->TensionVoile->setValue(get_boat(my_id)->get_barre());
         } else if (event->key() == Qt::Key_Left) {
             cout << "Key_left" << endl;
             get_boat(my_id)->set_barre(get_boat(my_id)->get_barre()-delta_barre);
             client->set_barre(get_boat(my_id)->get_barre_addr());
             //----------------Tension de la barre
-            ui->TensionVoile->setValue(get_boat(my_id)->get_barre());
         }
     }else if (event->key()==Qt::Key_Up || event->key()==Qt::Key_Down || event->key()==Qt::Key_Left || event->key()==Qt::Key_Right)
       QMessageBox::information(this,"Error","Tu ne peux pas contrôler le bateau");
