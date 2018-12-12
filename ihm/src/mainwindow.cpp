@@ -317,6 +317,9 @@ void MainWindow::on_BtnConxDeconx_clicked() {
 //            ui->label->close();
 //        }
         create_connections();
+        for (unsigned int i=0;i<meteos.size();i++) {
+            client->add_known_id(meteos.at(i)->get_id());
+        }
     } else {
         cout << "on_BtnConxDeconx_clicked" << endl;
         // Delete the client
@@ -398,7 +401,7 @@ void MainWindow::receive_cap(float c, int id_concern){
         get_boat(id_concern)->set_cap(c);
         update();
     } else if (id_concern<0) {
-        get_meteo(id_concern)->set_cap(c);
+        get_meteo(-id_concern)->set_cap(c);
         update();
     }
     cout << "New cap of " << id_concern << " : " << c <<endl;
@@ -415,7 +418,7 @@ void MainWindow::receive_vitesse(float v, int id_concern){
     if(id_concern>0){
         get_boat(id_concern)->set_vitesse(v);
         update();
-    } else if (id_concern<0) {
+    } else if (-id_concern<0) {
         get_meteo(id_concern)->set_vitesse(v);
         update();
     }
@@ -559,6 +562,8 @@ void MainWindow::add_meteo(Meteo m){
         //ui->VitesseCap->setText(QString::number(get_meteo(my_id)->get_vitesse()));
         meteos.push_back(new Meteo(m.get_id(),m.get_latitude(), m.get_latitude()));
         ui->combobox12->addItem(QString::number(m.get_id()));
+        if(client!=nullptr)
+            client->add_known_id(m.get_id());
         qDebug() << "new Meteo added with id : " << m.get_id();
     }
 }

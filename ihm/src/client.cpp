@@ -49,6 +49,12 @@ bool ClientTcp::is_known(int _id){
     }
     return false;
 }
+
+void ClientTcp::add_known_id(int id){
+    known_ids.push_back(-id);
+    qDebug()<< "New station : " << -id;
+}
+
 /**
  * METHOD
  *

@@ -29,7 +29,7 @@ StationsMeteo::~StationsMeteo() {
 void StationsMeteo::on_pushButton_clicked() {
     this->close();
     int spin1 = ui->SpinMeteo->value();
-    Stationsmeteo2* stationsmeteo2 = new Stationsmeteo2(this,spin1);
+    StationsMeteo2* stationsmeteo2 = new StationsMeteo2(this,spin1);
     //------- Afficher une nouvelle page concernant les coordonees de chaque stations (Longitude/Latitude/Id)
     stationsmeteo2->setModal(true);
     stationsmeteo2->show();

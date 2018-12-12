@@ -23,6 +23,7 @@ class ClientTcp : public QObject {
         void set_barre(float * b);
         void set_voile(float * v);
         void init_msg(Message& msg);
+        void add_known_id(int id);
 
     public slots:
         void readDataFromTCPIP();
