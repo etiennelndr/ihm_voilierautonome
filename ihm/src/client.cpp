@@ -52,7 +52,7 @@ bool ClientTcp::is_known(int _id){
 /**
  * METHOD
  *
- * @brief ClientTcp::init_msg : TODO
+ * @brief ClientTcp::init_msg : Initialisation d'un message avant son envoi
  * @param msg
  */
 void ClientTcp::init_msg(Message& msg){
@@ -66,7 +66,8 @@ void ClientTcp::init_msg(Message& msg){
 /**
  * METHOD
  *
- * @brief ClientTcp::set_barre : TODO
+ * @brief ClientTcp::set_barre : Méthode permettant d'envoyer une nouvelle valeur pour la barre du bateau
+ * qui lui est associé
  * @param b
  */
 void ClientTcp::set_barre(float * b) {
@@ -79,7 +80,8 @@ void ClientTcp::set_barre(float * b) {
 /**
  * METHOD
  *
- * @brief ClientTcp::set_voile : TODO
+ * @brief ClientTcp::set_voile : Méthode permettant d'envoyer une nouvelle valeur pour la voile du bateau
+ * qui lui est associé
  * @param v
  */
 void ClientTcp::set_voile(float * v) {

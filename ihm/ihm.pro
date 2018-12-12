@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui network widgets
+QT       += core gui network widgets quickwidgets
 
 greaterThan(QT_MAJOR_VERSION, 4)
 
@@ -53,6 +53,7 @@ HEADERS += \
     include\elements\boat.h \
     include\elements\meteo.h \
     include\utils\utils.h \
+	include\quickwidget.h
 
 FORMS += \
     forms\mainwindow.ui \
@@ -60,10 +61,42 @@ FORMS += \
     forms\sationsmeteo.ui \
     forms\stationsmeteo2.ui
 
+OTHER_FILES += mapviewer.qml \
+    helper.js \
+    map/MapComponent.qml \
+    map/MapSliders.qml \
+    map/Marker.qml \
+    map/CircleItem.qml \
+    map/RectangleItem.qml \
+    map/PolylineItem.qml \
+    map/PolygonItem.qml \
+    map/ImageItem.qml \
+    map/MiniMap.qml \
+    menus/ItemPopupMenu.qml \
+    menus/MainMenu.qml \
+    menus/MapPopupMenu.qml \
+    menus/MarkerPopupMenu \
+    forms/Geocode.qml \
+    forms/GeocodeForm.ui.qml\
+    forms/Message.qml \
+    forms/MessageForm.ui.qml \
+    forms/ReverseGeocode.qml \
+    forms/ReverseGeocodeForm.ui.qml \
+    forms/RouteCoordinate.qml \
+    forms/Locale.qml \
+    forms/LocaleForm.ui.qml \
+    forms/RouteAddress.qml \
+    forms/RouteAddressForm.ui.qml \
+    forms/RouteCoordinateForm.ui.qml \
+    forms/RouteList.qml \
+    forms/RouteListDelegate.qml \
+    forms/RouteListHeader.qml
+
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 RESOURCES += \
-    images.qrc
+    images.qrc \
+	mapviewer.qrc
