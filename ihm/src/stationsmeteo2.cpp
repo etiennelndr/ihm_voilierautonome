@@ -15,11 +15,11 @@
 /**
  * CONSTRUCTOR
  *
- * @brief Stationsmeteo2::Stationsmeteo2
+ * @brief StationsMeteo2::StationsMeteo2 : TODO
  * @param parent
  * @param nb
  */
-Stationsmeteo2::Stationsmeteo2(QWidget *parent, int nb) : QDialog(parent), ui(new Ui::StationsMeteo2) {
+StationsMeteo2::StationsMeteo2(QWidget *parent, int nb) : QDialog(parent), ui(new Ui::StationsMeteo2) {
     ui->setupUi(this);
     QVBoxLayout *grid = new QVBoxLayout;
     grid->addWidget(ui->BtnValider);
@@ -73,9 +73,9 @@ Stationsmeteo2::Stationsmeteo2(QWidget *parent, int nb) : QDialog(parent), ui(ne
 /**
  * DESTRUCTOR
  *
- * @brief Stationsmeteo2::~Stationsmeteo2 : TODO
+ * @brief StationsMeteo2::~StationsMeteo2 : TODO
  */
-Stationsmeteo2::~Stationsmeteo2() {
+StationsMeteo2::~StationsMeteo2() {
     qDeleteAll(labelsLongitude);
     qDeleteAll(labelsLatitude);
     qDeleteAll(labelsBalise);
@@ -88,45 +88,58 @@ Stationsmeteo2::~Stationsmeteo2() {
     delete ui;
 }
 
+/*--------------------------*
+ *                          *
+ *          SLOTS           *
+ *                          *
+ *--------------------------*/
 /**
  * SLOT -> TODO
  *
- * @brief Stationsmeteo2::on_BtnValider_clicked : TODO
+ * @brief StationsMeteo2::on_BtnValider_clicked : TODO
  */
-void Stationsmeteo2::on_BtnValider_clicked() {
+void StationsMeteo2::on_BtnValider_clicked() {
     bool empty_longitude=false;
-    for (unsigned int i=0; i<lineEditsLongitude.size();i++){
+    for (unsigned int i=0; i<lineEditsLongitude.size();i++) {
         if(lineEditsLongitude.at(i)->text().isEmpty())
             empty_longitude = true;
     }
+
     bool empty_latitude=false;
-    for (unsigned int i=0; i<lineEditsLatitude.size();i++){
+    for (unsigned int i=0; i<lineEditsLatitude.size();i++) {
         if(lineEditsLatitude.at(i)->text().isEmpty())
             empty_latitude = true;
     }
+
     bool empty_id=false;
-    for (unsigned int i=0; i<lineEditsID.size();i++){
+    for (unsigned int i=0; i<lineEditsID.size();i++) {
         if(lineEditsID.at(i)->text().isEmpty())
             empty_id = true;
 
-        MainWindow* mainWindow = new MainWindow(this,lineEditsID.at(i)->text().toInt());
     }
-    if(!(empty_longitude ||
-         empty_latitude  ||
-         empty_id           )){
+
+    if(!(empty_longitude || empty_latitude || empty_id)) {
         Meteo* meteo;
         for (unsigned int i = 0; i < lineEditsID.size(); ++i) {
-            meteo = new Meteo(int(stoi(lineEditsID.at(i)->text().toStdString())),float(stof(lineEditsLongitude.at(i)->text().toStdString())), float(stof(lineEditsLatitude.at(i)->text().toStdString())));
+            meteo = new Meteo(int(stoi(lineEditsID.at(i)->text().toStdString())),
+				float(stof(lineEditsLongitude.at(i)->text().toStdString())),
+				float(stof(lineEditsLatitude.at(i)->text().toStdString())));
             emit new_meteo(*meteo);
+
+			// Deallocate the pointer
+			delete meteo;
+			meteo = nullptr;
         }
-        meteo = new Meteo(-1,-1.0f,-1.0f);//Tell the mainwindow that the transfer of data is finished
+        meteo = new Meteo(true);//Tell the mainwindow that the transfer of data is finished
         emit new_meteo(*meteo);
+
+		// Deallocate the pointer
+		delete meteo;
+		meteo = nullptr;
+
+		// Close the pop-up
         this->close();
-    }
-    else{
+    } else {
         qDebug() << "Coucou";
     }
-
-
-
 }
