@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui network widgets quickwidgets
+QT       += core gui network widgets quickwidgets quick
 
 greaterThan(QT_MAJOR_VERSION, 4)
 
