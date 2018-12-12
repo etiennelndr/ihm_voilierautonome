@@ -26,8 +26,6 @@ class Stationsmeteo2 : public QDialog
     public:
         explicit Stationsmeteo2(QWidget *parent = nullptr, int nb=0);
         ~Stationsmeteo2();
-    //    enum {NumGridRows = 15};
-
     signals:
         void new_meteo(Meteo);
 
@@ -42,8 +40,12 @@ class Stationsmeteo2 : public QDialog
         vector<QLabel*> labelsLatitude;
         vector<QLabel*> labelsBalise;
         vector<QLabel*> labelsID;
+
+        // ID des stations meteos
         vector<QLineEdit*> lineEditsID;
+        // Longitude des stations meteos
         vector<QLineEdit*> lineEditsLongitude;
+        // Latitude des stations meteos
         vector<QLineEdit*> lineEditsLatitude;
 
         QGroupBox *gridGroupBox = nullptr;

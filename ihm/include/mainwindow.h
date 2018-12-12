@@ -18,6 +18,7 @@
 #include <QGraphicsView>
 #include <QComboBox>
 #include <QLine>
+#include <QVector>
 
 
 class QPushButton;
@@ -66,11 +67,14 @@ private:
         Balise_IHM *balise_IHM    = nullptr;
 
 private slots:
+        // pour afficher le fenetre des stations meteos
         void on_actionStations_triggered();
+        // pour afficher le fenetre des balises
         void on_actionBalise_triggered();
         void add_balise(Balise);
         void add_meteo(Meteo);
-
+        void Rotate_gite_tangage(Boat);
+        void Rotate_Boussle(Meteo);
         void on_combo_activated(const QString &arg1);
 
 private:
@@ -81,6 +85,7 @@ private:
         Ui::MainWindow *ui = nullptr;
         vector<Boat*> boats;
         vector<Meteo*> meteos;
+        vector<float> angle;
         vector<Balise*> balises;
         VirtualMap* virtual_map = nullptr;
 
