@@ -27,13 +27,11 @@ MainWindow::MainWindow(QWidget *parent, int nb) : QMainWindow(parent), ui(new Ui
      ui->label_2->hide();
 
      // Intervale du Tension de la voile
-         ui->TensionVoile->setRange(1,100);
+         ui->TensionVoile->setRange(0,100);
+         ui->TensionVoile->setValue(50);
      // Intervale du Tension de la Barre
-         ui->TensionBarre->setRange(1,100);
-        //Afficher la vitesse de la cap
-
-        //Afficher la vitesse de la bateau
-
+         ui->TensionBarre->setValue(0);
+         ui->TensionBarre->setRange(-45,45);
 }
 
 
@@ -69,9 +67,17 @@ void MainWindow::paintEvent(QPaintEvent *event){
     Q_UNUSED(event);
     if (virtual_map != nullptr){
         virtual_map->display_boats(boats, this);
+
+    }
+    if(get_meteo(ui->combobox12->currentIndex())!=nullptr){
+    Rotate_Boussle(*get_meteo(ui->combobox12->currentIndex()));
+    Rotate_gite_tangage();
+    ui->VitesseBateau->setText(QString::number(get_boat(my_id)->get_vitesse()));
+    ui->VitesseCap->setText(QString::number(ui->combobox12->currentIndex()));
     }
     display_Boussole();
     display_Gite_Tangage();
+
 }
 
 /**
@@ -100,22 +106,25 @@ void MainWindow::display_Boussole(){
 
 }
 
-void MainWindow::Rotate_Boussle(Meteo M){
+void MainWindow::Rotate_Boussle(Meteo m){
 
     QPixmap pixmap(*ui->fleche->pixmap());
     QMatrix rm;
     //--- la difference entre l'ancienne angle et la nouvelle pour le gite et ajouter la nouvelle dans le vecteur angle[]
-    float deltaCap=M.get_cap()-angle.at(0);
+    float deltaCap=m.get_cap()-angle.at(0);
     rm.rotate(deltaCap);
-    angle.at(0) = M.get_cap();
+    angle.at(0) = m.get_cap();
     pixmap = pixmap.transformed(rm);
     ui->fleche->setPixmap(pixmap);
 
 }
 
-void MainWindow::Rotate_gite_tangage(Boat b){
+void MainWindow::Rotate_gite_tangage(){
+    Boat b = *get_boat(my_id);
 
-    ui->VitesseBateau->setText(QString::number(get_boat(my_id)->get_vitesse()));
+    //Afficher la vitesse de la cap
+    qDebug() << "vitesse" << b.get_vitesse();
+
     //----- Rotate Gite(Afficher l'angle d'inclinaison)
     QPixmap pixmap1(*ui->gite_lbl->pixmap());
     QMatrix rm1;
@@ -131,7 +140,7 @@ void MainWindow::Rotate_gite_tangage(Boat b){
     QMatrix rm2;
     //--- la difference entre l'ancienne angle et la nouvelle pour le gite et ajouter la nouvelle dans le vecteur angle[]
     float deltatangage=b.get_tangage()-angle.at(2);
-    rm1.rotate(deltatangage);
+    rm2.rotate(deltatangage);
     angle.at(2) = b.get_tangage();
     pixmap2 = pixmap2.transformed(rm2);
     ui->tangage_lb->setPixmap(pixmap2);
@@ -317,6 +326,9 @@ void MainWindow::on_BtnConxDeconx_clicked() {
 //            ui->label->close();
 //        }
         create_connections();
+        for (unsigned int i=0;i<meteos.size();i++) {
+            client->add_known_id(meteos.at(i)->get_id());
+        }
     } else {
         cout << "on_BtnConxDeconx_clicked" << endl;
         // Delete the client
@@ -398,7 +410,7 @@ void MainWindow::receive_cap(float c, int id_concern){
         get_boat(id_concern)->set_cap(c);
         update();
     } else if (id_concern<0) {
-        get_meteo(id_concern)->set_cap(c);
+        get_meteo(-id_concern)->set_cap(c);
         update();
     }
     cout << "New cap of " << id_concern << " : " << c <<endl;
@@ -416,7 +428,7 @@ void MainWindow::receive_vitesse(float v, int id_concern){
         get_boat(id_concern)->set_vitesse(v);
         update();
     } else if (id_concern<0) {
-        get_meteo(id_concern)->set_vitesse(v);
+        get_meteo(-id_concern)->set_vitesse(v);
         update();
     }
 
@@ -559,6 +571,8 @@ void MainWindow::add_meteo(Meteo m){
         //ui->VitesseCap->setText(QString::number(get_meteo(my_id)->get_vitesse()));
         meteos.push_back(new Meteo(m.get_id(),m.get_latitude(), m.get_latitude()));
         ui->combobox12->addItem(QString::number(m.get_id()));
+        if(client!=nullptr)
+            client->add_known_id(m.get_id());
         qDebug() << "new Meteo added with id : " << m.get_id();
     }
 }

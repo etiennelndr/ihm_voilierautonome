@@ -26,6 +26,8 @@ class Message {
         QString encodeData();
         void decodeData(QString msg);
 
+        Message copy();
+
         // Getters
         string* getType();
         int* getIdSender();

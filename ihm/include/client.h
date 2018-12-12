@@ -32,6 +32,7 @@ class ClientTcp : public QObject {
 
 		// Initialisation d'un message avant son envoi
         void init_msg(Message& msg);
+        void add_known_id(int id);
 
     public slots:
         void readDataFromTCPIP();
