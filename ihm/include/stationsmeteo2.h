@@ -16,16 +16,18 @@
 using namespace std;
 
 namespace Ui {
-class StationsMeteo2;
+	class StationsMeteo2;
 }
 
-class Stationsmeteo2 : public QDialog
-{
+/**
+ * @brief The Stationsmeteo2 class
+ */
+class StationsMeteo2 : public QDialog {
     Q_OBJECT
 
     public:
-        explicit Stationsmeteo2(QWidget *parent = nullptr, int nb=0);
-        ~Stationsmeteo2();
+        explicit StationsMeteo2(QWidget *parent = nullptr, int nb=0);
+        ~StationsMeteo2();
     signals:
         void new_meteo(Meteo);
 
