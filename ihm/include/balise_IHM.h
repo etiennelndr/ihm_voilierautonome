@@ -26,7 +26,9 @@ class Balise_IHM : public QDialog {
     Q_OBJECT
 
 	public:
+		// Constrctor
 		explicit Balise_IHM(QWidget *parent = nullptr);
+		// Destructor
 		~Balise_IHM();
 
 

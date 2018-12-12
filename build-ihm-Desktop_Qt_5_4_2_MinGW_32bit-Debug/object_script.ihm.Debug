@@ -12,6 +12,7 @@ INPUT(
 ./debug\meteo.o
 ./debug\utils.o
 ./debug\qrc_images.o
+./debug\qrc_mapviewer.o
 ./debug\moc_client.o
 ./debug\moc_mainwindow.o
 ./debug\moc_balise_IHM.o

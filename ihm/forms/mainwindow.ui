@@ -485,7 +485,7 @@
      <string/>
     </property>
     <property name="pixmap">
-     <pixmap resource="../images.qrc">:/img/580b57fcd9996e24bc43c446 (1).png</pixmap>
+     <pixmap resource="../images.qrc">:/img/flecheBoussle.png</pixmap>
     </property>
    </widget>
    <widget class="QLabel" name="gite_lbl">
@@ -501,7 +501,7 @@
      <string/>
     </property>
     <property name="pixmap">
-     <pixmap resource="../images.qrc">:/img/kisspng-line-black-and-white-angle-point-bold-line-cliparts-5a75a3b3ee1be9.4860955115176590599753.png</pixmap>
+     <pixmap resource="../images.qrc">:/img/LigneGiteTangage.png</pixmap>
     </property>
    </widget>
    <widget class="QLabel" name="tangage_lb">
@@ -517,7 +517,7 @@
      <string/>
     </property>
     <property name="pixmap">
-     <pixmap resource="../images.qrc">:/img/kisspng-line-black-and-white-angle-point-bold-line-cliparts-5a75a3b3ee1be9.4860955115176590599753.png</pixmap>
+     <pixmap resource="../images.qrc">:/img/LigneGiteTangage.png</pixmap>
     </property>
    </widget>
    <widget class="QLabel" name="label_14">
@@ -584,6 +584,16 @@
      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
     </property>
    </widget>
+   <widget class="QuickWidget" name="widget" native="true">
+    <property name="geometry">
+     <rect>
+      <x>90</x>
+      <y>260</y>
+      <width>391</width>
+      <height>331</height>
+     </rect>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
@@ -591,7 +601,7 @@
      <x>0</x>
      <y>0</y>
      <width>1100</width>
-     <height>20</height>
+     <height>26</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuInitialisation">
@@ -624,6 +634,14 @@
   </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
+ <customwidgets>
+  <customwidget>
+   <class>QuickWidget</class>
+   <extends>QWidget</extends>
+   <header>quickwidget.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
  <resources>
   <include location="../images.qrc"/>
  </resources>
