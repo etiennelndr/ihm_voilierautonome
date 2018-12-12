@@ -18,10 +18,19 @@ using namespace std;
 class ClientTcp : public QObject {
     Q_OBJECT
     public:
+		// Constructor
         ClientTcp(QString ip, quint16 port, int id);
+		// Destructor
         ~ClientTcp();
+
+		// Méthode permettant d'envoyer une nouvelle valeur pour la barre du bateau
+		// qui lui est associé
         void set_barre(float * b);
+		// Méthode permettant d'envoyer une nouvelle valeur pour la voile du bateau
+		// qui lui est associé
         void set_voile(float * v);
+
+		// Initialisation d'un message avant son envoi
         void init_msg(Message& msg);
         void add_known_id(int id);
 
