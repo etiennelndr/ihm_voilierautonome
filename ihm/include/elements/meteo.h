@@ -8,6 +8,7 @@
 class Meteo {
 public:
     Meteo(int id, float lat, float lon);
+    Meteo(bool _end_of_transfer);
 
     //getters
     float  get_vitesse()        {return vitesse;}
@@ -19,6 +20,7 @@ public:
     float* get_longitude_addr() {return &longitude;}
     float* get_latitude_addr()  {return &latitude;}
     int    get_id()             {return id;}
+    bool  get_end_of_transfer() const  {return end_of_transfer;}
 
     //setters
     void set_vitesse(float _vitesse)    {vitesse=_vitesse;}
@@ -32,6 +34,7 @@ private:
     float longitude;
     float latitude;
     int id; //Identifiant de la station meteo pour la communication des datas
+    bool end_of_transfer = false; //Permet de savoir quand le transfert de stations meteos est termine (cf stationsmeteo2)
 };
 
 

@@ -552,25 +552,14 @@ void MainWindow::add_balise(Balise b){
  * @param m
  */
 void MainWindow::add_meteo(Meteo m){
-     ui->VitesseCap->setText(QString::number(get_meteo(my_id)->get_vitesse()));
-    if(m.get_latitude()<0.0f){ //Transfer of data is finished
+    if(m.get_end_of_transfer()){ //Transfer of data is finished
         ui->actionStations->setDisabled(true);
     }
     else{
+        //ui->VitesseCap->setText(QString::number(get_meteo(my_id)->get_vitesse()));
         meteos.push_back(new Meteo(m.get_id(),m.get_latitude(), m.get_latitude()));
         ui->combobox12->addItem(QString::number(m.get_id()));
         qDebug() << "new Meteo added with id : " << m.get_id();
     }
 }
 
-
-/**
- * SLOT -> TODO
- *
- * @brief MainWindow::on_combo_activated : TODO
- * @param arg1
- */
-void MainWindow::on_combo_activated(const QString &arg1)
-{
-
-}

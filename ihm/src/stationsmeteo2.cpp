@@ -109,7 +109,6 @@ void Stationsmeteo2::on_BtnValider_clicked() {
         if(lineEditsID.at(i)->text().isEmpty())
             empty_id = true;
 
-        MainWindow* mainWindow = new MainWindow(this,lineEditsID.at(i)->text().toInt());
     }
     if(!(empty_longitude ||
          empty_latitude  ||
@@ -119,7 +118,7 @@ void Stationsmeteo2::on_BtnValider_clicked() {
             meteo = new Meteo(int(stoi(lineEditsID.at(i)->text().toStdString())),float(stof(lineEditsLongitude.at(i)->text().toStdString())), float(stof(lineEditsLatitude.at(i)->text().toStdString())));
             emit new_meteo(*meteo);
         }
-        meteo = new Meteo(-1,-1.0f,-1.0f);//Tell the mainwindow that the transfer of data is finished
+        meteo = new Meteo(true);//Tell the mainwindow that the transfer of data is finished
         emit new_meteo(*meteo);
         this->close();
     }
