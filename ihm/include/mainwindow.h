@@ -18,6 +18,7 @@
 #include <QGraphicsView>
 #include <QComboBox>
 #include <QLine>
+#include <QVector>
 
 
 class QPushButton;
@@ -75,6 +76,7 @@ private slots:
         void add_balise(Balise);
         void add_meteo(Meteo);
         void Rotate_gite_tangage(Boat);
+        void Rotate_Boussle(Meteo);
         void on_combo_activated(const QString &arg1);
 
 private:
@@ -85,6 +87,7 @@ private:
         Ui::MainWindow *ui;
         vector<Boat*> boats;
         vector<Meteo*> meteos;
+        vector<float> angle;
         vector<Balise*> balises;
         VirtualMap* virtual_map = nullptr;
 

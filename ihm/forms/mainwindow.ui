@@ -113,7 +113,7 @@
      <string>Vitesse de vent</string>
     </property>
    </widget>
-   <widget class="QLineEdit" name="VitesseVent">
+   <widget class="QLineEdit" name="VitesseCap">
     <property name="geometry">
      <rect>
       <x>820</x>
