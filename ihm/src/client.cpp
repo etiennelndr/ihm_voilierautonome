@@ -244,13 +244,16 @@ void ClientTcp::received_data(QString data){
 			// à la MainWindow afin que celle-ci puisse faire des mises à  jour
 			// de son côté
             if (msg.getLongitude()) {
-                emit send_longitude(*msg.getLongitude(),*msg.getIdConcern());
+                if(*msg.getLongitude()!=0.000000f)
+                    emit send_longitude(*msg.getLongitude(),*msg.getIdConcern());
             }
             if (msg.getLatitude()){
-                emit send_latitude(*msg.getLatitude(),*msg.getIdConcern());
+                if(*msg.getLatitude()!=0.000000f)
+                    emit send_latitude(*msg.getLatitude(),*msg.getIdConcern());
             }
             if (msg.getCap()){
-                emit send_cap(*msg.getCap(),*msg.getIdConcern());
+                if(*msg.getCap()!=0.000000f)
+                    emit send_cap(*msg.getCap(),*msg.getIdConcern());
             }
             if (msg.getVitesse()){
                 emit send_vitesse(*msg.getVitesse(),*msg.getIdConcern());

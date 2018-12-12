@@ -74,7 +74,7 @@ void MainWindow::paintEvent(QPaintEvent *event){
     }
     if(get_meteo(ui->combobox12->currentIndex())!=nullptr){
         Rotate_Boussole(*get_meteo(ui->combobox12->currentIndex()));
-        ui->VitesseVent->setText(QString::number(ui->combobox12->currentIndex()));
+        ui->VitesseVent->setText(QString::number(get_meteo(ui->combobox12->currentIndex())->get_vitesse()));
     }
     if(my_id>0){
         Rotate_gite_tangage();
@@ -124,7 +124,7 @@ void MainWindow::Rotate_Boussole(Meteo m){
 
 }
 
-void MainWindow::Rotate_gite_tangage(){
+void MainWindow::Rotate_gite_tangage(){ // Affiche les traits representant l'angle du gite et du tangage
     Boat b = *get_boat(my_id);
 
     //----- Rotate Gite(Afficher l'angle d'inclinaison)
@@ -153,7 +153,7 @@ void MainWindow::Rotate_gite_tangage(){
  *
  * @brief MainWindow::display_Gite_Tangage : TODO
  */
-void MainWindow::display_Gite_Tangage(){
+void MainWindow::display_Gite_Tangage(){ // Affiche les cercles autour du gite et du tangage
     QPainter ellipsePainter(this);
 
     QPen pen2(Qt::black);
@@ -394,8 +394,8 @@ void MainWindow::receive_longitude(float l, int id_concern){
  */
 void MainWindow::receive_latitude(float l, int id_concern){
     if(id_concern>0){
-        MainWindow::get_boat(id_concern)->set_latitude(l);
-        MainWindow::update();
+        get_boat(id_concern)->set_latitude(l);
+        update();
         cout << "New latitude of " << id_concern << " : " << l <<endl;
     }
 }
@@ -570,6 +570,7 @@ void MainWindow::add_balise(Balise b){
 void MainWindow::add_meteo(Meteo m){
     if(m.get_end_of_transfer()){ //Transfer of data is finished
         ui->actionStations->setDisabled(true);
+        ui->combobox12->setCurrentIndex(meteos.at(0)->get_id());
     }
     else{
         //ui->VitesseVent->setText(QString::number(get_meteo(my_id)->get_vitesse()));
