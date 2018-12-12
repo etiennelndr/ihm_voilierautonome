@@ -11,8 +11,6 @@
 #include <QTime>
 #include <QDebug>
 
-#include "utils.h"
-
 using std::string;
 using std::vector;
 

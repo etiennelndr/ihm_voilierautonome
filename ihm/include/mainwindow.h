@@ -62,11 +62,11 @@ class MainWindow : public QMainWindow {
         void display_Boussole();
         void display_Gite_Tangage();
 
-private:
+	private:
         StationsMeteo *station_IHM = nullptr;
-        Balise_IHM *balise_IHM    = nullptr;
+        Balise_IHM *balise_IHM     = nullptr;
 
-private slots:
+	private slots:
         // pour afficher le fenetre des stations meteos
         void on_actionStations_triggered();
         // pour afficher le fenetre des balises
@@ -76,7 +76,7 @@ private slots:
         void Rotate_gite_tangage(Boat);
         void Rotate_Boussle(Meteo);
 
-private:
+	private:
         float delta_barre, delta_voile;
         bool connected;
         ClientTcp* client = nullptr;
