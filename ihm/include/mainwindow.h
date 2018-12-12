@@ -73,7 +73,7 @@ private slots:
         void on_actionBalise_triggered();
         void add_balise(Balise);
         void add_meteo(Meteo);
-        void Rotate_gite_tangage(Boat);
+        void Rotate_gite_tangage();
         void Rotate_Boussle(Meteo);
         void on_combo_activated(const QString &arg1);
 
@@ -100,3 +100,4 @@ private:
 };
 
 #endif // MAINWINDOW_H
+
