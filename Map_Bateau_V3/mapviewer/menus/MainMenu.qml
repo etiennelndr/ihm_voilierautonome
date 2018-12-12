@@ -105,7 +105,7 @@ MenuBar {
             return item;
         }
     }
-
+    //test
     Menu {
         id: toolsMenu
         property bool isFollowMe: false;
