@@ -16,35 +16,37 @@
 #include "balise.h"
 
 namespace Ui {
-class Balise_IHM;
+	class Balise_IHM;
 }
 
-class Balise_IHM : public QDialog
-{
+/**
+ * @brief The Balise_IHM class
+ */
+class Balise_IHM : public QDialog {
     Q_OBJECT
 
-public:
-    explicit Balise_IHM(QWidget *parent = nullptr);
-    ~Balise_IHM();
+	public:
+		explicit Balise_IHM(QWidget *parent = nullptr);
+		~Balise_IHM();
 
 
-private slots:
-    void on_BtnValider_clicked();
+	private slots:
+		void on_BtnValider_clicked();
 
-    signals:
-        void new_balise(Balise);
+	signals:
+		void new_balise(Balise);
 
-private:
-    Ui::Balise_IHM *ui;
+	private:
+		Ui::Balise_IHM *ui = nullptr;
 
-    QLineEdit *TxtLongitude_1 = nullptr;
-    QLineEdit *TxtLatitude_1  = nullptr;
-    QLineEdit *TxtLongitude_2 = nullptr;
-    QLineEdit *TxtLatitude_2  = nullptr;
-    QLineEdit *TxtLongitude_3 = nullptr;
-    QLineEdit *TxtLatitude_3  = nullptr;
-    QLineEdit *TxtLongitude_4 = nullptr;
-    QLineEdit *TxtLatitude_4  = nullptr;
+		QLineEdit *TxtLongitude_1 = nullptr;
+		QLineEdit *TxtLatitude_1  = nullptr;
+		QLineEdit *TxtLongitude_2 = nullptr;
+		QLineEdit *TxtLatitude_2  = nullptr;
+		QLineEdit *TxtLongitude_3 = nullptr;
+		QLineEdit *TxtLatitude_3  = nullptr;
+		QLineEdit *TxtLongitude_4 = nullptr;
+		QLineEdit *TxtLatitude_4  = nullptr;
 };
 
 

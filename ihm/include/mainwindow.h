@@ -61,11 +61,11 @@ class MainWindow : public QMainWindow {
         void display_Boussole();
         void display_Gite_Tangage();
 
-private:
+	private:
         StationsMeteo *station_IHM = nullptr;
-        Balise_IHM *balise_IHM    = nullptr;
+        Balise_IHM *balise_IHM     = nullptr;
 
-private slots:
+	private slots:
         void on_actionStations_triggered();
         void on_actionBalise_triggered();
         void add_balise(Balise);
@@ -73,7 +73,7 @@ private slots:
 
         void on_combo_activated(const QString &arg1);
 
-private:
+	private:
         float delta_barre, delta_voile;
         bool connected;
         ClientTcp* client = nullptr;
