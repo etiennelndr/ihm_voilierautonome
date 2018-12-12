@@ -8,17 +8,11 @@
 #include<QtGui>
 #include<QMessageBox>
 #include<QKeyEvent>
-#include<QVBoxLayout>
-#include<QHBoxLayout>
 #include<QRadioButton>
 #include<QTextBrowser>
 #include<balise.h>
 #include<balise_IHM.h>
 #include <QDebug>
-#include <QGraphicsProxyWidget>
-#include <QGraphicsView>
-#include <QGraphicsScene>
-
 /**
  * CONSTRUCTOR
  *
@@ -32,15 +26,14 @@ MainWindow::MainWindow(QWidget *parent, int nb) : QMainWindow(parent), ui(new Ui
      connected=false;
      ui->label_2->hide();
 
+     // Intervale du Tension de la voile
+         ui->TensionVoile->setRange(1,100);
+     // Intervale du Tension de la Barre
+         ui->TensionBarre->setRange(1,100);
+        //Afficher la vitesse de la cap
 
+        //Afficher la vitesse de la bateau
 
-     //QLabel *label_13 = new QLabel();
-
-     /*QGraphicsScene *scene = new QGraphicsScene(this);
-     QGraphicsProxyWidget *w = scene->addWidget(ui->label_13);
-     w->setPos(50, 50);
-     w->setRotation(45);
-     ui->graphicsView->setScene(scene);*/
 }
 
 
@@ -90,65 +83,58 @@ void MainWindow::display_Boussole(){
     QPainter ellipsePainter(this);
 
     QPen pen1(Qt::red);
-    QPen pen2(Qt::black);
-    QPen pointpen(Qt::red);
-
-    pointpen.setWidth(10);
-
-    QPen lignepen(Qt::black);
-    pointpen.setWidth(4);
-
     pen1.setWidth(5);
     ellipsePainter.setPen(pen1);
     ellipsePainter.drawEllipse(QRect(830,94,75,75));
 
+
+    // -------- affficher les directions du boussle
+
+    QPen pen2(Qt::black);
     ellipsePainter.setPen(pen2);
     ellipsePainter.drawText(863,87,"N");
     ellipsePainter.drawText(863,192,"S");
     ellipsePainter.drawText(914,139,"W");
     ellipsePainter.drawText(810,139,"E");
-    //------ Rotate fleche
 
-    /*QPixmap pixmap(*ui->fleche->pixmap());
+
+}
+
+void MainWindow::Rotate_Boussle(Meteo M){
+
+    QPixmap pixmap(*ui->fleche->pixmap());
     QMatrix rm;
-    rm.rotate(0);
+    //--- la difference entre l'ancienne angle et la nouvelle pour le gite et ajouter la nouvelle dans le vecteur angle[]
+    float deltaCap=M.get_cap()-angle.at(0);
+    rm.rotate(deltaCap);
+    angle.at(0) = M.get_cap();
     pixmap = pixmap.transformed(rm);
-    ui->fleche->setPixmap(pixmap);*/
+    ui->fleche->setPixmap(pixmap);
 
-    /*QPoint p1;
-    p1.setX(850);
-    p1.setY(150);
+}
 
-    QPoint p2;
-    p2.setX(880);
-    p2.setY(112);
+void MainWindow::Rotate_gite_tangage(Boat b){
 
-    ellipsePainter.setPen(lignepen);
-    ellipsePainter.drawLine(p1,p2);
-    ellipsePainter.setPen(pointpen);
-    ellipsePainter.drawPoint(p2);
-    ellipsePainter.rotate(30);*/
+    ui->VitesseBateau->setText(QString::number(get_boat(my_id)->get_vitesse()));
+    //----- Rotate Gite(Afficher l'angle d'inclinaison)
+    QPixmap pixmap1(*ui->gite_lbl->pixmap());
+    QMatrix rm1;
+    //--- la difference entre l'ancienne angle et la nouvelle pour le gite et ajouter la nouvelle dans le vecteur angle[]
+    float deltagite=b.get_gite()-angle.at(1);
+    rm1.rotate(deltagite);
+    angle.at(1) = b.get_gite();
+    pixmap1 = pixmap1.transformed(rm1);
+    ui->gite_lbl->setPixmap(pixmap1);
 
-    /*QGraphicsScene *scene = new QGraphicsScene(this);
-
-    ui->graphicsView->setScene(scene);
-
-    QBrush greenBrush(Qt::white);
-    QBrush blueBrush(Qt::blue);
-    QPen outlinePen(Qt::black);
-    outlinePen.setWidth(2);
-
-
-    // addEllipse(x,y,w,h,pen,brush)
-
-    QGraphicsEllipseItem *ellipse;
-    ellipse = scene->addEllipse(75, 75, 90, 85, outlinePen, greenBrush);
-    QPushButton *lbl = new QPushButton();
-    QGraphicsProxyWidget *w = scene->addWidget(lbl);
-            w->setRotation(45);
-            ui->graphicsView->setScene(scene);*/
-
-
+    //-------- Rotate tangage(Afficher l'angle d'inclinaison)
+    QPixmap pixmap2(*ui->tangage_lb->pixmap());
+    QMatrix rm2;
+    //--- la difference entre l'ancienne angle et la nouvelle pour le gite et ajouter la nouvelle dans le vecteur angle[]
+    float deltatangage=b.get_tangage()-angle.at(2);
+    rm1.rotate(deltatangage);
+    angle.at(2) = b.get_tangage();
+    pixmap2 = pixmap2.transformed(rm2);
+    ui->tangage_lb->setPixmap(pixmap2);
 }
 
 /**
@@ -159,20 +145,14 @@ void MainWindow::display_Boussole(){
 void MainWindow::display_Gite_Tangage(){
     QPainter ellipsePainter(this);
 
-    QPen pen1(Qt::red);
     QPen pen2(Qt::black);
-    QPen pointpen(Qt::red);
-
-    pointpen.setWidth(10);
-
-    QPen lignepen(Qt::blue);
-    pen1.setWidth(5);
-
     pen2.setWidth(5);
     ellipsePainter.setPen(pen2);
-
-    //------------------------------------Gite
     ellipsePainter.drawEllipse(QRect(720,530,75,75));
+
+    //-------Afficher le ligne bleu du l'eau
+    QPen lignepen(Qt::blue);
+    lignepen.setWidth(2);
 
     QPoint p1;
     p1.setX(722);
@@ -182,17 +162,16 @@ void MainWindow::display_Gite_Tangage(){
     p2.setX(792);
     p2.setY(565);
 
-    pointpen.setWidth(5);
     ellipsePainter.setPen(lignepen);
     ellipsePainter.drawLine(p1,p2);
 
-    pointpen.setWidth(5);
-    ellipsePainter.setPen(pointpen);
-
-    //------------------------------------Tangage
+    //-------Afficher la cercle du Tangage
     pen2.setWidth(5);
     ellipsePainter.setPen(pen2);
     ellipsePainter.drawEllipse(QRect(925,530,75,75));
+
+
+    //-------Afficher le ligne bleu du l'eau
     QPoint p3;
     p3.setX(926);
     p3.setY(565);
@@ -204,8 +183,6 @@ void MainWindow::display_Gite_Tangage(){
     ellipsePainter.setPen(lignepen);
     ellipsePainter.drawLine(p3,p4);
 
-    pointpen.setWidth(5);
-    ellipsePainter.setPen(pointpen);
 }
 
 /**
@@ -264,29 +241,39 @@ Meteo* MainWindow::get_meteo(int id){
  * @brief MainWindow::keyPressEvent : TODO
  * @param event
  */
+
+// Utitliser les fleches pour controller les bateaux
 void MainWindow::keyPressEvent(QKeyEvent *event) {
-    if(ui->RadioControle->isChecked() && connected) {
+    if(ui->RadioControle->isChecked() && connected)
+    {
         if(event->key() == Qt::Key_Up) {
             cout << "Key_up" << endl;
             get_boat(my_id)->set_voile(get_boat(my_id)->get_voile()+delta_voile);
             client->set_voile(get_boat(my_id)->get_voile_addr());
+            //----------------Tension de voile
+            ui->TensionVoile->setValue(get_boat(my_id)->get_voile());
         } else if (event->key() == Qt::Key_Down) {
             cout << "Key_down" << endl;
             get_boat(my_id)->set_voile(get_boat(my_id)->get_voile()-delta_voile);
             client->set_voile(get_boat(my_id)->get_voile_addr());
+            //----------------Tension de voile
+            ui->TensionVoile->setValue(get_boat(my_id)->get_voile());
         } else if (event->key() == Qt::Key_Right) {
             cout << "Key_right" << endl;
             get_boat(my_id)->set_barre(get_boat(my_id)->get_barre()+delta_barre);
             client->set_barre(get_boat(my_id)->get_barre_addr());
+            //----------------Tension de la barre
+            ui->TensionVoile->setValue(get_boat(my_id)->get_barre());
         } else if (event->key() == Qt::Key_Left) {
             cout << "Key_left" << endl;
             get_boat(my_id)->set_barre(get_boat(my_id)->get_barre()-delta_barre);
             client->set_barre(get_boat(my_id)->get_barre_addr());
+            //----------------Tension de la barre
+            ui->TensionVoile->setValue(get_boat(my_id)->get_barre());
         }
-    } else if (event->key()==Qt::Key_Up || event->key()==Qt::Key_Down || event->key()==Qt::Key_Left || event->key()==Qt::Key_Right)
+    }else if (event->key()==Qt::Key_Up || event->key()==Qt::Key_Down || event->key()==Qt::Key_Left || event->key()==Qt::Key_Right)
       QMessageBox::information(this,"Error","Tu ne peux pas contrôler le bateau");
 }
-
 /*--------------------------*
  *                          *
  *          SLOTS           *
@@ -297,6 +284,8 @@ void MainWindow::keyPressEvent(QKeyEvent *event) {
  *
  * @brief MainWindow::on_RadioControle_clicked : TODO
  */
+
+
 void MainWindow::on_RadioControle_clicked() {
     if(ui->RadioControle->isChecked()) {
         QMessageBox::information(this,"Informations autour du bateau","Utiliser les fleches du clavier pour contrôler le bateau");
@@ -304,12 +293,12 @@ void MainWindow::on_RadioControle_clicked() {
 
     }
 }
-
 /**
  * SLOT -> TODO
  *
  * @brief MainWindow::on_BtnConxDeconx_clicked : TODO
  */
+
 void MainWindow::on_BtnConxDeconx_clicked() {
     if(ui->BtnConxDeconx->text() ==  "Connexion" && ui->spinBox->value()>0) {
         if(my_id != ui->spinBox->value()){
@@ -431,6 +420,7 @@ void MainWindow::receive_vitesse(float v, int id_concern){
         update();
     }
 
+
     cout << "New speed of " << id_concern << " : " << v <<endl;
 }
 
@@ -515,6 +505,8 @@ void MainWindow::add_new_boat(int id_concern){
  *
  * @brief MainWindow::on_actionStations_triggered : TODO
  */
+
+// Afficher le fenetre des stations meteos
 void MainWindow::on_actionStations_triggered()
 {
     station_IHM = new StationsMeteo(this);
@@ -527,6 +519,8 @@ void MainWindow::on_actionStations_triggered()
  *
  * @brief MainWindow::on_actionBalise_triggered : TODO
  */
+
+// Afficher le fenetre des Balises
 void MainWindow::on_actionBalise_triggered()
 {
     balise_IHM = new Balise_IHM(this);
@@ -558,6 +552,7 @@ void MainWindow::add_balise(Balise b){
  * @param m
  */
 void MainWindow::add_meteo(Meteo m){
+     ui->VitesseCap->setText(QString::number(get_meteo(my_id)->get_vitesse()));
     if(m.get_latitude()<0.0f){ //Transfer of data is finished
         ui->actionStations->setDisabled(true);
     }
@@ -565,11 +560,6 @@ void MainWindow::add_meteo(Meteo m){
         meteos.push_back(new Meteo(m.get_id(),m.get_latitude(), m.get_latitude()));
         ui->combobox12->addItem(QString::number(m.get_id()));
         qDebug() << "new Meteo added with id : " << m.get_id();
-        QPixmap pixmap(*ui->fleche->pixmap());
-        QMatrix rm;
-        rm.rotate( m.get_id());
-        pixmap = pixmap.transformed(rm);
-        ui->fleche->setPixmap(pixmap);
     }
 }
 

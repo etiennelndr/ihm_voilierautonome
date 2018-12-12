@@ -30,6 +30,7 @@ void StationsMeteo::on_pushButton_clicked() {
     this->close();
     int spin1 = ui->SpinMeteo->value();
     Stationsmeteo2* stationsmeteo2 = new Stationsmeteo2(this,spin1);
+    //------- Afficher une nouvelle page concernant les coordonees de chaque stations (Longitude/Latitude/Id)
     stationsmeteo2->setModal(true);
     stationsmeteo2->show();
     connect(stationsmeteo2, SIGNAL(new_meteo(Meteo)), this, SLOT(transfer_new_meteo(Meteo)));
@@ -44,5 +45,3 @@ void StationsMeteo::on_pushButton_clicked() {
 void StationsMeteo::transfer_new_meteo(Meteo m){
     emit new_meteo(m);
 }
-
-

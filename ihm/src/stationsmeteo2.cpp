@@ -44,18 +44,21 @@ Stationsmeteo2::Stationsmeteo2(QWidget *parent, int nb) : QDialog(parent), ui(ne
 //           grid->addWidget(lineEditsID[i]);
 
            labelsBalise.push_back(new QLabel(tr("----------------------------------- Station météo%1 ---------------------------------------").arg(i+1)));
-           // Longitude
+
+           // ------ Longitude
            labelsLongitude.push_back(new QLabel(tr("Longitude")));
            lineEditsLongitude.push_back(new QLineEdit);
            grid->addWidget(labelsBalise.at(i));
            grid->addWidget(labelsLongitude.at(i));
            grid->addWidget(lineEditsLongitude.at(i));
-           //Latitude
+
+           //------- Latitude
            labelsLatitude.push_back(new QLabel(tr("Latitude")));
            lineEditsLatitude.push_back(new QLineEdit);
            grid->addWidget(labelsLatitude.at(i));
            grid->addWidget(lineEditsLatitude.at(i));
-           //ID
+
+           //------- ID
            labelsID.push_back(new QLabel(tr("ID")));
            lineEditsID.push_back(new QLineEdit);
            grid->addWidget(labelsID.at(i));
