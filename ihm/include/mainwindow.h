@@ -73,7 +73,7 @@ class MainWindow : public QMainWindow {
         void on_actionBalise_triggered();
         void add_balise(Balise);
         void add_meteo(Meteo);
-        void Rotate_gite_tangage(Boat);
+        void Rotate_gite_tangage();
         void Rotate_Boussle(Meteo);
 
 	private:
@@ -99,3 +99,4 @@ class MainWindow : public QMainWindow {
 };
 
 #endif // MAINWINDOW_H
+
