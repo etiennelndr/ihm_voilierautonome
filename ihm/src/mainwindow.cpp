@@ -106,9 +106,13 @@ void MainWindow::display_Boussole(){
     QPen pen2(Qt::black);
     ellipsePainter.setPen(pen2);
     ellipsePainter.drawText(863,87,"N");
-    ellipsePainter.drawText(863,192,"S");
-    ellipsePainter.drawText(914,139,"W");
-    ellipsePainter.drawText(810,139,"E");
+    ellipsePainter.drawText(863,187,"S");
+    ellipsePainter.drawText(914,139,"E");
+    ellipsePainter.drawText(810,139,"W");
+    ellipsePainter.drawText(863,77,"0°");
+    ellipsePainter.drawText(856,197,"180°");
+    ellipsePainter.drawText(924,139,"45°");
+    ellipsePainter.drawText(780,139,"-45°");
 
 
 }
