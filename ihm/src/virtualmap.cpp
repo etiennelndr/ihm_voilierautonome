@@ -82,13 +82,21 @@ void VirtualMap::display_boats(vector<Boat*> boats,QMainWindow* mw){
 
         Boat* boat = boats.at(i);
 
-        qDebug() << "id : "<< boat->get_id() << " / longitude : " << boat->get_longitude() << " / latitude :" << boat->get_latitude();
+        //qDebug() << "id : "<< boat->get_id() << " / longitude : " << boat->get_longitude() << " / latitude :" << boat->get_latitude();
         if (start_latitude<boat->get_latitude() && boat->get_latitude()<end_latitude && start_longitude<boat->get_longitude() && boat->get_longitude()<end_longitude){
             ellipsePainter.fillRect(scale_lon(boat->get_longitude())-5,scale_lat(boat->get_latitude())-15,10,30,boat->get_color());
             qDebug() <<boat->get_latitude();
         }
         else {
-             ellipsePainter.fillRect(20*i+(310-boats.size()*10),460,10,30,boat->get_color());
+            if (!(start_latitude<boat->get_latitude()))
+                qDebug() << "start_latitude : " << boat->get_latitude() << " < " << start_latitude;
+            if (!(boat->get_latitude()<end_latitude))
+                qDebug() << "end_latitude : " << boat->get_latitude() << " > " << end_latitude;
+            if (!(start_longitude<boat->get_longitude()))
+                qDebug() << "start_longitude : " << boat->get_longitude() << "<" << start_longitude;
+            if (!(boat->get_longitude()<end_longitude))
+                qDebug() << "end_longitude : " << boat->get_longitude() << ">" << end_longitude;
+            ellipsePainter.fillRect(20*i+(310-boats.size()*10),460,10,30,boat->get_color());
         }
         ellipsePainter.fillRect(310-(boats.size()*5)+30*i,720,10,10,boat->get_color());
         ellipsePainter.drawText(310-(boats.size()*5)+30*i,745,QString::number(boat->get_id()));
