@@ -79,11 +79,12 @@ void MainWindow::paintEvent(QPaintEvent *event){
     if(get_boat(my_id)!=nullptr){
         ui->TensionVoile->setValue(int(get_boat(my_id)->get_voile()));
         ui->TensionBarre->setValue(int(get_boat(my_id)->get_barre()));
-        Rotate_gite_tangage();
+
         ui->VitesseBateau->setText(QString::number(get_boat(my_id)->get_vitesse()));
     }
     display_Boussole();
     display_Gite_Tangage();
+    Rotate_gite_tangage();
 
 }
 
@@ -131,18 +132,18 @@ void MainWindow::Rotate_Boussole(Meteo m){
 }
 
 void MainWindow::Rotate_gite_tangage(){ // Affiche les traits representant l'angle du gite et du tangage
-    Boat b = *get_boat(my_id);
+    //Boat b = *get_boat(my_id);
     // coordonees du centre du bateau,elle va faire la rotation autour de cet centre
-    qreal xAngleGite = width() * 0.685;
-    qreal yAngleGite = height() * 0.70;
+    qreal xAngleGite = 753.5;
+    qreal yAngleGite = 563.5;
     QPainter painterGite(this);
     painterGite.setBrush(Qt::white);
     painterGite.setPen(Qt::red);
     painterGite.translate(xAngleGite, yAngleGite);
     //la difference entre l'ancienne angle et la nouvelle pour le tangage et ajouter la nouvelle dans le vecteur angle[]
-    float deltagite=b.get_gite()-memory_angles_for_display.at(1);
-    memory_angles_for_display.at(1) = b.get_gite();
-    painterGite.rotate(deltagite);
+    //float deltagite=b.get_gite()-memory_angles_for_display.at(1);
+    //memory_angles_for_display.at(1) = b.get_gite();
+    painterGite.rotate(45);
     //-----coordonnees(x,y) du bateau par rapport au centre
     qreal rx = -(30 * 0.5);
     qreal ry = -(13 * 0.5);
@@ -151,16 +152,16 @@ void MainWindow::Rotate_gite_tangage(){ // Affiche les traits representant l'ang
 
     //---Rotation du tangage
     //---coordonees du centre du bateau,elle va faire la rotation autour de cet centre
-    qreal xangleTangage = width() * 0.87;
-    qreal ycangleTangage= height() * 0.70;
+    qreal xangleTangage = 957;
+    qreal yangleTangage= 563.5;
     QPainter painterTangage(this);
     painterTangage.setBrush(Qt::white);
     painterTangage.setPen(Qt::red);
-    painterTangage.translate(xangleTangage, ycangleTangage);
+    painterTangage.translate(xangleTangage, yangleTangage);
     // la difference entre l'ancienne angle et la nouvelle pour le tangage et ajouter la nouvelle dans le vecteur angle[]
-    float deltatangage=b.get_tangage()-memory_angles_for_display.at(2);
-    memory_angles_for_display.at(2) = b.get_tangage();
-    painterTangage.rotate(deltatangage);
+    //float deltatangage=b.get_tangage()-memory_angles_for_display.at(2);
+    //memory_angles_for_display.at(2) = b.get_tangage();
+    //painterTangage.rotate(deltatangage);
     //---coordonnees(x,y) du bateau par rapport au centre
     qreal rxx = -(30 * 0.5);
     qreal ryy = -(13 * 0.5);
