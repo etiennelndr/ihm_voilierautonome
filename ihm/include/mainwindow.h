@@ -76,17 +76,17 @@ class MainWindow : public QMainWindow {
         void add_balise(Balise);
         void add_meteo(Meteo);
         void Rotate_gite_tangage();
-        void Rotate_Boussle(Meteo);
+        void Rotate_Boussole(Meteo);
 
 	private:
         float delta_barre, delta_voile;
         bool connected;
         ClientTcp* client = nullptr;
-        int my_id;
+        int my_id = 0;
         Ui::MainWindow *ui = nullptr;
         vector<Boat*> boats;
         vector<Meteo*> meteos;
-        vector<float> angle;
+        vector<float> memory_angles_for_display;
         vector<Balise*> balises;
         VirtualMap* virtual_map = nullptr;
 

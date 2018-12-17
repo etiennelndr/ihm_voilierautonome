@@ -169,10 +169,10 @@ ApplicationWindow {
 
     Address {
         id: toAddress
-        street: "Holmenkollveien 140"
-        city: "Oslo"
-        country: "Norway"
-        postalCode: "0791"
+        street: "Place de la Liberté"
+        city: "Brest"
+        country: "France"
+        postalCode: "29200"
     }
 
     MainMenu {

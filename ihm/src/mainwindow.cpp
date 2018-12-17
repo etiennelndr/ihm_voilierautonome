@@ -27,11 +27,15 @@ MainWindow::MainWindow(QWidget *parent, int nb) : QMainWindow(parent), ui(new Ui
      ui->label_2->hide();
 
      // Intervale du Tension de la voile
-         ui->TensionVoile->setRange(0,100);
-         ui->TensionVoile->setValue(50);
+     ui->TensionVoile->setRange(0,100);
+     ui->TensionVoile->setValue(50);
      // Intervale du Tension de la Barre
-         ui->TensionBarre->setValue(0);
-         ui->TensionBarre->setRange(-45,45);
+     ui->TensionBarre->setValue(0);
+     ui->TensionBarre->setRange(-45,45);
+
+     memory_angles_for_display.push_back(0.0f);//Initialisation de la memoire du cap du vent a 0.0f
+     memory_angles_for_display.push_back(0.0f);//Initialisation de la memoire du gite du bateau a 0.0f
+     memory_angles_for_display.push_back(0.0f);//Initialisation de la memoire du tangage du bateau a 0.0f
 }
 
 
@@ -67,13 +71,16 @@ void MainWindow::paintEvent(QPaintEvent *event){
     Q_UNUSED(event);
     if (virtual_map != nullptr){
         virtual_map->display_boats(boats, this);
-
     }
     if(get_meteo(ui->combobox12->currentIndex())!=nullptr){
-    Rotate_Boussle(*get_meteo(ui->combobox12->currentIndex()));
-    Rotate_gite_tangage();
-    ui->VitesseBateau->setText(QString::number(get_boat(my_id)->get_vitesse()));
-    ui->VitesseCap->setText(QString::number(ui->combobox12->currentIndex()));
+        Rotate_Boussole(*get_meteo(ui->combobox12->currentIndex()));
+        ui->VitesseVent->setText(QString::number(get_meteo(ui->combobox12->currentIndex())->get_vitesse()));
+    }
+    if(get_boat(my_id)!=nullptr){
+        ui->TensionVoile->setValue(int(get_boat(my_id)->get_voile()));
+        ui->TensionBarre->setValue(int(get_boat(my_id)->get_barre()));
+        Rotate_gite_tangage();
+        ui->VitesseBateau->setText(QString::number(get_boat(my_id)->get_vitesse()));
     }
     display_Boussole();
     display_Gite_Tangage();
@@ -99,49 +106,50 @@ void MainWindow::display_Boussole(){
     QPen pen2(Qt::black);
     ellipsePainter.setPen(pen2);
     ellipsePainter.drawText(863,87,"N");
-    ellipsePainter.drawText(863,192,"S");
-    ellipsePainter.drawText(914,139,"W");
-    ellipsePainter.drawText(810,139,"E");
+    ellipsePainter.drawText(863,187,"S");
+    ellipsePainter.drawText(914,139,"E");
+    ellipsePainter.drawText(810,139,"W");
+    ellipsePainter.drawText(863,77,"0°");
+    ellipsePainter.drawText(856,197,"180°");
+    ellipsePainter.drawText(924,139,"45°");
+    ellipsePainter.drawText(780,139,"-45°");
 
 
 }
 
-void MainWindow::Rotate_Boussle(Meteo m){
+void MainWindow::Rotate_Boussole(Meteo m){
 
     QPixmap pixmap(*ui->fleche->pixmap());
     QMatrix rm;
-    //--- la difference entre l'ancienne angle et la nouvelle pour le gite et ajouter la nouvelle dans le vecteur angle[]
-    float deltaCap=m.get_cap()-angle.at(0);
+    //--- la difference entre l'ancienne angle et la nouvelle pour le gite et ajouter la nouvelle dans le vecteur memory_angles_for_display[]
+    float deltaCap=m.get_cap()-memory_angles_for_display.at(0);
     rm.rotate(deltaCap);
-    angle.at(0) = m.get_cap();
+    memory_angles_for_display.at(0) = m.get_cap();
     pixmap = pixmap.transformed(rm);
     ui->fleche->setPixmap(pixmap);
 
 }
 
-void MainWindow::Rotate_gite_tangage(){
+void MainWindow::Rotate_gite_tangage(){ // Affiche les traits representant l'angle du gite et du tangage
     Boat b = *get_boat(my_id);
-
-    //Afficher la vitesse de la cap
-    qDebug() << "vitesse" << b.get_vitesse();
 
     //----- Rotate Gite(Afficher l'angle d'inclinaison)
     QPixmap pixmap1(*ui->gite_lbl->pixmap());
     QMatrix rm1;
-    //--- la difference entre l'ancienne angle et la nouvelle pour le gite et ajouter la nouvelle dans le vecteur angle[]
-    float deltagite=b.get_gite()-angle.at(1);
+//    //--- la difference entre l'ancienne angle et la nouvelle pour le gite et ajouter la nouvelle dans le vecteur memory_angles_for_display[]
+    float deltagite=b.get_gite()-memory_angles_for_display.at(1);
     rm1.rotate(deltagite);
-    angle.at(1) = b.get_gite();
+    memory_angles_for_display.at(1) = b.get_gite();
     pixmap1 = pixmap1.transformed(rm1);
     ui->gite_lbl->setPixmap(pixmap1);
 
-    //-------- Rotate tangage(Afficher l'angle d'inclinaison)
+//    //-------- Rotate tangage(Afficher l'angle d'inclinaison)
     QPixmap pixmap2(*ui->tangage_lb->pixmap());
     QMatrix rm2;
-    //--- la difference entre l'ancienne angle et la nouvelle pour le gite et ajouter la nouvelle dans le vecteur angle[]
-    float deltatangage=b.get_tangage()-angle.at(2);
+//    //--- la difference entre l'ancienne angle et la nouvelle pour le gite et ajouter la nouvelle dans le vecteur memory_angles_for_display[]
+    float deltatangage=b.get_tangage()-memory_angles_for_display.at(2);
     rm2.rotate(deltatangage);
-    angle.at(2) = b.get_tangage();
+    memory_angles_for_display.at(2) = b.get_tangage();
     pixmap2 = pixmap2.transformed(rm2);
     ui->tangage_lb->setPixmap(pixmap2);
 }
@@ -151,7 +159,7 @@ void MainWindow::Rotate_gite_tangage(){
  *
  * @brief MainWindow::display_Gite_Tangage : TODO
  */
-void MainWindow::display_Gite_Tangage(){
+void MainWindow::display_Gite_Tangage(){ // Affiche les cercles autour du gite et du tangage
     QPainter ellipsePainter(this);
 
     QPen pen2(Qt::black);
@@ -260,25 +268,21 @@ void MainWindow::keyPressEvent(QKeyEvent *event) {
             get_boat(my_id)->set_voile(get_boat(my_id)->get_voile()+delta_voile);
             client->set_voile(get_boat(my_id)->get_voile_addr());
             //----------------Tension de voile
-            ui->TensionVoile->setValue(get_boat(my_id)->get_voile());
         } else if (event->key() == Qt::Key_Down) {
             cout << "Key_down" << endl;
             get_boat(my_id)->set_voile(get_boat(my_id)->get_voile()-delta_voile);
             client->set_voile(get_boat(my_id)->get_voile_addr());
             //----------------Tension de voile
-            ui->TensionVoile->setValue(get_boat(my_id)->get_voile());
         } else if (event->key() == Qt::Key_Right) {
             cout << "Key_right" << endl;
             get_boat(my_id)->set_barre(get_boat(my_id)->get_barre()+delta_barre);
             client->set_barre(get_boat(my_id)->get_barre_addr());
             //----------------Tension de la barre
-            ui->TensionVoile->setValue(get_boat(my_id)->get_barre());
         } else if (event->key() == Qt::Key_Left) {
             cout << "Key_left" << endl;
             get_boat(my_id)->set_barre(get_boat(my_id)->get_barre()-delta_barre);
             client->set_barre(get_boat(my_id)->get_barre_addr());
             //----------------Tension de la barre
-            ui->TensionVoile->setValue(get_boat(my_id)->get_barre());
         }
     }else if (event->key()==Qt::Key_Up || event->key()==Qt::Key_Down || event->key()==Qt::Key_Left || event->key()==Qt::Key_Right)
       QMessageBox::information(this,"Error","Tu ne peux pas contrôler le bateau");
@@ -392,8 +396,8 @@ void MainWindow::receive_longitude(float l, int id_concern){
  */
 void MainWindow::receive_latitude(float l, int id_concern){
     if(id_concern>0){
-        MainWindow::get_boat(id_concern)->set_latitude(l);
-        MainWindow::update();
+        get_boat(id_concern)->set_latitude(l);
+        update();
         cout << "New latitude of " << id_concern << " : " << l <<endl;
     }
 }
@@ -410,7 +414,8 @@ void MainWindow::receive_cap(float c, int id_concern){
         get_boat(id_concern)->set_cap(c);
         update();
     } else if (id_concern<0) {
-        get_meteo(-id_concern)->set_cap(c);
+        if(get_meteo(-id_concern) != nullptr)
+            get_meteo(-id_concern)->set_cap(c);
         update();
     }
     cout << "New cap of " << id_concern << " : " << c <<endl;
@@ -428,7 +433,8 @@ void MainWindow::receive_vitesse(float v, int id_concern){
         get_boat(id_concern)->set_vitesse(v);
         update();
     } else if (id_concern<0) {
-        get_meteo(-id_concern)->set_vitesse(v);
+        if(get_meteo(-id_concern) != nullptr)
+            get_meteo(-id_concern)->set_vitesse(v);
         update();
     }
 
@@ -566,9 +572,10 @@ void MainWindow::add_balise(Balise b){
 void MainWindow::add_meteo(Meteo m){
     if(m.get_end_of_transfer()){ //Transfer of data is finished
         ui->actionStations->setDisabled(true);
+        ui->combobox12->setCurrentIndex(meteos.at(0)->get_id());
     }
     else{
-        //ui->VitesseCap->setText(QString::number(get_meteo(my_id)->get_vitesse()));
+        //ui->VitesseVent->setText(QString::number(get_meteo(my_id)->get_vitesse()));
         meteos.push_back(new Meteo(m.get_id(),m.get_latitude(), m.get_latitude()));
         ui->combobox12->addItem(QString::number(m.get_id()));
         if(client!=nullptr)
