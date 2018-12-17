@@ -132,26 +132,40 @@ void MainWindow::Rotate_Boussole(Meteo m){
 
 void MainWindow::Rotate_gite_tangage(){ // Affiche les traits representant l'angle du gite et du tangage
     Boat b = *get_boat(my_id);
-
-    //----- Rotate Gite(Afficher l'angle d'inclinaison)
-    QPixmap pixmap1(*ui->gite_lbl->pixmap());
-    QMatrix rm1;
-//    //--- la difference entre l'ancienne angle et la nouvelle pour le gite et ajouter la nouvelle dans le vecteur memory_angles_for_display[]
+    // coordonees du centre du bateau,elle va faire la rotation autour de cet centre
+    qreal xAngleGite = width() * 0.685;
+    qreal yAngleGite = height() * 0.70;
+    QPainter painterGite(this);
+    painterGite.setBrush(Qt::white);
+    painterGite.setPen(Qt::red);
+    painterGite.translate(xAngleGite, yAngleGite);
+    //la difference entre l'ancienne angle et la nouvelle pour le tangage et ajouter la nouvelle dans le vecteur angle[]
     float deltagite=b.get_gite()-memory_angles_for_display.at(1);
-    rm1.rotate(deltagite);
     memory_angles_for_display.at(1) = b.get_gite();
-    pixmap1 = pixmap1.transformed(rm1);
-    ui->gite_lbl->setPixmap(pixmap1);
+    painterGite.rotate(deltagite);
+    //-----coordonnees(x,y) du bateau par rapport au centre
+    qreal rx = -(30 * 0.5);
+    qreal ry = -(13 * 0.5);
+    //Afficher le bateau
+    painterGite.drawRect(QRect(rx, ry, 30, 13));
 
-//    //-------- Rotate tangage(Afficher l'angle d'inclinaison)
-    QPixmap pixmap2(*ui->tangage_lb->pixmap());
-    QMatrix rm2;
-//    //--- la difference entre l'ancienne angle et la nouvelle pour le gite et ajouter la nouvelle dans le vecteur memory_angles_for_display[]
+    //---Rotation du tangage
+    //---coordonees du centre du bateau,elle va faire la rotation autour de cet centre
+    qreal xangleTangage = width() * 0.87;
+    qreal ycangleTangage= height() * 0.70;
+    QPainter painterTangage(this);
+    painterTangage.setBrush(Qt::white);
+    painterTangage.setPen(Qt::red);
+    painterTangage.translate(xangleTangage, ycangleTangage);
+    // la difference entre l'ancienne angle et la nouvelle pour le tangage et ajouter la nouvelle dans le vecteur angle[]
     float deltatangage=b.get_tangage()-memory_angles_for_display.at(2);
-    rm2.rotate(deltatangage);
     memory_angles_for_display.at(2) = b.get_tangage();
-    pixmap2 = pixmap2.transformed(rm2);
-    ui->tangage_lb->setPixmap(pixmap2);
+    painterTangage.rotate(deltatangage);
+    //---coordonnees(x,y) du bateau par rapport au centre
+    qreal rxx = -(30 * 0.5);
+    qreal ryy = -(13 * 0.5);
+    //Afficher le bateau
+    painterTangage.drawRect(QRect(rxx, ryy, 30, 13));
 }
 
 /**
@@ -189,6 +203,8 @@ void MainWindow::display_Gite_Tangage(){ // Affiche les cercles autour du gite e
 
 
     //-------Afficher le ligne bleu du l'eau
+    QPen lignepen1(Qt::blue);
+    lignepen.setWidth(2);
     QPoint p3;
     p3.setX(926);
     p3.setY(565);
@@ -197,9 +213,8 @@ void MainWindow::display_Gite_Tangage(){ // Affiche les cercles autour du gite e
     p4.setX(997);
     p4.setY(565);
 
-    ellipsePainter.setPen(lignepen);
+    ellipsePainter.setPen(lignepen1);
     ellipsePainter.drawLine(p3,p4);
-
 }
 
 /**
@@ -235,6 +250,8 @@ Boat* MainWindow::get_boat(int id){
     }
     return boat;
 }
+
+
 
 /**
  * METHOD
