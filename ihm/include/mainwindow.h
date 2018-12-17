@@ -19,6 +19,8 @@
 #include <QComboBox>
 #include <QLine>
 #include <QVector>
+#include<QtCore>
+#include<QtGui>
 
 
 class QPushButton;
