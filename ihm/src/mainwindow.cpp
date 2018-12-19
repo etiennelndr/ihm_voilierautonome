@@ -183,7 +183,7 @@ void MainWindow::Rotate_gite_tangage(){ // Affiche les traits representant l'ang
     //---Rotation du tangage
     //---coordonees du centre du bateau,elle va faire la rotation autour de cet centre
     qreal xangleTangage = 960.5;
-    qreal yangleTangage= 563.5;
+    qreal yangleTangage = 563.5;
     QPainter painterTangage(this);
     painterTangage.setBrush(Qt::white);
     painterTangage.setPen(Qt::red);
@@ -209,7 +209,7 @@ void MainWindow::display_Gite_Tangage(){ // Affiche les cercles autour du gite e
     ellipsePainter.setPen(pen2);
     ellipsePainter.drawEllipse(QRect(720,530,75,75));
 
-    //-------Afficher le ligne bleue de l'eau
+    //-------Afficher la ligne bleue de l'eau
     QPen lignepen(Qt::blue);
     lignepen.setWidth(2);
 
@@ -224,13 +224,13 @@ void MainWindow::display_Gite_Tangage(){ // Affiche les cercles autour du gite e
     ellipsePainter.setPen(lignepen);
     ellipsePainter.drawLine(p1,p2);
 
-    //-------Afficher la cercle du Tangage
+    //-------Afficher le cercle du Tangage
     pen2.setWidth(5);
     ellipsePainter.setPen(pen2);
     ellipsePainter.drawEllipse(QRect(925,530,75,75));
 
 
-    //-------Afficher le ligne bleue de l'eau
+    //-------Afficher la ligne bleue de l'eau
     QPen lignepen1(Qt::blue);
     lignepen.setWidth(2);
     QPoint p3;
@@ -278,8 +278,6 @@ Boat* MainWindow::get_boat(int id){
     }
     return boat;
 }
-
-
 
 /**
  * METHOD
@@ -495,9 +493,9 @@ void MainWindow::receive_vitesse(float v, int id_concern){
  * @param id_concern
  */
 void MainWindow::receive_gite(float g, int id_concern){
-    if(id_concern>0){
-        MainWindow::get_boat(id_concern)->set_gite(g);
-        MainWindow::update();
+    if(id_concern>0) {
+        get_boat(id_concern)->set_gite(g);
+        update();
         cout << "New gite of " << id_concern << " : " << g <<endl;
     }
 }
@@ -511,8 +509,8 @@ void MainWindow::receive_gite(float g, int id_concern){
  */
 void MainWindow::receive_tangage(float t, int id_concern){
     if(id_concern>0){
-        MainWindow::get_boat(id_concern)->set_tangage(t);
-        MainWindow::update();
+        get_boat(id_concern)->set_tangage(t);
+        update();
         cout << "New tangage of " << id_concern << " : " << t <<endl;
     }
 }
@@ -526,8 +524,8 @@ void MainWindow::receive_tangage(float t, int id_concern){
  */
 void MainWindow::receive_barre(float b, int id_concern){
     if(id_concern>0){
-        MainWindow::get_boat(id_concern)->set_barre(b);
-        MainWindow::update();
+        get_boat(id_concern)->set_barre(b);
+        update();
         cout << "New barre of " << id_concern << " : " << b <<endl;
     }
 }
@@ -541,8 +539,8 @@ void MainWindow::receive_barre(float b, int id_concern){
  */
 void MainWindow::receive_voile(float v, int id_concern){
     if(id_concern>0){
-        MainWindow::get_boat(id_concern)->set_voile(v);
-        MainWindow::update();
+        get_boat(id_concern)->set_voile(v);
+        update();
         cout << "New voile of " << id_concern << " : " << v <<endl;
     }
 }
@@ -558,7 +556,7 @@ void MainWindow::receive_voile(float v, int id_concern){
 void MainWindow::add_new_boat(int id_concern){
     if(id_concern>0  && get_boat(id_concern)==nullptr){
         boats.push_back(new Boat(id_concern,false, qrand()%255,qrand()%255,qrand()%255));
-        MainWindow::update();
+        update();
         cout << "New boat with id " << id_concern <<endl;
     }
 }
@@ -570,8 +568,7 @@ void MainWindow::add_new_boat(int id_concern){
  */
 
 // Afficher le fenetre des stations meteos
-void MainWindow::on_actionStations_triggered()
-{
+void MainWindow::on_actionStations_triggered() {
     station_IHM = new StationsMeteo(this);
     connect(station_IHM, SIGNAL(new_meteo(Meteo)), this, SLOT(add_meteo(Meteo)));
     station_IHM->show();
@@ -584,8 +581,7 @@ void MainWindow::on_actionStations_triggered()
  */
 
 // Afficher le fenetre des Balises
-void MainWindow::on_actionBalise_triggered()
-{
+void MainWindow::on_actionBalise_triggered() {
     balise_IHM = new Balise_IHM(this);
     connect(balise_IHM, SIGNAL(new_balise(Balise)), this, SLOT(add_balise(Balise)));
     balise_IHM->show();
@@ -601,8 +597,7 @@ void MainWindow::add_balise(Balise b){
     if(b.get_end_of_transfer()){ //Transfer of data is finished
         ui->actionBalise->setDisabled(true);
         virtual_map = new VirtualMap(balises.at(0), balises.at(1), balises.at(2), balises.at(3));
-    }
-    else {
+    } else {
         balises.push_back(new Balise(b.get_latitude(), b.get_longitude()));
         qDebug() << "new Balise added";
     }
@@ -618,8 +613,7 @@ void MainWindow::add_meteo(Meteo m){
     if(m.get_end_of_transfer()){ //Transfer of data is finished
         ui->actionStations->setDisabled(true);
         ui->combobox12->setCurrentIndex(meteos.at(0)->get_id());
-    }
-    else{
+    } else{
         //ui->VitesseVent->setText(QString::number(get_meteo(my_id)->get_vitesse()));
         meteos.push_back(new Meteo(m.get_id(),m.get_latitude(), m.get_latitude()));
         ui->combobox12->addItem(QString::number(m.get_id()));
