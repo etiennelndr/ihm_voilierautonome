@@ -21,18 +21,18 @@ Message::Message() {
  * @brief Message::~Message : Destructor for Message class
  */
 Message::~Message() {
-    delete type;
-    delete id_sender;
-    delete id_dest;
-    delete id_concern;
-    delete longitude;
-    delete latitude;
-    delete cap;
-    delete vitesse;
-    delete gite;
-    delete tangage;
-    delete barre;
-    delete ecoute;
+	delete type;
+	delete id_sender;
+	delete id_dest;
+	delete id_concern;
+	delete longitude;
+	delete latitude;
+	delete cap;
+	delete vitesse;
+	delete gite;
+	delete tangage;
+	delete barre;
+	delete ecoute;
 }
 
 /*--------------------------*
@@ -211,7 +211,7 @@ void Message::assignValueToCorrectAttribute(string& data) {
  */
 Message Message::copy() {
 	Message m;
-
+	
 	if (type) {
 		m.setType(new string(*type));
 	}
@@ -248,6 +248,6 @@ Message Message::copy() {
 	if (ecoute) {
 		m.setEcoute(new float(*ecoute));
 	}
-
+	
 	return m;
 }

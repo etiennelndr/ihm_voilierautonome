@@ -5,10 +5,10 @@
  * CONSTRUCTOR
  *
  * @brief VirtualMap::VirtualMap : Constructor of the VirtualMap class
- * @param b1 première balise
- * @param b2 deuxième balise
- * @param b3 troisième balise
- * @param b4 quatrième et dernière balise
+ * @param b1 premiere balise
+ * @param b2 deuxieme balise
+ * @param b3 troisieme balise
+ * @param b4 quatrieme et derniere balise
  */
 VirtualMap::VirtualMap(Balise* b1, Balise* b2, Balise* b3, Balise* b4){
     balises.push_back(b1);
@@ -70,26 +70,34 @@ void VirtualMap::display_boats(vector<Boat*> boats, QMainWindow* mw){
     QPainter ellipsePainter(mw);
 
     QPen pen1(Qt::black);
-    QPen pen2(Qt::red);
-    QPen pen3(Qt::red);
 
     pen1.setWidth(8);
     ellipsePainter.setPen(pen1);
 
     for (unsigned int i = 0; i < boats.size(); i++) {
         Boat* boat = boats.at(i);
+        qDebug() << "Latitude : " << boat->get_latitude();
+        qDebug() << "Longitude : " << boat->get_longitude();
+
+//        boat->set_latitude(boat->get_latitude()+0.000005f);
+//        boat->set_longitude(boat->get_longitude()+0.000005f);
+//        boat->set_cap(boat->get_cap()+1.0f);
 
         //qDebug() << "id : "<< boat->get_id() << " / longitude : " << boat->get_longitude() << " / latitude :" << boat->get_latitude();
-		// Vérification de la position du bateau
+        // Verification de la position du bateau
         if (start_latitude < boat->get_latitude() 
 				&& boat->get_latitude() < end_latitude
 				&& start_longitude < boat->get_longitude()
 				&& boat->get_longitude() < end_longitude) {
-			// Si celui-ci est présent dans la carte alors on l'affiche à sa réelle position
-            ellipsePainter.fillRect(scale_lon(boat->get_longitude())-5, scale_lat(boat->get_latitude())-15, 10, 30, boat->get_color());
-            qDebug() << boat->get_latitude();
+            // Si celui-ci est present dans la carte alors on l'affiche a sa reelle position
+            ellipsePainter.translate(scale_lon(boat->get_longitude()), scale_lat(boat->get_latitude()));
+            ellipsePainter.rotate(boat->get_cap());
+
+            ellipsePainter.fillRect(-5, -15, 10, 30, boat->get_color());
+            ellipsePainter.rotate(-boat->get_cap());
+            ellipsePainter.translate(-scale_lon(boat->get_longitude()), -scale_lat(boat->get_latitude()));
         } else {
-			// Si celui-ci n'est pas présent dans la carte on l'affiche à une position prédéfinie
+            // Si celui-ci n'est pas present dans la carte on l'affiche a une position predefinie
             if (!(start_latitude < boat->get_latitude()))
                 qDebug() << "start_latitude : " << boat->get_latitude() << " < " << start_latitude;
             if (!(boat->get_latitude() < end_latitude))
@@ -100,11 +108,13 @@ void VirtualMap::display_boats(vector<Boat*> boats, QMainWindow* mw){
                 qDebug() << "end_longitude : " << boat->get_longitude() << ">" << end_longitude;
             ellipsePainter.fillRect(20*i+(310-boats.size()*10), 460, 10, 30, boat->get_color());
         }
-		// Mise à jour de la légende
+        // Mise a jour de la legende
         ellipsePainter.fillRect(310-(boats.size()*5)+30*i, 720, 10, 10, boat->get_color());
         ellipsePainter.drawText(310-(boats.size()*5)+30*i, 745, QString::number(boat->get_id()));
     }
 
+    QPen pen2(Qt::red);
+    QPen pen3(Qt::red);
     pen2.setWidth(8);
 
     // Affichage des balises
@@ -121,7 +131,7 @@ void VirtualMap::display_boats(vector<Boat*> boats, QMainWindow* mw){
 }
 
 int VirtualMap::scale_lat(float real_lat) {
-    float scaled_lat = (real_lat-start_latitude)*(500/(max(fabs(end_latitude-start_latitude),fabs(end_longitude-start_longitude))));
+    float scaled_lat =   (real_lat-start_latitude) *(500/(max(fabs(end_latitude-start_latitude),fabs(end_longitude-start_longitude))));
 //    float scaled_lat = 10000*(real_lat-start_latitude)*(500/(10000*max(fabs(end_latitude-start_latitude),fabs(end_longitude-start_longitude))));
     return int(scaled_lat)+210; // offset de l'affichage du carre
 }

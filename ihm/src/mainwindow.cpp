@@ -69,22 +69,33 @@ MainWindow::~MainWindow() {
  */
 void MainWindow::paintEvent(QPaintEvent *event){
     Q_UNUSED(event);
+    display_Boussole();
+    display_Gite_Tangage();
     if (virtual_map != nullptr){
         virtual_map->display_boats(boats, this);
     }
     if(get_meteo(ui->combobox12->currentIndex())!=nullptr){
+
+//        get_meteo(ui->combobox12->currentIndex())->set_cap((get_meteo(ui->combobox12->currentIndex())->get_cap()+10.0f));
+//        get_meteo(ui->combobox12->currentIndex())->set_vitesse((get_meteo(ui->combobox12->currentIndex())->get_vitesse()+0.01f));
+
         Rotate_Boussole(*get_meteo(ui->combobox12->currentIndex()));
         ui->VitesseVent->setText(QString::number(get_meteo(ui->combobox12->currentIndex())->get_vitesse()));
     }
     if(get_boat(my_id)!=nullptr){
+
+//        get_boat(my_id)->set_tangage(get_boat(my_id)->get_tangage()+10.0f);
+//        get_boat(my_id)->set_gite(get_boat(my_id)->get_gite()+10.0f);
+//        get_boat(my_id)->set_voile(get_boat(my_id)->get_voile()+0.01f);
+//        get_boat(my_id)->set_barre(get_boat(my_id)->get_barre()+0.01f);
+//        get_boat(my_id)->set_vitesse(get_boat(my_id)->get_vitesse()+0.01f);
+
         ui->TensionVoile->setValue(int(get_boat(my_id)->get_voile()));
         ui->TensionBarre->setValue(int(get_boat(my_id)->get_barre()));
 
         ui->VitesseBateau->setText(QString::number(get_boat(my_id)->get_vitesse()));
+        Rotate_gite_tangage();
     }
-    display_Boussole();
-    display_Gite_Tangage();
-    Rotate_gite_tangage();
 
 }
 
@@ -119,54 +130,70 @@ void MainWindow::display_Boussole(){
 }
 
 void MainWindow::Rotate_Boussole(Meteo m){
+    qDebug() << "Rotate boussole";
 
-    QPixmap pixmap(*ui->fleche->pixmap());
-    QMatrix rm;
-    //--- la difference entre l'ancienne angle et la nouvelle pour le gite et ajouter la nouvelle dans le vecteur memory_angles_for_display[]
-    float deltaCap=m.get_cap()-memory_angles_for_display.at(0);
-    rm.rotate(deltaCap);
-    memory_angles_for_display.at(0) = m.get_cap();
-    pixmap = pixmap.transformed(rm);
-    ui->fleche->setPixmap(pixmap);
+//    QPixmap pixmap(*ui->fleche->pixmap());
+//    QMatrix rm;
+//    //--- la difference entre l'ancienne angle et la nouvelle pour le gite et ajouter la nouvelle dans le vecteur memory_angles_for_display[]
+//    float deltaCap=m.get_cap()-memory_angles_for_display.at(0);
+//    rm.rotate(deltaCap);
+//    memory_angles_for_display.at(0) = m.get_cap();
+//    pixmap = pixmap.transformed(rm);
+//    ui->fleche->setPixmap(pixmap);
+
+
+    // coordonees du centre du bateau,elle va faire la rotation autour de cet centre
+    qreal xAngleCap = 867.5;
+    qreal yAngleCap = 131.5;
+    QPainter painterBoussole(this);
+    QPen lignepen(Qt::black);
+    lignepen.setWidth(5);
+    painterBoussole.setBrush(Qt::black);
+    painterBoussole.setPen(lignepen);
+    painterBoussole.translate(xAngleCap, yAngleCap);
+    painterBoussole.rotate(m.get_cap());
+    qreal rx = -(40 * 0.5);
+    qreal ry = -(13 * 0.5);
+    //Afficher le bateau
+    painterBoussole.drawRect(QRect(rx, ry, 40, 13));
+
+    painterBoussole.setPen(lignepen);
+    painterBoussole.drawLine(15,11,25,0);
+    painterBoussole.drawLine(15,-11,25,0);
 
 }
 
 void MainWindow::Rotate_gite_tangage(){ // Affiche les traits representant l'angle du gite et du tangage
-    //Boat b = *get_boat(my_id);
+    qDebug() << "Rotate gite et tangage";
+    Boat* b = get_boat(my_id);
     // coordonees du centre du bateau,elle va faire la rotation autour de cet centre
-    qreal xAngleGite = 753.5;
+    qreal xAngleGite = 756;
     qreal yAngleGite = 563.5;
     QPainter painterGite(this);
     painterGite.setBrush(Qt::white);
     painterGite.setPen(Qt::red);
     painterGite.translate(xAngleGite, yAngleGite);
-    //la difference entre l'ancienne angle et la nouvelle pour le tangage et ajouter la nouvelle dans le vecteur angle[]
-    //float deltagite=b.get_gite()-memory_angles_for_display.at(1);
-    //memory_angles_for_display.at(1) = b.get_gite();
-    painterGite.rotate(45);
+    painterGite.rotate(b->get_gite());
     //-----coordonnees(x,y) du bateau par rapport au centre
-    qreal rx = -(30 * 0.5);
+    qreal rx = -(40 * 0.5);
     qreal ry = -(13 * 0.5);
     //Afficher le bateau
-    painterGite.drawRect(QRect(rx, ry, 30, 13));
+    painterGite.drawRect(QRect(rx, ry, 40, 13));
 
     //---Rotation du tangage
     //---coordonees du centre du bateau,elle va faire la rotation autour de cet centre
-    qreal xangleTangage = 957;
+    qreal xangleTangage = 960.5;
     qreal yangleTangage= 563.5;
     QPainter painterTangage(this);
     painterTangage.setBrush(Qt::white);
     painterTangage.setPen(Qt::red);
     painterTangage.translate(xangleTangage, yangleTangage);
-    // la difference entre l'ancienne angle et la nouvelle pour le tangage et ajouter la nouvelle dans le vecteur angle[]
-    //float deltatangage=b.get_tangage()-memory_angles_for_display.at(2);
-    //memory_angles_for_display.at(2) = b.get_tangage();
-    //painterTangage.rotate(deltatangage);
+    painterTangage.rotate(b->get_tangage());
     //---coordonnees(x,y) du bateau par rapport au centre
-    qreal rxx = -(30 * 0.5);
+    qreal rxx = -(40 * 0.5);
     qreal ryy = -(13 * 0.5);
     //Afficher le bateau
-    painterTangage.drawRect(QRect(rxx, ryy, 30, 13));
+    painterTangage.drawRect(QRect(rxx, ryy, 40, 13));
 }
 
 /**
@@ -182,7 +209,7 @@ void MainWindow::display_Gite_Tangage(){ // Affiche les cercles autour du gite e
     ellipsePainter.setPen(pen2);
     ellipsePainter.drawEllipse(QRect(720,530,75,75));
 
-    //-------Afficher le ligne bleu du l'eau
+    //-------Afficher le ligne bleue de l'eau
     QPen lignepen(Qt::blue);
     lignepen.setWidth(2);
 
@@ -203,7 +230,7 @@ void MainWindow::display_Gite_Tangage(){ // Affiche les cercles autour du gite e
     ellipsePainter.drawEllipse(QRect(925,530,75,75));
 
 
-    //-------Afficher le ligne bleu du l'eau
+    //-------Afficher le ligne bleue de l'eau
     QPen lignepen1(Qt::blue);
     lignepen.setWidth(2);
     QPoint p3;
@@ -524,12 +551,12 @@ void MainWindow::receive_voile(float v, int id_concern){
 /**
  * SLOT -> TODO
  *
- * @brief MainWindow::add_new_boat_or_meteo : TODO
+ * @brief MainWindow::add_new_boat : TODO
  * @param v
  * @param id_concern
  */
 void MainWindow::add_new_boat(int id_concern){
-    if(id_concern>0){
+    if(id_concern>0  && get_boat(id_concern)==nullptr){
         boats.push_back(new Boat(id_concern,false, qrand()%255,qrand()%255,qrand()%255));
         MainWindow::update();
         cout << "New boat with id " << id_concern <<endl;

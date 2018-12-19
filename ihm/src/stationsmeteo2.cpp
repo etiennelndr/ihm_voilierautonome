@@ -48,6 +48,7 @@ StationsMeteo2::StationsMeteo2(QWidget *parent, int nb) : QDialog(parent), ui(ne
            // ------ Longitude
            labelsLongitude.push_back(new QLabel(tr("Longitude")));
            lineEditsLongitude.push_back(new QLineEdit);
+           lineEditsLongitude.at(i)->setText(QString::fromStdString(to_string(-4.620000+0.01*i)));
            grid->addWidget(labelsBalise.at(i));
            grid->addWidget(labelsLongitude.at(i));
            grid->addWidget(lineEditsLongitude.at(i));
@@ -55,12 +56,14 @@ StationsMeteo2::StationsMeteo2(QWidget *parent, int nb) : QDialog(parent), ui(ne
            //------- Latitude
            labelsLatitude.push_back(new QLabel(tr("Latitude")));
            lineEditsLatitude.push_back(new QLineEdit);
+           lineEditsLatitude.at(i)->setText(QString::fromStdString(to_string(48.44+0.01*i)));
            grid->addWidget(labelsLatitude.at(i));
            grid->addWidget(lineEditsLatitude.at(i));
 
            //------- ID
            labelsID.push_back(new QLabel(tr("ID")));
            lineEditsID.push_back(new QLineEdit);
+           lineEditsID.at(i)->setText(QString::fromStdString(to_string(i+1)));
            grid->addWidget(labelsID.at(i));
 
            grid->addWidget(lineEditsID.at(i));
