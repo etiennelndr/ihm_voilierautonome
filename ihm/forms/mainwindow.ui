@@ -407,10 +407,10 @@
    <widget class="QLabel" name="label_6">
     <property name="geometry">
      <rect>
-      <x>650</x>
+      <x>630</x>
       <y>660</y>
-      <width>51</width>
-      <height>16</height>
+      <width>71</width>
+      <height>20</height>
      </rect>
     </property>
     <property name="font">
@@ -427,10 +427,10 @@
    <widget class="QLabel" name="label_10">
     <property name="geometry">
      <rect>
-      <x>650</x>
+      <x>630</x>
       <y>720</y>
-      <width>71</width>
-      <height>16</height>
+      <width>91</width>
+      <height>20</height>
      </rect>
     </property>
     <property name="font">
@@ -625,7 +625,7 @@
      <x>0</x>
      <y>0</y>
      <width>1100</width>
-     <height>20</height>
+     <height>26</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuInitialisation">
