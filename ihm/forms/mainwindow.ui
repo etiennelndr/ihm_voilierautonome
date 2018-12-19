@@ -123,6 +123,9 @@
          <property name="cursor">
           <cursorShape>PointingHandCursor</cursorShape>
          </property>
+         <property name="minimum">
+          <number>1</number>
+         </property>
         </widget>
        </item>
       </layout>

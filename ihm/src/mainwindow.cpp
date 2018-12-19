@@ -329,7 +329,7 @@ void MainWindow::keyPressEvent(QKeyEvent *event) {
             client->set_barre(new float(get_boat(my_id)->get_barre()));
             //----------------Tension de la barre
         }
-    }else if (event->key()==Qt::Key_Up || event->key()==Qt::Key_Down || event->key()==Qt::Key_Left || event->key()==Qt::Key_Right)
+    } else if (event->key()==Qt::Key_Up || event->key()==Qt::Key_Down || event->key()==Qt::Key_Left || event->key()==Qt::Key_Right)
       QMessageBox::information(this,"Error","Tu ne peux pas contrôler le bateau");
 }
 /*--------------------------*
