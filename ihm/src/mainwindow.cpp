@@ -311,22 +311,22 @@ void MainWindow::keyPressEvent(QKeyEvent *event) {
         if(event->key() == Qt::Key_Up) {
             cout << "Key_up" << endl;
             get_boat(my_id)->set_voile(get_boat(my_id)->get_voile()+delta_voile);
-            client->set_voile(get_boat(my_id)->get_voile_addr());
+            client->set_voile(new float(get_boat(my_id)->get_voile()));
             //----------------Tension de voile
         } else if (event->key() == Qt::Key_Down) {
             cout << "Key_down" << endl;
             get_boat(my_id)->set_voile(get_boat(my_id)->get_voile()-delta_voile);
-            client->set_voile(get_boat(my_id)->get_voile_addr());
+            client->set_voile(new float(get_boat(my_id)->get_voile()));
             //----------------Tension de voile
         } else if (event->key() == Qt::Key_Right) {
             cout << "Key_right" << endl;
             get_boat(my_id)->set_barre(get_boat(my_id)->get_barre()+delta_barre);
-            client->set_barre(get_boat(my_id)->get_barre_addr());
+            client->set_barre(new float(get_boat(my_id)->get_barre()));
             //----------------Tension de la barre
         } else if (event->key() == Qt::Key_Left) {
             cout << "Key_left" << endl;
             get_boat(my_id)->set_barre(get_boat(my_id)->get_barre()-delta_barre);
-            client->set_barre(get_boat(my_id)->get_barre_addr());
+            client->set_barre(new float(get_boat(my_id)->get_barre()));
             //----------------Tension de la barre
         }
     }else if (event->key()==Qt::Key_Up || event->key()==Qt::Key_Down || event->key()==Qt::Key_Left || event->key()==Qt::Key_Right)

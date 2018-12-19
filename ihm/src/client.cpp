@@ -66,7 +66,6 @@ void ClientTcp::init_msg(Message& msg){
     msg.setIdSender(new int(my_id));
     msg.setIdDest(new int(id_dest));
     msg.setIdConcern(new int(my_id));
-    return;
 }
 
 /**
