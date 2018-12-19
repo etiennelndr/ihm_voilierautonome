@@ -484,57 +484,6 @@
      <string>Tangage</string>
     </property>
    </widget>
-   <widget class="QLabel" name="fleche">
-    <property name="enabled">
-     <bool>true</bool>
-    </property>
-    <property name="geometry">
-     <rect>
-      <x>840</x>
-      <y>50</y>
-      <width>111</width>
-      <height>111</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-    <property name="pixmap">
-     <pixmap resource="../images.qrc">:/img/flecheBoussle.png</pixmap>
-    </property>
-   </widget>
-   <widget class="QLabel" name="gite_lbl">
-    <property name="geometry">
-     <rect>
-      <x>730</x>
-      <y>500</y>
-      <width>111</width>
-      <height>81</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-    <property name="pixmap">
-     <pixmap resource="../images.qrc">:/img/LigneGiteTangage.png</pixmap>
-    </property>
-   </widget>
-   <widget class="QLabel" name="tangage_lb">
-    <property name="geometry">
-     <rect>
-      <x>940</x>
-      <y>500</y>
-      <width>121</width>
-      <height>81</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-    <property name="pixmap">
-     <pixmap resource="../images.qrc">:/img/LigneGiteTangage.png</pixmap>
-    </property>
-   </widget>
    <widget class="QLabel" name="label_14">
     <property name="geometry">
      <rect>
@@ -658,8 +607,6 @@
   </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
- <resources>
-  <include location="../images.qrc"/>
- </resources>
+ <resources/>
  <connections/>
 </ui>
