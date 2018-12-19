@@ -62,3 +62,7 @@ ihm/GeneratedFiles/qrc_mapviewer.cpp
 *.vcxproj
 *.filters
 *.log
+build-ihm-Desktop_Qt_5_12_0_MinGW_64_bit-Debug/debug/qrc_images.cpp
+build-ihm-Desktop_Qt_5_12_0_MinGW_64_bit-Debug/debug/qrc_mapviewer.cpp
+build-ihm-Desktop_Qt_5_12_0_MinGW_64_bit-Debug/object_script.ihm.Debug
+build-ihm-Desktop_Qt_5_12_0_MinGW_64_bit-Debug/object_script.ihm.Release
