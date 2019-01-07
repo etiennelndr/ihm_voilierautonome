@@ -19,8 +19,12 @@ ClientTcp::ClientTcp(QString ip, quint16 port, int id) {
     my_id  = id;
     known_ids.push_back(id);
 
+    cout << "OK" << endl;
+
     soc->abort(); // On désactive les connexions précédentes s'il y en a
     soc->connectToHost(serverIp, serverPort); // On se connecte au serveur demandé
+
+    cout << "OK2" << endl;
 
     // Create connectors
     connect(soc, SIGNAL(readyRead()),                         this, SLOT(readDataFromTCPIP()));

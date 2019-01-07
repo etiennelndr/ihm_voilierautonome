@@ -340,24 +340,19 @@ void MainWindow::keyPressEvent(QKeyEvent *event) {
  *
  * @brief MainWindow::on_RadioControle_clicked : TODO
  */
-
-
 void MainWindow::on_RadioControle_clicked() {
-    if(ui->RadioControle->isChecked()) {
+    if(ui->RadioControle->isChecked())
         QMessageBox::information(this,"Informations autour du bateau","Utiliser les fleches du clavier pour contrôler le bateau");
-    } else {
-
-    }
 }
+
 /**
  * SLOT -> TODO
  *
  * @brief MainWindow::on_BtnConxDeconx_clicked : TODO
  */
-
 void MainWindow::on_BtnConxDeconx_clicked() {
     if(ui->BtnConxDeconx->text() ==  "Connexion" && ui->spinBox->value()>0) {
-        if(my_id != ui->spinBox->value()){
+        if(my_id != ui->spinBox->value()) {
             my_id = ui->spinBox->value();
             boats.push_back(new Boat(ui->spinBox->value(),true, 90,115,210));
             this->update();
@@ -366,12 +361,7 @@ void MainWindow::on_BtnConxDeconx_clicked() {
             ui->label_2->show();
             ui->label_2->setText("Votre id: " + QString::number(my_id));
         }
-        client = new ClientTcp(QString("127.0.0.1"), 4000, my_id);
-//        if(get_boat(ui->spinBox->value())==NULL){
-//            boats.push_back(new Boat(ui->spinBox->value(),true, 90,115,210));
-//            ui->spinBox->close();
-//            ui->label->close();
-//        }
+        client = new ClientTcp(QString("192.168.8.127"), 1234, my_id);
         create_connections();
         for (unsigned int i=0;i<meteos.size();i++) {
             client->add_known_id(meteos.at(i)->get_id());
